@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Python] 探討例外錯誤的處理機制 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言寫程式有時候會發生一些錯誤，程式就會立即停止-&gt;立即出現error mesaage。避免因為使用者輸入的問題或設定的問題造成程式被迫中斷，或產生不可預期的狀況，有些例外錯誤必須在某些特定的情況下才會發生，為了能夠更有效應付這種錯誤，可以使用例外處理來解決。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Python] 探討例外錯誤的處理機制">
+<meta property="og:url" content="http://yoursite.com/2019/08/12/Python/[Python]%20%E6%8E%A2%E8%A8%8E%E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4%E7%9A%84%E8%99%95%E7%90%86%E6%A9%9F%E5%88%B6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言寫程式有時候會發生一些錯誤，程式就會立即停止-&gt;立即出現error mesaage。避免因為使用者輸入的問題或設定的問題造成程式被迫中斷，或產生不可預期的狀況，有些例外錯誤必須在某些特定的情況下才會發生，為了能夠更有效應付這種錯誤，可以使用例外處理來解決。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/XpNf6Qs.png">
+<meta property="og:image" content="https://i.imgur.com/p7hMz7x.png">
+<meta property="article:published_time" content="2019-08-12T12:23:10.000Z">
+<meta property="article:modified_time" content="2020-05-26T04:35:03.711Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/XpNf6Qs.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python/[Python] 探討例外錯誤的處理機制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/12/Python/%5BPython%5D%20%E6%8E%A2%E8%A8%8E%E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4%E7%9A%84%E8%99%95%E7%90%86%E6%A9%9F%E5%88%B6/" class="article-date">
+  <time datetime="2019-08-12T12:23:10.000Z" itemprop="datePublished">2019-08-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Backend/">Backend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Python] 探討例外錯誤的處理機制
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>寫程式有時候會發生一些錯誤，程式就會立即停止-&gt;立即出現error mesaage。<br>避免因為使用者輸入的問題或設定的問題造成程式被迫中斷，或產生不可預期的狀況，有些例外錯誤必須在某些特定的情況下才會發生，為了能夠更有效應付這種錯誤，可以使用例外處理來解決。</p>
+<a id="more"></a> 
+<h1 id="一般處理"><a href="#一般處理" class="headerlink" title="一般處理"></a>一般處理</h1><p><strong>Try-except statement</strong>，一般情況下，Python在做錯誤處理機制使用<code>try ... except</code>來捕捉錯誤訊息，並在此錯誤發生時，執行後續的程式碼。<strong>如果要針對不同錯誤訊息做個別處理，可以繼續增加except指令</strong></p>
+<h2 id="捕捉特定錯誤訊息"><a href="#捕捉特定錯誤訊息" class="headerlink" title="捕捉特定錯誤訊息"></a>捕捉特定錯誤訊息</h2><p>可以針對Python某個類型的錯誤訊息進行捕捉，程式結構大概是：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 想要執行的程式</span></span><br><span class="line"><span class="keyword">except</span> (例外錯誤類型<span class="number">1</span>, 例外錯誤類型<span class="number">2</span>, …) <span class="keyword">as</span> 例外物件:</span><br><span class="line">    <span class="comment"># 發生例外錯誤時要執行的程式碼</span></span><br><span class="line"><span class="keyword">except</span> (例外錯誤類型<span class="number">3</span>, 例外錯誤類型<span class="number">4</span>, …) <span class="keyword">as</span> 例外物件:</span><br><span class="line">    <span class="comment"># code</span></span><br><span class="line"><span class="comment"># 可依需求增加</span></span><br></pre></td></tr></table></figure>
+<h2 id="捕捉任何錯誤訊息"><a href="#捕捉任何錯誤訊息" class="headerlink" title="捕捉任何錯誤訊息"></a>捕捉任何錯誤訊息</h2><p><code>except</code>支援多種錯誤，若不指定任何錯誤類型的話只需要寫<code>except</code>，即可捕捉所有錯誤類型，只要有錯誤訊息發生，就會執行<code>except</code>後續的程式碼。</p>
+<blockquote>
+<p>值得一提的事:<code>try</code>只會捕捉第一個錯誤,假設<code>try</code>裡有2行程式碼, 2行都有錯誤, 第一行被捕捉到以後, 就會跳到<code>except</code>, 並不會兩個錯誤都被找出來.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 想要執行的程式</span></span><br><span class="line"><span class="keyword">except</span>:</span><br><span class="line">    <span class="comment"># 發生例外錯誤時要執行的程式碼</span></span><br></pre></td></tr></table></figure>
+<h3 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">100</span></span><br><span class="line">b = <span class="number">0</span></span><br><span class="line">print(a/b)</span><br></pre></td></tr></table></figure>
+<p>執行上述這段程式碼會跳出<code>ZeroDivisionError</code>的錯誤訊息，如果要捕捉此錯誤，並印出”分母不可為0”訊息，可以把程式碼改成:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">100</span></span><br><span class="line">b = <span class="number">0</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    print(a/b)</span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError <span class="keyword">as</span> error:</span><br><span class="line">    print(<span class="string">"分母不可為0, 系統錯誤訊息為:"</span>, error)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 結果</span></span><br><span class="line"><span class="comment"># 分母不可為0, 系統錯誤訊息為: division by zero</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/XpNf6Qs.png" alt=""></p>
+<h1 id="進階處理"><a href="#進階處理" class="headerlink" title="進階處理"></a>進階處理</h1><p>除了一般處理外，也可依照自己需求增加<code>else ....  finally ...</code>的方法做近一步處理。程式結構會是:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># code</span></span><br><span class="line"><span class="keyword">except</span> (例外錯誤) <span class="keyword">as</span> 例外物件:</span><br><span class="line">    <span class="comment"># code</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="comment"># without errror</span></span><br><span class="line">   </span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    <span class="comment"># program still run here if there are errors</span></span><br></pre></td></tr></table></figure>
+<p><code>else</code>指的是當try指令內的程式順利執行完畢，且沒有發生任何錯誤時才執行，而<code>finally</code>後的指令則是無論有無錯誤訊息，仍須進行該指令下的程式碼，最常見的地方用於開檔/讀檔時，使用<code>open()</code>方法，即使有錯誤產生，仍須正常關閉檔案。</p>
+<h2 id="範例-1"><a href="#範例-1" class="headerlink" title="範例"></a>範例</h2><p>以<code>open()</code>方法開啟檔案為例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">"./123.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line">print(<span class="string">"--------是否有執行到這裏"</span>)</span><br><span class="line">words = f.read()</span><br><span class="line">print(<span class="string">"--------是否有執行到這裏"</span>)</span><br><span class="line">print(words)</span><br><span class="line">print(<span class="string">"--------是否有執行到這裏"</span>)</span><br><span class="line">f.close()</span><br><span class="line">print(<span class="string">"--------正常關閉"</span>)</span><br></pre></td></tr></table></figure>
+<p>若無此檔案存在，則會拋出一個<code>FileNotFoundError</code>的錯誤資訊，這時程式會因錯誤而中斷，無法往下執行(後續的訊息都未被印出來)。<br><img src="https://i.imgur.com/p7hMz7x.png" alt=""></p>
+<h1 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h1><p><a href="https://ithelp.ithome.com.tw/articles/10160048" target="_blank" rel="noopener">[Python初學起步走-Day15] - 例外處理</a></p>
+<p><a href="https://sites.google.com/site/ezpythoncolorcourse/exceptionhandlinggrammar" target="_blank" rel="noopener">例外處理的語法</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/12/Python/[Python]%20%E6%8E%A2%E8%A8%8E%E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4%E7%9A%84%E8%99%95%E7%90%86%E6%A9%9F%E5%88%B6/" data-id="ckaz3apy80028v6t136vp9i0v" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/01/Python/%5BPython%5D%20%E7%88%AC%E8%9F%B2%E7%AD%86%E8%A8%981/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Python] 爬蟲筆記1-基本概念
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/10/Python/%5BPython%5D%20%E8%AE%80%E5%AF%AB%E6%AA%94%E6%A1%88/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Python] 檔案讀寫</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

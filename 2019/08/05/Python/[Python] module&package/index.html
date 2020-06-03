@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Python] Module&amp;Package | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言任何一個python程式都可以作為python的模組(模組是一個.py的檔案)，裡面有許多定義的變數和函式供其他程式使用，模組設計目的是由其他程式引入並使用，將功能模組化帶來的好處是模組化的程式可以在不同程式引入，減少重複寫相同功能的情況。同時，如果有別人別人寫好實用的模組，可以透過引入的方式，直接拿來使用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Python] Module&amp;Package">
+<meta property="og:url" content="http://yoursite.com/2019/08/05/Python/[Python]%20module&package/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言任何一個python程式都可以作為python的模組(模組是一個.py的檔案)，裡面有許多定義的變數和函式供其他程式使用，模組設計目的是由其他程式引入並使用，將功能模組化帶來的好處是模組化的程式可以在不同程式引入，減少重複寫相同功能的情況。同時，如果有別人別人寫好實用的模組，可以透過引入的方式，直接拿來使用。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/LUs0ot1.png">
+<meta property="og:image" content="https://i.imgur.com/yYaiqax.png">
+<meta property="og:image" content="https://i.imgur.com/Q7pmYIc.png">
+<meta property="og:image" content="https://i.imgur.com/m015fAT.png">
+<meta property="article:published_time" content="2019-08-05T12:23:10.000Z">
+<meta property="article:modified_time" content="2020-05-26T04:35:03.710Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/LUs0ot1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python/[Python] module&amp;package" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/08/05/Python/%5BPython%5D%20module&package/" class="article-date">
+  <time datetime="2019-08-05T12:23:10.000Z" itemprop="datePublished">2019-08-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Backend/">Backend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Python] Module&amp;Package
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>任何一個python程式都可以作為python的模組(<strong>模組是一個.py的檔案</strong>)，裡面有許多定義的變數和函式供其他程式使用，模組設計目的是由其他程式引入並使用，將功能模組化帶來的好處是模組化的程式可以在不同程式引入，減少重複寫相同功能的情況。同時，如果有別人別人寫好實用的模組，可以透過引入的方式，直接拿來使用。</p>
+<a id="more"></a> 
+<h1 id="引入"><a href="#引入" class="headerlink" title="引入"></a>引入</h1><h2 id="import方法"><a href="#import方法" class="headerlink" title="import方法"></a><code>import</code>方法</h2><p>Python引入模組的方法(<code>import</code>)有四種:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 單純引入</span></span><br><span class="line"><span class="keyword">import</span> module</span><br><span class="line"><span class="comment"># 將引入的模組進行重新命名，將name替換自訂的模組名稱 -&gt; 常用於模組名稱太長的情形</span></span><br><span class="line"><span class="keyword">import</span> module <span class="keyword">as</span> name</span><br><span class="line"><span class="comment"># 引入模組內特定的函式或變數 </span></span><br><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> variable/function</span><br><span class="line"><span class="comment"># 引入模組內所以有的函式或變數</span></span><br><span class="line"><span class="keyword">from</span> module <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<ul>
+<li>單純引入模組的情況下，若要呼叫該模組內特定的函式或變數，需要<code>module.function</code>或 <code>module.variable</code> 來呼叫目標函式或是變數。</li>
+<li><code>from module import variable/function</code>使用時機在於，有些module相當龐大，若每次都要將整個module的內容引入，會有效能問題。</li>
+</ul>
+<h1 id="自訂一個模組"><a href="#自訂一個模組" class="headerlink" title="自訂一個模組"></a>自訂一個模組</h1><p>假設自訂一個名為<code>mod.py</code>的模組，要讓<code>main.py</code>引入使用，將兩個檔案的程式碼<strong>放在同一個目錄下</strong>執行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">""""</span></span><br><span class="line"><span class="string">mod.py</span></span><br><span class="line"><span class="string">被導出的模組</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">var = <span class="string">"This is variable"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"This is mod.py"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayGoodBy</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Bye!"</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">####  main.py</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> mod <span class="comment"># 需要與mod.py同一目錄下</span></span><br><span class="line">print(mod.sayHello()) <span class="comment"># 呼叫 sayHello函式 -&gt; This is mod.py</span></span><br><span class="line">print(mod.var) <span class="comment"># 呼叫var變數 -&gt; This is variable</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="模組的路徑"><a href="#模組的路徑" class="headerlink" title="模組的路徑"></a>模組的路徑</h1><p>實際情況是，不可能總是把所有的程式碼放在同一個路徑或是資料夾。為了要讓這一份程式碼能在同一個環境底下任何時候都能使用，需要將檔案設定在Python環境的路徑。那Python 如何知道在哪裡搜尋模組的路徑呢？<br>這時可以使用<code>sys</code>模組幫助我們尋找模組路徑。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line">print(sys.path)</span><br><span class="line"><span class="comment"># 結果</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">['/Users/tsungyuchen/Desktop/python_practice', </span></span><br><span class="line"><span class="string">'/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7', </span></span><br><span class="line"><span class="string">'/Users/tsungyuchen/Library/Python/3.7/lib/python/site-packages'</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>印出結果為Python尋找模組的路徑，我們可以看到<code>Python/3.7/lib/python/site-packages</code>的路徑，將<code>mod.py</code>將入此資料夾後，電腦上其他位置的專案就可以直接引入此模組。</p>
+<h2 id="路徑配置"><a href="#路徑配置" class="headerlink" title="路徑配置"></a>路徑配置</h2><p>有時<code>import</code>模組會出現<code>ImportError</code>的錯誤訊息，大多數的情況都是路徑的問題，為了解決上述問題，需要新增模組搜尋路徑，可以使用以下幾種方式：</p>
+<h3 id="增加路徑"><a href="#增加路徑" class="headerlink" title="增加路徑"></a>增加路徑</h3><p>通過<code>sys</code>模組的<code>append()</code>方法在Python環境中增加搜尋路徑，語法結構為:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sys.path.append(<span class="string">'新增的搜尋路徑'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改環境變數"><a href="#修改環境變數" class="headerlink" title="修改環境變數"></a>修改環境變數</h3><p>修改<code>PYTHONPATH</code>變數。</p>
+<ul>
+<li><p>打開vim</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure></li>
+<li><p>設置路徑並添加以下內容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PYTHONPATH=<span class="variable">$PYTHONPATH</span>:你要的路徑</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>退出後保存(相關指令說明<a href="https://blog.csdn.net/luo200618/article/details/52510781" target="_blank" rel="noopener">點我</a>)，再重新啟動。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h1 id="Package"><a href="#Package" class="headerlink" title="Package"></a>Package</h1><p>有時會需要將功能類似的module進行整合，會需要將這些模組放在同個package下。<br>package可簡單看作一個資料夾，若要讓電腦辨認這是一個可被引入的package，該package下必須要放一個<code>__init__.py</code> 檔案。<br>此檔案可以為空，或是寫入任何該package或該package內module被引入時要執行的程式碼。</p>
+<h2 id="引用方法"><a href="#引用方法" class="headerlink" title="引用方法"></a>引用方法</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> package</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> package.module</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> package <span class="keyword">import</span> module1, module2...</span><br></pre></td></tr></table></figure>
+<h3 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h3><p>假設有一個名為<strong>pkg</strong>的資料夾(視為一個package)，底下有<code>mod1.py</code>、<code>mod2.py</code>、<code>mod3.py</code>三個模組，透過<code>main.py</code>檔進行呼叫。<br><img src="https://i.imgur.com/LUs0ot1.png" alt=""></p>
+<p>在<code>__init__.py</code>為空的情況下寫以下範例:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mod1.py</span></span><br><span class="line">var1 = <span class="string">"This is variable1"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"This is mod1.py"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayGoodBy</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Bye!"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># mod2.py</span></span><br><span class="line">var2 = <span class="string">"This is variable2"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayHello</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"This is mod2.py"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sayGoodBy</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">"Bye!"</span></span><br></pre></td></tr></table></figure>
+<p>分別引入<code>mod1.py</code>、<code>mod2.py</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">from</span> pkg <span class="keyword">import</span> mod1, mod2</span><br><span class="line"></span><br><span class="line">print(mod1.sayHello())</span><br><span class="line">print(mod2.sayHello())</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">This is mod1.py</span></span><br><span class="line"><span class="string">This is mod2.py</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="init-py-配置"><a href="#init-py-配置" class="headerlink" title="__init__.py 配置"></a><code>__init__.py</code> 配置</h3><p>在<code>__init__.py</code>加入該package下不同的模組所呼叫的函式或變數。<br><code>__init__.py</code>配置個模組下呼叫的函數</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># __init__.py</span></span><br><span class="line"><span class="keyword">from</span> .mod1 <span class="keyword">import</span> sayHello</span><br><span class="line"><span class="keyword">from</span> .mod2 <span class="keyword">import</span> sayHello</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># main.py</span></span><br><span class="line"><span class="keyword">import</span> pkg </span><br><span class="line"></span><br><span class="line">print(dir(pkg)) <span class="comment"># 檢視一個模組中含有的內容（attribute）</span></span><br><span class="line">print(pkg.mod1.sayHello())</span><br><span class="line">print(pkg.mod2.sayHello())</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/yYaiqax.png" alt=""></p>
+<h2 id="檢視模組、package中的內容-attribute"><a href="#檢視模組、package中的內容-attribute" class="headerlink" title="檢視模組、package中的內容(attribute)"></a>檢視模組、package中的內容(attribute)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print(dir(pkg))</span><br><span class="line">print(<span class="string">"============="</span>)</span><br><span class="line">print(dir(pkg.mod1))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">['__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', 'mod1', 'mod2', 'sayHello']</span></span><br><span class="line"><span class="string">=============</span></span><br><span class="line"><span class="string">['__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__spec__', 'sayGoodBy', 'sayHello', 'var1']</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+<p>上述範例可以看到該package及模組中的內容。</p>
+<ul>
+<li><code>__builtins__</code>表內建模組，不需要手動匯入，所以在啟動Python時系統就會自動匯入了，任何程式都能直接使用它們。</li>
+<li><code>__doc__</code>: 查看對於該模組的文件說明。</li>
+<li><code>__file__</code>: 查看模組所在路徑</li>
+<li><code>__package__</code>：該package的名稱</li>
+<li><code>__name__</code>：該package的名稱</li>
+</ul>
+<h1 id="常用模組"><a href="#常用模組" class="headerlink" title="常用模組"></a>常用模組</h1><h2 id="os模組"><a href="#os模組" class="headerlink" title="os模組"></a><code>os</code>模組</h2><p>包含了常用的作業系統功能，提供系統操作的方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="comment">#取得系統平台資訊</span></span><br><span class="line">os.name</span><br><span class="line"><span class="comment">#獲取當前工作目錄</span></span><br><span class="line">os.getcwd()</span><br><span class="line"><span class="comment"># 取得指定目錄中所有的檔案與子目錄名稱</span></span><br><span class="line">os.listdir(path)</span><br><span class="line"><span class="comment"># 判斷該項目是否為普通檔案</span></span><br><span class="line">os.path.isfile</span><br><span class="line"><span class="comment"># 判斷該項目是否為目錄</span></span><br><span class="line">os.path.isdir</span><br><span class="line"><span class="comment"># 列出指定的路徑下所有子目錄與檔案資訊</span></span><br><span class="line">os.walk</span><br><span class="line"><span class="comment">#改變目前路徑</span></span><br><span class="line">os.chdir(path)</span><br><span class="line"><span class="comment">#建立新目錄</span></span><br><span class="line">os.makedir(path)</span><br><span class="line"><span class="comment">#刪除空目錄</span></span><br><span class="line">os.removedirs(path)</span><br><span class="line"><span class="comment">#刪除文件</span></span><br><span class="line">os.remove(<span class="string">"文件名"</span>)</span><br><span class="line"><span class="comment">#執行Shell指令</span></span><br><span class="line">os.system(<span class="string">"命令"</span>)</span><br><span class="line"><span class="comment">#得到當前文件的絕對路徑</span></span><br><span class="line">os.path.abspath()</span><br><span class="line"><span class="comment">#輸入一個全路徑名。得到當前文件的路徑</span></span><br><span class="line">os.path.dirname(<span class="string">"pathName"</span>)</span><br><span class="line"><span class="comment">#輸入一個全路徑名。得到文件名</span></span><br><span class="line">os.path.basename(<span class="string">"fullPathName"</span>)</span><br><span class="line"><span class="comment">#判斷路徑是否存在</span></span><br><span class="line">os.path.exists(<span class="string">"fullPathName"</span>)</span><br><span class="line"><span class="comment">#路徑拼接</span></span><br><span class="line">os.path.join(<span class="string">"pathName1"</span>,<span class="string">"pathName2"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="範例-取得檔案列表"><a href="#範例-取得檔案列表" class="headerlink" title="範例: 取得檔案列表"></a>範例: 取得檔案列表</h3><p>利用<code>os.listdir(path)</code>取得檔案列表</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> listdir</span><br><span class="line"><span class="keyword">from</span> os.path <span class="keyword">import</span> isfile, isdir, join, dirname</span><br><span class="line">mypath = <span class="string">"django"</span></span><br><span class="line"><span class="comment"># 取得所有檔案與子目錄名稱</span></span><br><span class="line">files = listdir(mypath)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以迴圈處理</span></span><br><span class="line"><span class="keyword">for</span> f <span class="keyword">in</span> files:</span><br><span class="line">  <span class="comment"># 產生檔案的絕對路徑</span></span><br><span class="line">  fullpath = join(mypath, f)</span><br><span class="line">  <span class="comment"># 判斷 fullpath 是檔案還是目錄</span></span><br><span class="line">  <span class="keyword">if</span> isfile(fullpath):</span><br><span class="line">    print(<span class="string">"檔案："</span>, f)</span><br><span class="line">  <span class="keyword">elif</span> isdir(fullpath):</span><br><span class="line">    print(<span class="string">"目錄："</span>, f)</span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">檔案： .DS_Store</span></span><br><span class="line"><span class="string">目錄： stocks</span></span><br><span class="line"><span class="string">檔案： Pipfile</span></span><br><span class="line"><span class="string">檔案： Pipfile.lock</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="範例-拼接文件的絕對路徑"><a href="#範例-拼接文件的絕對路徑" class="headerlink" title="範例: 拼接文件的絕對路徑"></a>範例: 拼接文件的絕對路徑</h3><p>列出指定的路徑下所有子目錄與檔案資訊。<br><code>os.walk</code> 將每一個目錄中的檔案都列出來，並且自動區分檔案與目錄。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> walk</span><br><span class="line"><span class="keyword">from</span> os.path <span class="keyword">import</span> join</span><br><span class="line"><span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> walk(mypath):</span><br><span class="line">  print(<span class="string">"路徑："</span>, root)</span><br><span class="line">  print(<span class="string">"目錄："</span>, dirs)</span><br><span class="line">  print(<span class="string">"檔案："</span>, files)</span><br></pre></td></tr></table></figure>
+<p>輸出結果</p>
+<p><img src="https://i.imgur.com/Q7pmYIc.png" alt=""></p>
+<p>實際拼接</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> os <span class="keyword">import</span> walk</span><br><span class="line"><span class="keyword">from</span> os.path <span class="keyword">import</span> join</span><br><span class="line">mypath = <span class="string">"django"</span></span><br><span class="line"><span class="comment"># 取得所有檔案與子目錄名稱</span></span><br><span class="line"><span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> walk(mypath):</span><br><span class="line">  <span class="keyword">for</span> f <span class="keyword">in</span> files:</span><br><span class="line">    fullpath = join(root, f)</span><br><span class="line">    print(fullpath)</span><br></pre></td></tr></table></figure>
+<p>印出所有檔案的絕對路徑<br><img src="https://i.imgur.com/m015fAT.png" alt=""></p>
+<h2 id="sys模組"><a href="#sys模組" class="headerlink" title="sys模組"></a><code>sys</code>模組</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sys</span><br><span class="line"></span><br><span class="line">sys.argv  <span class="comment"># 回傳執行文件時的參數列表</span></span><br><span class="line">sys.exit([arg])  <span class="comment"># 退出當前程式</span></span><br><span class="line">sys.modules  <span class="comment"># sys.modules查詢當前系統模組包含的變數或類的路徑</span></span><br><span class="line">sys.path  <span class="comment"># sys.path查詢當前模組所處路徑</span></span><br><span class="line">sys.platform  <span class="comment"># sys.platform查詢當前直譯器執行的平臺</span></span><br><span class="line">sys.stdin, stdout, stderr  <span class="comment"># 常見輸入輸出</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="參考"><a href="#參考" class="headerlink" title="參考"></a>參考</h1><p><a href="https://ithelp.ithome.com.tw/articles/10207161" target="_blank" rel="noopener">Day17-模組</a></p>
+<p><a href="https://ithelp.ithome.com.tw/articles/10207451" target="_blank" rel="noopener">Day18-標準函式庫</a></p>
+<p><a href="https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/9218/#outline__3" target="_blank" rel="noopener">Python進階篇二：Python模組</a></p>
+<p><a href="https://blog.gtwang.org/programming/python-list-all-files-in-directory/" target="_blank" rel="noopener">Python 列出目錄中所有檔案教學：os.listdir 與 os.walk</a></p>
+<p><a href="https://medium.com/ccclub/ccclub-python-for-beginners-tutorial-bfb6dfa69d52" target="_blank" rel="noopener">Python 初學第十三講—模組</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/05/Python/[Python]%20module&package/" data-id="ckaz3apzs0073v6t10z23gsha" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/08/10/Python/%5BPython%5D%20%E8%AE%80%E5%AF%AB%E6%AA%94%E6%A1%88/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Python] 檔案讀寫
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/03/Python/%5BPython%5D%20%E5%AD%97%E5%85%B8-Dictionary/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Python] 字典-Dictionary</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[AWS] 初探AWS | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言近幾年雲端供應商大量投資雲端基礎建設及雲端計算，為了解決客戶的痛點，不斷地推出更多更完善的服務，隨著雲端服務在市場的接受度及普遍度提升，越來越多企業將自家服務上雲，乘著這股潮流來多了解一下雲端服務!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[AWS] 初探AWS">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/aws/[AWS]%20%E5%88%9D%E6%8E%A2AWS/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言近幾年雲端供應商大量投資雲端基礎建設及雲端計算，為了解決客戶的痛點，不斷地推出更多更完善的服務，隨著雲端服務在市場的接受度及普遍度提升，越來越多企業將自家服務上雲，乘著這股潮流來多了解一下雲端服務!">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/GjFCgvH.png">
+<meta property="og:image" content="https://i.imgur.com/A9ijXd8.png">
+<meta property="og:image" content="https://i.imgur.com/WmAqQQb.png">
+<meta property="og:image" content="https://i.imgur.com/F4ts4Zf.jpg">
+<meta property="article:published_time" content="2020-03-02T09:00:10.000Z">
+<meta property="article:modified_time" content="2020-06-03T07:25:26.362Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="AWS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/GjFCgvH.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-aws/[AWS] 初探AWS" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/02/aws/%5BAWS%5D%20%E5%88%9D%E6%8E%A2AWS/" class="article-date">
+  <time datetime="2020-03-02T09:00:10.000Z" itemprop="datePublished">2020-03-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [AWS] 初探AWS
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>近幾年雲端供應商大量投資雲端基礎建設及雲端計算，為了解決客戶的痛點，不斷地推出更多更完善的服務，隨著雲端服務在市場的接受度及普遍度提升，越來越多企業將自家服務上雲，乘著這股潮流來多了解一下雲端服務!</p>
+<a id="more"></a>
+
+<h1 id="Cloud-Computing"><a href="#Cloud-Computing" class="headerlink" title="Cloud Computing"></a>Cloud Computing</h1><p>雲端運算式透過網路連線進行利用網路資源，做各式的資源運算，我們可以透過租用的方式共享軟硬體，並在不同終端設備及裝置上享有這些服務。</p>
+<p>企業或是一般大眾可依據自身需求，向雲端服務的供應商購買能夠滿足他們需求的服務，不須從頭開始採購硬體設備,配置網路及架設環境等，購買服務後可立即享有目標資源。</p>
+<p>另一方面來說，用戶其實可以不需要了解複雜的雲計算所需的基礎設施，甚至不需要有深厚的專業知識，大幅降低用戶的使用門檻，同時提升用戶的營運效率，另外，雲服務有個”用多少, 付多少”的特性，解決傳統用戶因使用效率不佳而造成資源浪費的問題。</p>
+<h1 id="指標供應商"><a href="#指標供應商" class="headerlink" title="指標供應商"></a>指標供應商</h1><p>目前雲服務供應商前三大影響力的分別是: Amazon(AWS), Microsoft(Azure), Google(GCP)，這三家大廠佔雲端市場極大的比例。<br>來看下圖2019的調查報告可窺知一二。<a href="https://kinsta.com/blog/google-cloud-vs-azure/" target="_blank" rel="noopener">Ref</a></p>
+<p><img src="https://i.imgur.com/GjFCgvH.png" alt=""></p>
+<h1 id="雲服務架構種類"><a href="#雲服務架構種類" class="headerlink" title="雲服務架構種類"></a>雲服務架構種類</h1><ul>
+<li>IaaS: 基礎架構即服務</li>
+<li>PaaS: 平台即服務</li>
+<li>SaaS: 軟體即服務</li>
+</ul>
+<h2 id="IaaS"><a href="#IaaS" class="headerlink" title="IaaS"></a>IaaS</h2><p>雲端服務供應商提供的服務(如AWS, GCP)包含網路建置, Server採購等硬體設施，或是運用虛擬化的技術，公司只需專注在硬體設備外的項目即可，如作業系統 , 應用程式等等。</p>
+<p>傳統公司作法可能會是內部自建機房，但伴隨而來的維護問題，大幅提高企業成本，加上雲端虛擬技術逐漸蓬勃發展，開始推動這類服務，解決公司在基礎建設方面所遇到的困難點。</p>
+<h3 id="優點"><a href="#優點" class="headerlink" title="優點"></a>優點</h3><ul>
+<li>靈活度高且可以擴展</li>
+<li>可多人使用</li>
+<li>優化資源的利用率</li>
+</ul>
+<p>範例服務: EC2<br>為AWS提供了虛擬服務器，EC2的用戶不需擁有實體服務器。</p>
+<h2 id="PaaS"><a href="#PaaS" class="headerlink" title="PaaS"></a>PaaS</h2><p>PaaS服務通常會包含IaaS的範圍，也就是除了基礎架構服務器，儲存和網路外，還將作業系統, 開發環境交由廠商管理，企業可以專注在Application的開發與部署。</p>
+<h3 id="優點-1"><a href="#優點-1" class="headerlink" title="優點"></a>優點</h3><ul>
+<li>靈活度高且可以擴展</li>
+<li>可多人使用</li>
+<li>無需具備廣泛的系統管理知識即可輕鬆運行</li>
+</ul>
+<p>範例服務: <a href="https://aws.amazon.com/elasticbeanstalk/?nc1=h_ls" target="_blank" rel="noopener">Elastic Beanstalk</a></p>
+<h2 id="SaaS"><a href="#SaaS" class="headerlink" title="SaaS"></a>SaaS</h2><p>SaaS服務則是連同Application都幫你管理好，用戶可以直接使用。</p>
+<p>雲服務的類型與傳統相比可看下圖<br><img src="https://i.imgur.com/A9ijXd8.png" alt=""><br><a href="https://www.cloudindustry.com/au/cloud-computing-models-demystified/" target="_blank" rel="noopener">圖片源</a></p>
+<p>上面的比較圖可以概略知道傳統的本地部署(On-Premises)採用虛擬化技術的管理工具，軟硬體的管理,維護都是企業自己做。</p>
+<p>如果以分層的角度來看，金字塔最底層為IaaS往上依序為PaaS, SaaS<br><img src="https://i.imgur.com/WmAqQQb.png" alt=""></p>
+<p><a href="https://www.researchgate.net/figure/Illustration-of-cloud-computing-layers-as-a-collection-of-services-XaaS_fig3_236218233" target="_blank" rel="noopener">圖片源</a></p>
+<p><a href="https://www.bigcommerce.com/blog/saas-vs-paas-vs-iaas/#the-three-types-of-cloud-computing-service-models-explained" target="_blank" rel="noopener">這篇文章</a>有更詳細的介紹。</p>
+<h1 id="AWS成本定價"><a href="#AWS成本定價" class="headerlink" title="AWS成本定價"></a>AWS成本定價</h1><p>AWS的費用計算可以簡單用一句話總結: “用多少算多少”<br>計算的種類大略分幾類:</p>
+<ul>
+<li>使用時間</li>
+<li>使用單位</li>
+<li>占用的資源</li>
+<li>使用方式</li>
+</ul>
+<p>以EC2為例:<br><img src="https://i.imgur.com/F4ts4Zf.jpg" alt=""><br><a href="https://www.slideshare.net/AmazonWebServices/reducing-the-total-cost-of-it-infrastructure-with-aws-cloud-economics" target="_blank" rel="noopener">圖片源</a><br>如果是有長期穩定的需求，相較於On Demand，可以選擇RI(<a href="https://aws.amazon.com/ec2/pricing/reserved-instances/?nc1=h_ls" target="_blank" rel="noopener">Reserved Instance</a>)或是<a href="https://aws.amazon.com/tw/ec2/spot/" target="_blank" rel="noopener">Spot</a>方案，享有更好的折扣。</p>
+<h1 id="官方認證考試"><a href="#官方認證考試" class="headerlink" title="官方認證考試"></a>官方認證考試</h1><p>為了推廣自家服務，AWS官方推出一系列的考證制度，另一方面也可以作為對服務了解程度的參考依據。</p>
+<h1 id="免費試用帳號"><a href="#免費試用帳號" class="headerlink" title="免費試用帳號"></a>免費試用帳號</h1><p>AWS推出為期一年的免費帳號(<a href="https://aws.amazon.com/tw/free/?all-free-tier.sort-by=item.additionalFields.SortRank&all-free-tier.sort-order=asc" target="_blank" rel="noopener">註冊連結點我</a>)，想玩玩看AWS服務的話由此註冊。</p>
+<h1 id="費用計算"><a href="#費用計算" class="headerlink" title="費用計算"></a>費用計算</h1><p>官方很貼心的提供兩種計算機，讓用戶可以快速計算費用</p>
+<ul>
+<li><p><a href="https://calculator.s3.amazonaws.com/index.html" target="_blank" rel="noopener">每月成本簡易計算器</a><br>可讓用戶估計單一或多個服務的價格，另外也提供使用範本來估算完整服務價格。</p>
+</li>
+<li><p><a href="https://aws.amazon.com/tw/tco-calculator/" target="_blank" rel="noopener">TCO 計算器</a><br>預估使用 AWS所節省的費用，並提供比較後的詳細報告，屬於全面性的。</p>
+</li>
+</ul>
+<h1 id="參閱"><a href="#參閱" class="headerlink" title="參閱"></a>參閱</h1><p><a href="https://d1.awsstatic.com/whitepapers/aws-overview.pdf?did=wp_card&trk=wp_card" target="_blank" rel="noopener">Overview of Amazon Web Services</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/02/aws/[AWS]%20%E5%88%9D%E6%8E%A2AWS/" data-id="ckaz3apyj002zv6t15ahj89kx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/03/aws/%5BAWS%5D%20Global%20Infrastructure/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [AWS] Global Infrastructure
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/02/28/DevOps/Docker/%5BDevOps%5D%20Docker%E5%85%A5%E9%96%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Docker] Docker入門</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Database] MongoDB 資料操作 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言本篇紀錄MongoDB整合Python的pymongo及mongo shell進行資料庫操作，安裝方式參考本篇。 傳統SQL與MongoDB兩者對應關係在操作MongoDB前需要了解兩者的對應關係，才能理解如何下操作指令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Database] MongoDB 資料操作">
+<meta property="og:url" content="http://yoursite.com/2019/09/12/Python/[Python]%20MongoDB%20%E8%B3%87%E6%96%99%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言本篇紀錄MongoDB整合Python的pymongo及mongo shell進行資料庫操作，安裝方式參考本篇。 傳統SQL與MongoDB兩者對應關係在操作MongoDB前需要了解兩者的對應關係，才能理解如何下操作指令">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/eeT0Hbv.png">
+<meta property="og:image" content="https://i.imgur.com/RPFpic5.png">
+<meta property="og:image" content="https://i.imgur.com/1dA4RaG.png">
+<meta property="og:image" content="https://i.imgur.com/yj1bscT.png">
+<meta property="og:image" content="https://i.imgur.com/9SJc3GH.png">
+<meta property="og:image" content="https://i.imgur.com/Q0IwCdt.png">
+<meta property="og:image" content="https://i.imgur.com/ZWIGufq.png">
+<meta property="og:image" content="https://i.imgur.com/YdDKUH1.png">
+<meta property="og:image" content="https://i.imgur.com/9O73usl.png">
+<meta property="og:image" content="https://i.imgur.com/BkQPMy5.png">
+<meta property="og:image" content="https://i.imgur.com/kJBtDCF.png">
+<meta property="og:image" content="https://i.imgur.com/k2HFvWj.png">
+<meta property="og:image" content="https://i.imgur.com/4U55exm.png">
+<meta property="og:image" content="https://i.imgur.com/lUpuiEG.png">
+<meta property="og:image" content="https://i.imgur.com/zZKG463.png">
+<meta property="og:image" content="https://i.imgur.com/edoSMBS.png">
+<meta property="og:image" content="https://i.imgur.com/w3S9EYQ.png">
+<meta property="og:image" content="https://i.imgur.com/bIvcbWl.png">
+<meta property="og:image" content="https://i.imgur.com/KrZzcQl.png">
+<meta property="og:image" content="https://i.imgur.com/roKNIS4.png">
+<meta property="og:image" content="https://i.imgur.com/3cqBkk2.png">
+<meta property="og:image" content="https://i.imgur.com/4kXIKj1.png">
+<meta property="og:image" content="https://i.imgur.com/JLjMx1r.png">
+<meta property="og:image" content="https://i.imgur.com/SmKLQG8.png">
+<meta property="og:image" content="https://i.imgur.com/uRGjZ9i.png">
+<meta property="article:published_time" content="2019-09-12T12:54:10.000Z">
+<meta property="article:modified_time" content="2020-05-26T04:35:03.709Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Database">
+<meta property="article:tag" content="MongoDB">
+<meta property="article:tag" content="NoSQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/eeT0Hbv.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python/[Python] MongoDB 資料操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/12/Python/%5BPython%5D%20MongoDB%20%E8%B3%87%E6%96%99%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2019-09-12T12:54:10.000Z" itemprop="datePublished">2019-09-12</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Backend/">Backend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Database] MongoDB 資料操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇紀錄MongoDB整合Python的pymongo及mongo shell進行資料庫操作，安裝方式參考<a href="https://chentsungyu.github.io/2019/09/14/Database/MongoDB/%5BMongoDB%5D%20MongoDB%E5%AE%89%E8%A3%9D%E8%88%87%E9%80%A3%E6%8E%A5/" target="_blank" rel="noopener">本篇</a>。</p>
+<h1 id="傳統SQL與MongoDB兩者對應關係"><a href="#傳統SQL與MongoDB兩者對應關係" class="headerlink" title="傳統SQL與MongoDB兩者對應關係"></a>傳統SQL與MongoDB兩者對應關係</h1><p>在操作MongoDB前需要了解兩者的對應關係，才能理解如何下操作指令<br><img src="https://i.imgur.com/eeT0Hbv.png" alt=""></p>
+<a id="more"></a> 
+<h1 id="使用Pymongo"><a href="#使用Pymongo" class="headerlink" title="使用Pymongo"></a>使用Pymongo</h1><h2 id="安裝pymongo"><a href="#安裝pymongo" class="headerlink" title="安裝pymongo"></a>安裝pymongo</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pymongo</span><br></pre></td></tr></table></figure>
+<h2 id="連接pymongo"><a href="#連接pymongo" class="headerlink" title="連接pymongo"></a>連接pymongo</h2><p>連接MongoDB時，需使用PyMongo庫裡面的<code>MongoClient</code>。一般來說，傳入MongoDB的host及port即可，其中第一個參數為主機位置(host)，第二個參數為port(如果不傳參數，預設是27017)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pymongo <span class="keyword">import</span> MongoClient <span class="comment"># 引入pymongo</span></span><br><span class="line"><span class="comment"># 連接pymongo</span></span><br><span class="line">client = MongoClient(host=<span class="string">'localhost'</span>, port=<span class="number">27017</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="純字串的連接方式"><a href="#純字串的連接方式" class="headerlink" title="純字串的連接方式"></a>純字串的連接方式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client = MongoClient(<span class="string">'mongodb://localhost:27017/'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="連接雲端的MongoDB"><a href="#連接雲端的MongoDB" class="headerlink" title="連接雲端的MongoDB"></a>連接雲端的MongoDB</h3><ul>
+<li><p>點擊Connect Instructions -&gt; 選擇Connect Your Application -&gt; 選擇程式語言，並複製下方指令<br><img src="https://i.imgur.com/RPFpic5.png" alt=""></p>
+</li>
+<li><p>貼上剛才複製的指令，並將password替換成自己的用戶密碼</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">client = MongoClient(<span class="string">"mongodb://tomchen:user_password@cluster0-shard-00-00-q0zkl.mongodb.net:27017,cluster0-shard-00-01-q0zkl.mongodb.net:27017,cluster0-shard-00-02-q0zkl.mongodb.net:27017/test?ssl=true&amp;replicaSet=Cluster0-shard-0&amp;authSource=admin&amp;retryWrites=true&amp;w=majority"</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="建立-指定資料庫"><a href="#建立-指定資料庫" class="headerlink" title="建立/指定資料庫"></a>建立/指定資料庫</h2><p>MongoDB中可以建立多個資料庫，需要指定操作哪個資料庫。<br>以test資料庫為例:</p>
+<h3 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db = client.test</span><br></pre></td></tr></table></figure>
+<h3 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db = client[<span class="string">'test'</span>]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="建立-指定Collection"><a href="#建立-指定Collection" class="headerlink" title="建立/指定Collection"></a>建立/指定Collection</h2><p>MongoDB中的collection對應傳統資料庫的table<br>建立students為collection名稱</p>
+<h3 id="方法1-1"><a href="#方法1-1" class="headerlink" title="方法1"></a>方法1</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection = db.students</span><br></pre></td></tr></table></figure>
+<h3 id="方法2-1"><a href="#方法2-1" class="headerlink" title="方法2"></a>方法2</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">collection = db[students]</span><br></pre></td></tr></table></figure>
+
+<h2 id="新增資料"><a href="#新增資料" class="headerlink" title="新增資料"></a>新增資料</h2><h3 id="新增單筆資料"><a href="#新增單筆資料" class="headerlink" title="新增單筆資料"></a>新增單筆資料</h3><p>採<code>insert_one()</code>方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">student = &#123;</span><br><span class="line">    <span class="string">'id'</span>: <span class="string">'20170101'</span>,</span><br><span class="line">    <span class="string">'name'</span>: <span class="string">'Jordan'</span>,</span><br><span class="line">    <span class="string">'age'</span>: <span class="number">20</span>,</span><br><span class="line">    <span class="string">'gender'</span>: <span class="string">'male'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result = collection.insert_one(student)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/1dA4RaG.png" alt=""></p>
+<h3 id="新增多筆資料"><a href="#新增多筆資料" class="headerlink" title="新增多筆資料"></a>新增多筆資料</h3><p>採<code>insert_many()</code>方法，傳入一個陣列形式的資料結構</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">students = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">'id'</span>: <span class="string">'20180101'</span>,</span><br><span class="line">        <span class="string">'name'</span>: <span class="string">'Jean'</span>,</span><br><span class="line">        <span class="string">'age'</span>: <span class="number">20</span>,</span><br><span class="line">        <span class="string">'gender'</span>: <span class="string">'female'</span></span><br><span class="line">    &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">        <span class="string">'id'</span>: <span class="string">'20190101'</span>,</span><br><span class="line">        <span class="string">'name'</span>: <span class="string">'Tom'</span>,</span><br><span class="line">        <span class="string">'age'</span>: <span class="number">22</span>,</span><br><span class="line">        <span class="string">'gender'</span>: <span class="string">'male'</span></span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">result = collection.insert_many(students)</span><br><span class="line">print(result.inserted_ids) <span class="comment"># 回傳 ObjectId</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/yj1bscT.png" alt=""></p>
+<h2 id="查詢"><a href="#查詢" class="headerlink" title="查詢"></a>查詢</h2><p>可以利用<code>find_one()</code>或<code>find()</code>方法進行查詢，其中<code>find_one()</code>查詢得到的是符合條件的第一個結果。</p>
+<blockquote>
+<p>如果查詢結果不存在，則會返回<code>None</code></p>
+</blockquote>
+<h3 id="查詢單一筆資料"><a href="#查詢單一筆資料" class="headerlink" title="查詢單一筆資料"></a>查詢單一筆資料</h3><p>如查詢name為Tom的資料</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">result = collection.find_one(&#123;<span class="string">'name'</span>: <span class="string">'Tom'</span>&#125;)</span><br><span class="line">print(type(result)) <span class="comment"># 回傳結果是dic類型</span></span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/9SJc3GH.png" alt=""></p>
+<h3 id="根據ObjectId來查詢"><a href="#根據ObjectId來查詢" class="headerlink" title="根據ObjectId來查詢"></a>根據ObjectId來查詢</h3><p>需要使用package-<code>bson</code>裡面的objectid</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bson.objectid <span class="keyword">import</span> ObjectId</span><br><span class="line">result = collection.find_one(&#123;<span class="string">'_id'</span>: ObjectId(<span class="string">'5e41253fe2d639ab3976e620'</span>)&#125;)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<h3 id="查詢多筆資料"><a href="#查詢多筆資料" class="headerlink" title="查詢多筆資料"></a>查詢多筆資料</h3><blockquote>
+<h4 id="查詢多筆資料時，務必要在查詢的結果轉為list"><a href="#查詢多筆資料時，務必要在查詢的結果轉為list" class="headerlink" title="查詢多筆資料時，務必要在查詢的結果轉為list"></a>查詢多筆資料時，務必要在查詢的結果轉為list</h4></blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = list(collection.find(&#123;<span class="string">'name'</span>: <span class="string">'Tom'</span>&#125;))</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/Q0IwCdt.png" alt=""></p>
+<h3 id="條件查詢"><a href="#條件查詢" class="headerlink" title="條件查詢"></a>條件查詢</h3><h4 id="大於的條件"><a href="#大於的條件" class="headerlink" title="大於的條件"></a>大於的條件</h4><p>在dic內使用<code>$gt</code>作為篩選條件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">results = list(collection.find(&#123;<span class="string">'age'</span>: &#123;<span class="string">'$gt'</span>: <span class="number">20</span>&#125;&#125;))</span><br><span class="line">print(results)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/ZWIGufq.png" alt=""></p>
+<h4 id="小於的條件"><a href="#小於的條件" class="headerlink" title="小於的條件"></a>小於的條件</h4><p>在dic內使用<code>$lt</code>作為篩選條件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = list(collection.find(&#123;<span class="string">'age'</span>: &#123;<span class="string">'$lt'</span>: <span class="number">22</span>&#125;&#125;))</span><br><span class="line">print(results)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/YdDKUH1.png" alt=""></p>
+<h4 id="配合正規表達式"><a href="#配合正規表達式" class="headerlink" title="配合正規表達式"></a>配合正規表達式</h4><p>在dic內使用<code>$regex</code>作為篩選條件，如: 查詢名字以T開頭的學生資料<br><img src="https://i.imgur.com/9O73usl.png" alt=""></p>
+<h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><h3 id="方法一update"><a href="#方法一update" class="headerlink" title="方法一update()"></a>方法一<code>update()</code></h3><p>使用<code>update()</code>方法，如更新name為Tom的age：先指定查詢條件，再查詢該筆資料，修改年齡後呼叫<code>update()</code>方法將原條件和修改後的資料傳入</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">condition = &#123;<span class="string">'name'</span>: <span class="string">'Tom'</span>&#125;</span><br><span class="line">student = collection.find_one(condition)</span><br><span class="line">print(student)</span><br><span class="line">student[<span class="string">'age'</span>] = <span class="number">25</span></span><br><span class="line">result = collection.update_one(condition, student)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>回傳結果:<br><img src="https://i.imgur.com/BkQPMy5.png" alt=""></p>
+<p>也可以使用<code>$set</code>對資料進行更新</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = collection.update(condition, &#123;<span class="string">'$set'</span>: student&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="方法二-update-one-和update-many-是官方比較推薦的方法"><a href="#方法二-update-one-和update-many-是官方比較推薦的方法" class="headerlink" title="方法二: update_one()和update_many()是官方比較推薦的方法"></a>方法二: <code>update_one()</code>和<code>update_many()</code>是官方比較推薦的方法</h3><p><code>update_one()</code>和<code>update_many()</code>是官方比較推薦的方法，用法更加嚴謹</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">result = collection.update_one(condition, &#123;<span class="string">'$set'</span>: student&#125;)</span><br></pre></td></tr></table></figure>
+<p>嚴謹的方法會回傳<code>UpdateResult object</code>，而<code>matched_count</code>和<code>modified_count</code>屬性則是指獲得匹配的資料數量和更動的資料數量<br><img src="https://i.imgur.com/kJBtDCF.png" alt=""></p>
+<p>另外的例子:</p>
+<h4 id="update-one"><a href="#update-one" class="headerlink" title="update_one()"></a>update_one()</h4><p>指定查詢條件為<code>age</code>大於20，更新條件為<code>{&#39;$inc&#39;: {&#39;age&#39;: 1}}</code>，也就是<code>age</code>加1，執行之後會將第一條符合條件的資料<code>age</code>加1。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">condition = &#123;<span class="string">'age'</span>: &#123;<span class="string">'$gt'</span>: <span class="number">20</span>&#125;&#125;</span><br><span class="line">result = collection.update_one(condition, &#123;<span class="string">'$inc'</span>: &#123;<span class="string">'age'</span>: <span class="number">1</span>&#125;&#125;)</span><br><span class="line">print(result)</span><br><span class="line">print(result.matched_count, result.modified_count)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/k2HFvWj.png" alt=""></p>
+<h4 id="update-many"><a href="#update-many" class="headerlink" title="update_many()"></a>update_many()</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">condition = &#123;<span class="string">'age'</span>: &#123;<span class="string">'$gt'</span>: <span class="number">20</span>&#125;&#125;</span><br><span class="line">result = collection.update_many(condition, &#123;<span class="string">'$inc'</span>: &#123;<span class="string">'age'</span>: <span class="number">1</span>&#125;&#125;)</span><br><span class="line">print(result)</span><br><span class="line">print(result.matched_count, result.modified_count)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/4U55exm.png" alt=""><br>回傳結果可看到所有資料都被更新</p>
+<h2 id="刪除"><a href="#刪除" class="headerlink" title="刪除"></a>刪除</h2><p>使用<code>delete_one()</code>和<code>delete_many()</code>方法指定刪除的條件，此時符合條件的資料會被刪除。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">result = collection.delete_many(&#123;<span class="string">'name'</span>: <span class="string">'Jean'</span>&#125;)</span><br><span class="line">print(result)</span><br><span class="line">print(result.deleted_count) </span><br><span class="line">result = collection.delete_many(&#123;<span class="string">'age'</span>: &#123;<span class="string">'$gt'</span>: <span class="number">25</span>&#125;&#125;)</span><br><span class="line">print(result.deleted_count)</span><br></pre></td></tr></table></figure>
+<p><code>deleted_count</code>為被刪除的數量<br><img src="https://i.imgur.com/lUpuiEG.png" alt=""></p>
+<h1 id="使用Mongo-Shell"><a href="#使用Mongo-Shell" class="headerlink" title="使用Mongo Shell"></a>使用Mongo Shell</h1><p>mongo 是一個用來操作MongoDB的JavaScript介面，可以使用它來進行新增、刪除、修改、查詢資料庫中的資料，另外也可以進行資料庫管理。</p>
+<h2 id="連結本地"><a href="#連結本地" class="headerlink" title="連結本地"></a>連結本地</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongo</span><br></pre></td></tr></table></figure>
+<p>打開終端機執行<code>mongo</code> 以MongoDB Shell來連線到MongoDB。<img src="https://i.imgur.com/zZKG463.png" alt=""><br>上圖表示連結成功！</p>
+<blockquote>
+<p>若無加上任何參數，<code>mongo</code>指令預設會連線到<code>localhost: 27017</code>，如果要改變主機與連接埠，參考 <a href="https://docs.mongodb.com/manual/reference/program/mongo/#syntax" target="_blank" rel="noopener">mongo Shell Reference Page</a>。</p>
+</blockquote>
+<h2 id="查看基本的操作說明"><a href="#查看基本的操作說明" class="headerlink" title="查看基本的操作說明"></a>查看基本的操作說明</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<p>一開始進入 MongoDB Shell 時，可以執行<code>help</code>來查看基本的操作說明</p>
+<h2 id="選擇-database"><a href="#選擇-database" class="headerlink" title="選擇 database"></a>選擇 database</h2><p>在輸入資料之前，先下<code>use</code>指令來選擇目標database。</p>
+<h2 id="新增資料-1"><a href="#新增資料-1" class="headerlink" title="新增資料"></a>新增資料</h2><p>MongoDB內新增資料採<code>insert()</code>方法，所有儲存在collection中的 document都會有一個 <code>_id</code>的field名稱作為 <strong>primary key</strong>，如果輸入資料時沒有加上這個 field，MongoDB 會自動產生一個 <code>ObjectId</code> 作為 <code>_id</code>。<br>範例：<br>寫入一個名為students的collection</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">db.students.insert(&#123;</span><br><span class="line">    <span class="string">"name"</span> : <span class="string">"Tom"</span>,</span><br><span class="line">    <span class="string">"sid"</span> : <span class="string">"41704620"</span>,</span><br><span class="line">    <span class="string">"gender"</span> : <span class="string">"male"</span> ,</span><br><span class="line">    <span class="string">"family"</span> : &#123;</span><br><span class="line">      <span class="string">"fatherName"</span> : <span class="string">"father"</span>,</span><br><span class="line">      <span class="string">"matherName"</span> : <span class="string">"mather"</span>,</span><br><span class="line">      <span class="string">"totalMember"</span>: <span class="number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"city"</span> : <span class="string">"金門"</span>,</span><br><span class="line">    <span class="string">"grades"</span> : [</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"subject"</span>: <span class="string">"體育"</span>,</span><br><span class="line">        <span class="string">"date"</span>: ISODate(<span class="string">"2019-10-01T00:00:00Z"</span>),</span><br><span class="line">        <span class="string">"grade"</span> : <span class="string">"A+"</span>,</span><br><span class="line">        <span class="string">"score"</span> : <span class="number">95</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="string">"subject"</span>: <span class="string">"國文"</span>,</span><br><span class="line">        <span class="string">"date"</span> : ISODate(<span class="string">"2014-01-16T00:00:00Z"</span>),</span><br><span class="line">        <span class="string">"grade"</span> : <span class="string">"A-"</span>,</span><br><span class="line">        <span class="string">"score"</span> : <span class="number">80</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/edoSMBS.png" alt=""><br>成功寫入！</p>
+<blockquote>
+<p>如果遇到 collection 不存在的狀況，MongoDB 會自動建立這個 collection。在執行之後，會傳回一個 <code>WriteResult</code> 物件，<code>nInserted</code> 的值就是輸入資料的筆數<br><img src="https://i.imgur.com/w3S9EYQ.png" alt=""></p>
+</blockquote>
+<h2 id="查詢資料"><a href="#查詢資料" class="headerlink" title="查詢資料"></a>查詢資料</h2><h3 id="未指定條件"><a href="#未指定條件" class="headerlink" title="未指定條件"></a>未指定條件</h3><p>執行<code>find()</code>不加任何查詢條件時，會列出該collection中所有的 documents。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find()</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/bIvcbWl.png" alt=""><br>查詢成功！</p>
+<h3 id="指定查詢條件"><a href="#指定查詢條件" class="headerlink" title="指定查詢條件"></a>指定查詢條件</h3><h4 id="範例1"><a href="#範例1" class="headerlink" title="範例1"></a>範例1</h4><p>查詢某個物件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find(&#123;<span class="string">"name"</span> : <span class="string">"Tom"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/KrZzcQl.png" alt=""></p>
+<h4 id="範例2"><a href="#範例2" class="headerlink" title="範例2"></a>範例2</h4><p>查詢某個物件下的特定物件，使用dot<code>.</code>的方式取得。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find(&#123;<span class="string">"family.fatherName"</span> : <span class="string">"father"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/roKNIS4.png" alt=""></p>
+<h4 id="範例3"><a href="#範例3" class="headerlink" title="範例3"></a>範例3</h4><p>也可以用於查詢陣列中的field值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find(&#123;<span class="string">"grades.grade"</span> : <span class="string">"A+"</span>&#125;)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/3cqBkk2.png" alt=""></p>
+<h3 id="配合運算子查詢條件"><a href="#配合運算子查詢條件" class="headerlink" title="配合運算子查詢條件"></a>配合運算子查詢條件</h3><h4 id="範例1-1"><a href="#範例1-1" class="headerlink" title="範例1"></a>範例1</h4><p>大於條件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find(&#123;<span class="string">"grades.score"</span> : &#123;$gt: <span class="number">90</span>&#125; &#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="範例2-1"><a href="#範例2-1" class="headerlink" title="範例2"></a>範例2</h4><p>小於條件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find(&#123;<span class="string">"grades.score"</span> : &#123;$lt: <span class="number">90</span>&#125; &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="多個查詢條件"><a href="#多個查詢條件" class="headerlink" title="多個查詢條件"></a>多個查詢條件</h3><p>做<code>AND</code>運算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find( &#123;<span class="string">"gender"</span> : <span class="string">"male"</span>,<span class="string">"city"</span> : <span class="string">"金門"</span>&#125; )</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/4kXIKj1.png" alt=""></p>
+<p>做<code>OR</code>運算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.students.find(</span><br><span class="line">  &#123; $<span class="keyword">or</span>: [ &#123; <span class="string">"gender"</span> : <span class="string">"male"</span> &#125;, &#123; <span class="string">"city"</span> : <span class="string">"金門"</span> &#125; ] &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/JLjMx1r.png" alt=""></p>
+<h3 id="排序查詢結果"><a href="#排序查詢結果" class="headerlink" title="排序查詢結果"></a>排序查詢結果</h3><p>讓查詢的結果依照 field 來排序，可以加<code>sort()</code>方法，並且指定排序的 field名稱與排列方式，1:表遞增;-1：表遞減。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.students.find().sort( &#123; <span class="string">"grades"</span>: <span class="number">1</span> &#125; )</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://docs.mongodb.com/manual/reference/operator/query/" target="_blank" rel="noopener">更多查詢條件</a></p>
+<h2 id="列出所有的collections"><a href="#列出所有的collections" class="headerlink" title="列出所有的collections"></a>列出所有的collections</h2><p>下方三行指令擇一</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">show collections</span><br><span class="line">show tables</span><br><span class="line">db.getCollectionNames()</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/SmKLQG8.png" alt=""></p>
+<h2 id="資料庫系統資訊"><a href="#資料庫系統資訊" class="headerlink" title="資料庫系統資訊"></a>資料庫系統資訊</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.stats()</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/uRGjZ9i.png" alt=""></p>
+<h1 id="參考教學"><a href="#參考教學" class="headerlink" title="參考教學"></a>參考教學</h1><p><a href="https://blog.gtwang.org/programming/getting-started-with-mongodb-shell-1/" target="_blank" rel="noopener">MongoDB 基礎入門教學：MongoDB Shell 篇</a></p>
+<p><a href="https://juejin.im/post/5addbd0e518825671f2f62ee" target="_blank" rel="noopener">Python操作MongoDB看這一篇就夠了</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/12/Python/[Python]%20MongoDB%20%E8%B3%87%E6%96%99%E6%93%8D%E4%BD%9C/" data-id="ckaz3apzr006wv6t1415187qf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/13/Python/%5BPython%5D%20MySQL%20%E8%B3%87%E6%96%99%E6%93%8D%E4%BD%9C/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Python] MySQL 資料操作
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/11/Database/MongoDB/%5BMongoDB%5D%20MongoDB%E5%AE%89%E8%A3%9D%E8%88%87%E9%80%A3%E6%8E%A5/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Database] MongoDB安裝與連接</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

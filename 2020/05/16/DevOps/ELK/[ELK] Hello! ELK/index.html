@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[ELK] Hello! ELK | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="鼠年全馬鐵人挑戰 - WEEK 15   圖片源 前言最近因為實習環境需要接觸ELK，故藉此機會來筆記一下，加深學習印象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[ELK] Hello! ELK">
+<meta property="og:url" content="http://yoursite.com/2020/05/16/DevOps/ELK/[ELK]%20Hello!%20ELK/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="鼠年全馬鐵人挑戰 - WEEK 15   圖片源 前言最近因為實習環境需要接觸ELK，故藉此機會來筆記一下，加深學習印象。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/ySo1b1H.png">
+<meta property="og:image" content="https://i.imgur.com/HtBGNps.png">
+<meta property="og:image" content="https://i.imgur.com/z8IBmkj.png">
+<meta property="og:image" content="https://i.imgur.com/BaetlIz.png">
+<meta property="og:image" content="https://i.imgur.com/qD8dsyQ.png">
+<meta property="og:image" content="https://i.imgur.com/hS87946.png">
+<meta property="og:image" content="https://i.imgur.com/tnkJHtk.png">
+<meta property="article:published_time" content="2020-05-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T07:26:01.756Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="ELK">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/ySo1b1H.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DevOps/ELK/[ELK] Hello! ELK" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/" class="article-date">
+  <time datetime="2020-05-15T16:00:00.000Z" itemprop="datePublished">2020-05-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [ELK] Hello! ELK
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>鼠年全馬鐵人挑戰 - WEEK 15</p>
+</blockquote>
+<!--toc-->
+<p><img src="https://i.imgur.com/ySo1b1H.png" alt=""><br><a href="https://www.mile.cloud/zh-hant/elastic/" target="_blank" rel="noopener">圖片源</a></p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近因為實習環境需要接觸ELK，故藉此機會來筆記一下，加深學習印象。</p>
+<a id="more"></a>
+<h1 id="什麼是ELK？"><a href="#什麼是ELK？" class="headerlink" title="什麼是ELK？"></a>什麼是ELK？</h1><p>其實大家所稱的ELK並非一套軟體，而是由三個不同的開源軟體的字首縮寫所構成的套件，三者為:</p>
+<ul>
+<li>Logstash: 蒐集日誌(log)，為日誌資料處理系統，可同時從多個來源獲取資料</li>
+<li>Elasticsearch: 強大的搜尋功能</li>
+<li>Kibana: 將資料視覺化的報表軟體</li>
+</ul>
+<p>ELK時常被應用在解決搜尋、紀錄、保安分析、指標分析、營運分析等問題，越來越多企業採用ELK，可見<a href="https://medium.com/elkplus/%E8%AA%B0%E5%9C%A8%E7%94%A8elk-d8924de3c7b6" target="_blank" rel="noopener">此篇文章</a>的整理。</p>
+<h2 id="ELK-workflow"><a href="#ELK-workflow" class="headerlink" title="ELK workflow"></a>ELK workflow</h2><p>ELK的整體運作流程可參考下方圖片:<br><img src="https://i.imgur.com/HtBGNps.png" alt=""> <a href="https://www.howtoforge.com/tutorial/how-to-setup-elk-logstash-as-centralized-log-management-server/" target="_blank" rel="noopener">圖片源</a><br>整體運作流程是將設備的日誌，透過檔案或系統的log傳送給Logstash進行解析，再存入ElasticSearch進行查詢/統計，最後由Kibana將統計結果以資料視覺化呈現。</p>
+<h1 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h1><p>對ELK有初步認識後就來動手安裝吧！</p>
+<h2 id="Elasticsearch"><a href="#Elasticsearch" class="headerlink" title="Elasticsearch"></a>Elasticsearch</h2><p>至<a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/targz.html" target="_blank" rel="noopener">官方載點</a>找到適合自己作業系統的檔案進行下載，Mac的話，下載完<code>tar.gz</code>的檔案後，至終端機執行下方指令解壓縮</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf elasticsearch-7.6.2-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>接著切換到<code>elasticsearch-7.6.2</code>目錄下執行<code>bin</code>資料夾下的<code>elasticsearch</code>執行檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch</span><br></pre></td></tr></table></figure>
+<h3 id="測試是否安裝成功"><a href="#測試是否安裝成功" class="headerlink" title="測試是否安裝成功"></a>測試是否安裝成功</h3><p>預設會開在port號9200，到另外一個終端機上執行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl 127.0.0.1:9200</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/z8IBmkj.png" alt=""><br>如果成功的話會回傳一個JSON格式的資料</p>
+<h2 id="Kibana"><a href="#Kibana" class="headerlink" title="Kibana"></a>Kibana</h2><p>至<a href="https://www.elastic.co/downloads/kibana" target="_blank" rel="noopener">官方載點</a>找到適合自己作業系統的檔案進行下載，Mac的話，下載完<code>tar.gz</code>的檔案後，至終端機執行下方指令解壓縮</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf kibana-7.6.2-linux-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+<p>接著切換到<code>kibana-7.6.1-darwin-x86_64</code>目錄下執行<code>bin</code>資料夾下的<code>kibana</code>執行檔</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/kibana</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h3 id="注意-要先把elasticsearch-給run起來後再起kibana"><a href="#注意-要先把elasticsearch-給run起來後再起kibana" class="headerlink" title="注意: 要先把elasticsearch 給run起來後再起kibana"></a>注意: 要先把elasticsearch 給run起來後再起kibana</h3></blockquote>
+<p>預設會開在port號5601，訪問<code>http://localhost:5601</code>可確任是否有成功啟動kibana<br><img src="https://i.imgur.com/BaetlIz.png" alt=""></p>
+<h2 id="LogStash"><a href="#LogStash" class="headerlink" title="LogStash"></a>LogStash</h2><p>Logstash 是一套 Log 分析框架，可以幫助我們處理各式各樣的 Log。<a href="https://www.elastic.co/fr/downloads/logstash" target="_blank" rel="noopener">官方載點</a></p>
+<h1 id="Elasticsearch-basic-architecture"><a href="#Elasticsearch-basic-architecture" class="headerlink" title="Elasticsearch basic architecture"></a>Elasticsearch basic architecture</h1><p>前面安裝完ELK後，接著要討論Elasticsearch的基礎架構<br><img src="https://i.imgur.com/qD8dsyQ.png" alt=""></p>
+<h2 id="Node-節點"><a href="#Node-節點" class="headerlink" title="Node 節點"></a>Node 節點</h2><p>上圖的每個<strong>節點(Node)</strong> 就是一個Elasticsearch的<strong>實例(Instance)</strong>，用於儲存資料，一台機器可以同時啟用多個Node。</p>
+<h2 id="Cluster-叢集"><a href="#Cluster-叢集" class="headerlink" title="Cluster 叢集"></a>Cluster 叢集</h2><p>而<strong>叢集(Cluster)</strong> 是由一個或者多個擁有相同<strong>cluster name</strong>配置的Node所組成，在預設的情況下，每個Cluster之間是互相獨立的。</p>
+<p>當然，如果要跨叢集(Cross-Cluster)進行搜尋也是可以，不過實際上比較少會這樣使用，通常同時啟用多個Cluster是為了不同目的，如：一個Cluster用於搜尋電商的AP，另一個Cluster則負責AP的效能管理(Performance Management)。</p>
+<h2 id="Document-文檔"><a href="#Document-文檔" class="headerlink" title="Document 文檔"></a>Document 文檔</h2><p><img src="https://i.imgur.com/hS87946.png" alt=""><br>稱作<strong>文檔</strong>，是搜尋資料的最小單元，以<strong>JSON</strong>作為儲存的資料格式，在一個<code>Index</code>或者<code>Type</code>中，可以存儲很多個<code>document</code>。</p>
+<h2 id="index-索引"><a href="#index-索引" class="headerlink" title="index 索引"></a>index 索引</h2><p><img src="https://i.imgur.com/tnkJHtk.png" alt=""><br><code>index</code>在Elasticsearch中相當於一個資料庫，所以<code>index</code>底下會包含多個document</p>
+<h1 id="整理幾個重要的相關名詞"><a href="#整理幾個重要的相關名詞" class="headerlink" title="整理幾個重要的相關名詞"></a>整理幾個重要的相關名詞</h1><ul>
+<li><code>index</code>: 在Elasticsearch中<code>index</code>相當於一個資料庫。</li>
+<li><code>type</code>: 相當於資料庫中的一個表。 </li>
+<li><code>id</code>: 類似資料庫的<strong>主鍵(Primary Key)</strong>，作為唯一的值，<code>document</code>中的的ID可以由Elasticsearch自動分配，或手動添加到index時分配給它們。 </li>
+<li><code>node</code>: 節點是Elasticsearch實例(Instance)，可以看成叢集(Cluster)中的一個節點。<br>一台機器可以執行多個實例，但是同一台機器上的實例在配置上要確保http和tcp Port不同。 </li>
+<li><code>cluster</code>: 表一個叢集，叢集中有多個節點，其中有一個會被選爲主節點，這個主節點是可以通過選舉産生的，主從節點是對於集群內部來說的。 </li>
+<li><code>document</code>: 稱作<strong>文檔</strong>，是搜尋資料的最小單元，可能是 log 文件中的一筆紀錄 ，以<strong>JSON</strong>（由一堆 <code>Key:Value</code> 的資料組成）作為儲存的資料格式。在一個<code>Index</code>或者Type中，可以存儲很多個<code>document</code>。雖然<code>document</code>是儲存在<code>Index</code>中，但實際上，它必需被索引或分配到<code>Index</code>中的一個Type上。</li>
+</ul>
+<h1 id="參閱"><a href="#參閱" class="headerlink" title="參閱"></a>參閱</h1><ul>
+<li><a href="https://www.elastic.co/blog/what-is-an-elasticsearch-index" target="_blank" rel="noopener">What is an Elasticsearch Index?</a></li>
+<li><a href="https://codingexplained.com/coding/elasticsearch/introduction-elasticsearch-architecture" target="_blank" rel="noopener">Introduction to the Elasticsearch Architecture</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/05/16/DevOps/ELK/[ELK]%20Hello!%20ELK/" data-id="ckaz3aq08008rv6t1666j5pa9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Webhook VS. WebSocket
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[AWS] 我收到AWS寄來免費帳號的帳單</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

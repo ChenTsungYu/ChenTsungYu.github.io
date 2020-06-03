@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[JavaScript] Date&amp; Timer | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言定時器和倒數計時器所用到: Date()、 setTimeout()和setInterval()這幾個方法來完成，算是蠻常用到的。  Date()Date()是JavaScript 原生的時間方法，它以國際標準時間(UTC)1970年1月1日00:00:00作為時間起點，單位為毫秒。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[JavaScript] Date&amp; Timer">
+<meta property="og:url" content="http://yoursite.com/2019/07/13/Javascript/datatime/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言定時器和倒數計時器所用到: Date()、 setTimeout()和setInterval()這幾個方法來完成，算是蠻常用到的。  Date()Date()是JavaScript 原生的時間方法，它以國際標準時間(UTC)1970年1月1日00:00:00作為時間起點，單位為毫秒。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*D_Iq3Q1yIBbnMO3hxxtNSQ.jpeg">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*C7DYY7jUJJlwf_j5FVeJ1A.png">
+<meta property="article:published_time" content="2019-07-13T05:45:01.000Z">
+<meta property="article:modified_time" content="2020-05-26T04:35:03.708Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/2000/1*D_Iq3Q1yIBbnMO3hxxtNSQ.jpeg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Javascript/datatime" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/13/Javascript/datatime/" class="article-date">
+  <time datetime="2019-07-13T05:45:01.000Z" itemprop="datePublished">2019-07-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Frontend/">Frontend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [JavaScript] Date&amp; Timer
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>定時器和倒數計時器所用到: <code>Date()</code>、 <code>setTimeout()</code>和<code>setInterval()</code>這幾個方法來完成，算是蠻常用到的。</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*D_Iq3Q1yIBbnMO3hxxtNSQ.jpeg" alt=""></p>
+<h2 id="Date"><a href="#Date" class="headerlink" title="Date()"></a><code>Date()</code></h2><p><code>Date()</code>是JavaScript 原生的時間方法，它以國際標準時間(UTC)1970年1月1日00:00:00作為時間起點，<strong>單位為毫秒</strong>。</p>
+<a id="more"></a> 
+<h3 id="取得當前時間的方法"><a href="#取得當前時間的方法" class="headerlink" title="取得當前時間的方法:"></a>取得當前時間的方法:</h3><p>可以作為一般函數直接呼叫，回傳當前時間</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Date</span>()); <span class="comment">// Mon May 13 2019 09:32:21 GMT+0800 (台北標準時間)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>即使帶有參數，Date作為普通函數使用時，返回的還是當前時間</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Date</span>(<span class="number">2019</span>,<span class="number">5</span>,<span class="number">13</span>));  <span class="comment">// Mon May 13 2019 09:32:21 GMT+0800 (台北標準時間</span></span><br></pre></td></tr></table></figure>
+<h3 id="new-方法"><a href="#new-方法" class="headerlink" title="new 方法"></a>new 方法</h3><p>透過new 方法賦值給一變數，透過變數取得當前時間， <strong>返回的是字串</strong>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nowTime = <span class="keyword">new</span> <span class="built_in">Date</span>();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(nowTime); <span class="comment">// Mon May 13 2019 09:32:21 GMT+0800 (台北標準時間)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>Date()</code>方法可接受多種格式參數，回傳一個該參數對應的時間</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 参数為時間零點開始計算的毫秒数</span></span><br><span class="line"><span class="keyword">var</span> nowTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1378218728000</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(nowTime); <span class="comment">// Tue Sep 03 2013 22:32:08 GMT+0800 (CST)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数為日期字串</span></span><br><span class="line"><span class="keyword">var</span> nowTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'January 6, 2013'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(nowTime); <span class="comment">// Sun Jan 06 2013 00:00:00 GMT+0800 (台北標準時間)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数為多個整数值，</span></span><br><span class="line"><span class="comment">// 代表年、月、日、小時、分鐘、秒、毫秒</span></span><br><span class="line"><span class="keyword">var</span> nowTime = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(nowTime); <span class="comment">// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)</span></span><br></pre></td></tr></table></figure>
+<p>Date方法使用函數的參數，有幾點要注意:</p>
+<blockquote>
+<p>只要是能被Date.parse()解析的字串，都可以當作參數</p>
+</blockquote>
+<p>以下返回的都是同一個時間。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2019-5-13'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2019/5/13'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'05/13/2019'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'2019-May-13'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'May, 15, 2019'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'May 15, 2019'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'May, 15, 2019'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'May 15, 2019'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'15 May 2019'</span>)</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="string">'15, May, 2019'</span>)</span><br><span class="line"><span class="comment">// Mon May15 2019 09:32:21 GMT+0800</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>參數為年、月、日等多個整數時，年和月是不能省略的，其他參數都可以省略的。也就是說，至少需要兩個參數，因為如果只使用“年”這一個參數，Date會將誤為毫秒數。</p>
+</blockquote>
+<p>下面程式碼中，2013被解釋為毫秒數，而不是年份</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>)</span><br><span class="line"><span class="comment">// Thu Jan 01 1970 08:00:02 GMT+0800</span></span><br></pre></td></tr></table></figure>
+<p>下面範例返回的都是2013年1月1日零點</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line"><span class="comment">// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)</span></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// Tue Jan 01 2013 00:00:00 GMT+0800 (CST)</span></span><br></pre></td></tr></table></figure>
+<p>重要的參數取值範圍，需特別注意<strong>月份計算的起始點是0</strong></p>
+<blockquote>
+<p>年：使用四位數年份，比如2000。如果寫成兩位數或個位數，則加上1900，即10代表1910年。如果是負數，表示公元前。<br>月：0表示一月，依次類推，11表示12月。<br>日：1到31。<br>小時：0到23。<br>分鐘：0到59。<br>秒：0到59<br>毫秒：0到999</p>
+</blockquote>
+<h3 id="參數如果超出了正常範圍，會被自動換算"><a href="#參數如果超出了正常範圍，會被自動換算" class="headerlink" title="參數如果超出了正常範圍，會被自動換算"></a>參數如果超出了正常範圍，會被自動換算</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">15</span>)</span><br><span class="line"><span class="comment">// Tue Apr 01 2014 00:00:00 GMT+0800 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="comment">// Mon Dec 31 2012 00:00:00 GMT+0800</span></span><br><span class="line"><span class="comment">//   日期設為0，表上個月的最後一天</span></span><br><span class="line"></span><br><span class="line">參數還可以使用負數，表示扣去的時間</span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">-1</span>)</span><br><span class="line"><span class="comment">// Sat Dec 01 2012 00:00:00 GMT+0800 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">2013</span>, <span class="number">0</span>, <span class="number">-1</span>)</span><br><span class="line"><span class="comment">// Sun Dec 30 2012 00:00:00 GMT+0800</span></span><br></pre></td></tr></table></figure>
+<h2 id="get"><a href="#get" class="headerlink" title="get()"></a><code>get()</code></h2><p>除上述方法，還可以透過一系列get<em>方法，獲取特定時間， 且返回的都是*</em>整數**:</p>
+<blockquote>
+<p><code>getTime()</code>：返回當前時間距離1970年1月1日00:00:00的毫秒數<br><code>getDate()</code>：返回當前時間對應每個月的幾號（從1開始）。<br><code>getDay()</code>：返回星期幾，星期日為0，星期一為1，以此類推。<br><code>getFullYear()</code>：返回四位的年份。<br><code>getMonth()</code>：返回月份（0表示1月，11表示12月）。<br><code>getHours()</code>：返回小時（0-23）。<br><code>getMilliseconds()</code>：返回毫秒（0-999）。<br><code>getMinutes()</code>：返回分鐘（0-59）。<br><code>getSeconds()</code>：返回秒（0-59）。</p>
+</blockquote>
+<p>範例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;iframe src=<span class="string">"https://medium.com/media/b98d1fb2ab2415601ae8fd733e890dde"</span> frameborder=<span class="number">0</span>&gt;&lt;<span class="regexp">/iframe&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="時間設置的方法"><a href="#時間設置的方法" class="headerlink" title="時間設置的方法"></a>時間設置的方法</h2><h3 id="set"><a href="#set" class="headerlink" title="set()"></a><code>set()</code></h3><p>一系列set*方法，用來設置當前時間。</p>
+<blockquote>
+<p><code>setDate(date)</code>：設置當前時間對應的每個月的幾號（1-31），返回改變後時間(毫秒)。<br><code>setFullYear(year)</code>：設置四位年份。<br><code>setHours(hour)</code>：設置小時（0-23）。<br><code>setMilliseconds()</code>：設置毫秒（0-999）。<br><code>setMinutes(min)</code>：設置分鐘（0-59）。<br><code>setMonth(month)</code>：設置月份（0-11）。<br><code>setSeconds(sec)</code>：設置秒（0-59）。<br><code>setTime(milliseconds)</code>：設置毫秒時間。</p>
+</blockquote>
+<h1 id="Timer"><a href="#Timer" class="headerlink" title="Timer"></a>Timer</h1><p>JavaScript提供定時的方法，可以設置定時器。</p>
+<h2 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout()"></a><code>setTimeout()</code></h2><p><code>setTimeout()</code>用來指定某個函數或某段code在多少毫秒之後執行。<br><code>var timer = setTimeout(function|code, delay);</code></p>
+<blockquote>
+<p><code>setTimeout()</code>函數接受兩個參數，第一個參數function|code是將要延遲執行的函數名稱或一段code，第二個參數delay是延遲執行的毫秒數。 第二個參數如果省略，則默認為0。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setTimeout(test, <span class="number">3000</span>);   <span class="comment">// 3秒後執行，輸出2</span></span><br></pre></td></tr></table></figure>
+<h3 id="clearTimeout"><a href="#clearTimeout" class="headerlink" title="clearTimeout()"></a><code>clearTimeout()</code></h3><p>取消<code>setTimeout()</code>設的定時器。</p>
+<h3 id="setInterval"><a href="#setInterval" class="headerlink" title="setInterval()"></a><code>setInterval()</code></h3><p><code>setInterval()</code>函數的用法與setTimeout()完全一致，差別在於<code>setInterval()</code>可以無限次的設置定時器執行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> timer = setInterval(<span class="function"><span class="keyword">function</span>|<span class="title">code</span>, <span class="title">delay</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="clearInterval"><a href="#clearInterval" class="headerlink" title="clearInterval()"></a><code>clearInterval()</code></h3><p>取消<code>setInterval()</code>設的定時器。</p>
+<blockquote>
+<p><code>setInterval()</code>可以無限次的設置定時器，所以<code>setInterval()</code>有重複設置的問題。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://medium.com/media/d515060fcf7a2e27e7d7b4c74e49227c"</span> <span class="attr">frameborder</span>=<span class="string">0</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>上述的code會遇到點擊兩次<code>start</code>鈕時，<code>index+1</code>的時間會加快，點stop鈕無法停止的狀況。</p>
+<p>解決辦法是設置if條件判斷:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://medium.com/media/b04f24f869d003a1dd15a0dcc7acfa1d"</span> <span class="attr">frameborder</span>=<span class="string">0</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>將停止時鐘的函數在後面添加<code>timer=null</code>，表時鐘狀態為關閉，並且在點擊事件函數內的時鐘設置，多添加<code>if</code>條件判斷，確定時鐘狀態為<code>null</code>才能開啟時鐘，解決重複設置的問題。</p>
+<h2 id="實作一個倒數計時器"><a href="#實作一個倒數計時器" class="headerlink" title="實作一個倒數計時器"></a>實作一個倒數計時器</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">src</span>=<span class="string">"https://medium.com/media/c8c8068fc7c9b32c16d657964c6133a8"</span> <span class="attr">frameborder</span>=<span class="string">0</span>&gt;</span><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>透過取得當前時間，以及設置結束時間兩者之間的差距，配合<code>setInterval()</code>來完成。<br><img src="https://cdn-images-1.medium.com/max/2000/1*C7DYY7jUJJlwf_j5FVeJ1A.png" alt=""><br><a href="https://wangdoc.com/javascript/async/timer.html#%E5%AE%9E%E4%BE%8B%EF%BC%9Adebounce-%E5%87%BD%E6%95%B0" target="_blank" rel="noopener">參考來源</a>1</p>
+<p><a href="https://wangdoc.com/javascript/stdlib/date.html" target="_blank" rel="noopener">參考來源</a>2</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/13/Javascript/datatime/" data-id="ckaz3apxt000wv6t1hn3o1p44" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/14/Internet/Proxy/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Proxy
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/01/%E8%A8%88%E6%A6%82/%5B%E8%A8%88%E6%A6%82%5D%20%E7%B7%A8%E8%AD%AF%E5%99%A8(Compiler)%E8%88%87%E7%9B%B4%E8%AD%AF%E5%99%A8(Interpreter)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[計概] 編譯器(Compiler)與直譯器(Interpreter)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

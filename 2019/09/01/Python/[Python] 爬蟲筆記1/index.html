@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Python] 爬蟲筆記1-基本概念 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言這學期因為專題需要用到網路爬蟲進行實作，所以將學習到的知識做一篇紀錄，之後忘記可以回來複習一下。 什麼是爬蟲?根據維基百科定義:  也叫網路蜘蛛（spider），是一種用來自動瀏覽全球資訊網的網路機器人。其目的一般為編纂網路索引。網路搜尋引擎等站點通過爬蟲軟體更新自身的網站內容或其對其他網站的索引。網路爬蟲可以將自己所存取的頁面儲存下來，以便搜尋引擎事後生成索引供用戶搜尋。  簡單來說就是對">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Python] 爬蟲筆記1-基本概念">
+<meta property="og:url" content="http://yoursite.com/2019/09/01/Python/[Python]%20%E7%88%AC%E8%9F%B2%E7%AD%86%E8%A8%981/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言這學期因為專題需要用到網路爬蟲進行實作，所以將學習到的知識做一篇紀錄，之後忘記可以回來複習一下。 什麼是爬蟲?根據維基百科定義:  也叫網路蜘蛛（spider），是一種用來自動瀏覽全球資訊網的網路機器人。其目的一般為編纂網路索引。網路搜尋引擎等站點通過爬蟲軟體更新自身的網站內容或其對其他網站的索引。網路爬蟲可以將自己所存取的頁面儲存下來，以便搜尋引擎事後生成索引供用戶搜尋。  簡單來說就是對">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/RIpO5ZW.png">
+<meta property="og:image" content="https://i.imgur.com/9CcWhYN.png">
+<meta property="og:image" content="https://i.imgur.com/srrecXg.png">
+<meta property="og:image" content="https://i.imgur.com/AxqnNbd.png">
+<meta property="article:published_time" content="2019-09-01T12:23:10.000Z">
+<meta property="article:modified_time" content="2020-05-26T04:35:03.711Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="WebScraping">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/RIpO5ZW.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python/[Python] 爬蟲筆記1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/01/Python/%5BPython%5D%20%E7%88%AC%E8%9F%B2%E7%AD%86%E8%A8%981/" class="article-date">
+  <time datetime="2019-09-01T12:23:10.000Z" itemprop="datePublished">2019-09-01</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Backend/">Backend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Python] 爬蟲筆記1-基本概念
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>這學期因為專題需要用到網路爬蟲進行實作，所以將學習到的知識做一篇紀錄，之後忘記可以回來複習一下。</p>
+<h2 id="什麼是爬蟲"><a href="#什麼是爬蟲" class="headerlink" title="什麼是爬蟲?"></a>什麼是爬蟲?</h2><p>根據維基百科定義:</p>
+<blockquote>
+<p>也叫網路蜘蛛（spider），是一種用來自動瀏覽全球資訊網的網路機器人。其目的一般為編纂網路索引。<br>網路搜尋引擎等站點通過爬蟲軟體更新自身的網站內容或其對其他網站的索引。網路爬蟲可以將自己所存取的頁面儲存下來，以便搜尋引擎事後生成索引供用戶搜尋。</p>
+</blockquote>
+<p>簡單來說就是對網站進行資料擷取，可以透過它自動蒐集我們所想要的資料，將資料進行分析或是再利用，這樣的技術在資料科學領域算是幾乎需具備的技能。</p>
+<a id="more"></a> 
+<h2 id="為何選擇Python"><a href="#為何選擇Python" class="headerlink" title="為何選擇Python?"></a>為何選擇Python?</h2><ul>
+<li>工具多元</li>
+<li>容易上手</li>
+<li>學習資源多</li>
+</ul>
+<h2 id="有哪些可用的工具"><a href="#有哪些可用的工具" class="headerlink" title="有哪些可用的工具?"></a>有哪些可用的工具?</h2><p>Python工具非常多，內建的函式庫包含<code>urllib</code>或是第三方套件如:<code>requests</code>、<code>seleium</code>等強大易上手工具。<br>本篇會先紀錄<code>urllib</code>、<code>requests</code>這兩個常用在爬取靜態網站的工具。</p>
+<h2 id="urllib"><a href="#urllib" class="headerlink" title="urllib"></a><code>urllib</code></h2><p>是Python內建的函式庫，只要安裝python就可以直接使用了，不需額外安裝。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"></span><br><span class="line">url = urllib.request.urlopen(<span class="string">'https://www.google.com'</span>)</span><br><span class="line">print(url.read())</span><br></pre></td></tr></table></figure>
+<p>上面那段程式碼會進行網頁解析，但若是遇到網站有反爬蟲機制就會回報錯誤，例如下段程式碼:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url = urllib.request.urlopen(<span class="string">'https://group.i-fit.com.tw/?route=buy&amp;id=1&amp;in='</span>)</span><br><span class="line">print(url.read())</span><br></pre></td></tr></table></figure>
+<p>結果:<br><img src="https://i.imgur.com/RIpO5ZW.png" alt=""><br>有些網站為防止這種非正常的訪問，會設反爬蟲機制，驗證請求中的<strong>UserAgent</strong>。這時就必須設置一個header，加入UserAgent即可。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> Request, urlopen</span><br><span class="line"></span><br><span class="line">url = Request(<span class="string">'https://group.i-fit.com.tw/?route=buy&amp;id=1&amp;in='</span>, headers=&#123;<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0'</span>&#125;)</span><br><span class="line">webpage = urlopen(url).read()</span><br><span class="line">print(webpage)</span><br></pre></td></tr></table></figure>
+
+<p>這時候就可以正常進行訪問，後續進行網頁解析時我們可以透過<code>bs4</code>這個套件協助我們<code>parse</code>網頁結構。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">from</span> urllib.request <span class="keyword">import</span> Request, urlopen</span><br><span class="line"></span><br><span class="line">url = Request(<span class="string">'https://group.i-fit.com.tw/?route=buy&amp;id=1&amp;in='</span>, headers=&#123;<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0'</span>&#125;)</span><br><span class="line">webpage = urlopen(url).read()</span><br><span class="line">sp = BeautifulSoup(webpage, <span class="string">"html.parser"</span>)</span><br><span class="line">print(sp)</span><br></pre></td></tr></table></figure>
+
+<h2 id="繞過反爬蟲的方法"><a href="#繞過反爬蟲的方法" class="headerlink" title="繞過反爬蟲的方法"></a>繞過反爬蟲的方法</h2><p>有些網站不喜歡讓外部使用者擷取網站資料，會採用一些反爬蟲機制，要繞過這些機制可以採用幾個手段:</p>
+<ul>
+<li><p>UserAgent</p>
+<blockquote>
+<p>因為爬蟲是機器人，為了要偽裝成如真人一般造訪網站，透過設置<strong>UserAgent</strong>來達成真人訪問網站的效果。</p>
+</blockquote>
+</li>
+<li><p>限制訪問頻率</p>
+<blockquote>
+<p>有些網站無法進行短時間內頻繁的請求，在一定時間內對網站發出超過特定次數的請求會封鎖IP，可以設定訪問時間的間隔為一個隨機值，例如間隔0~5秒隨機發出請求。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="requests"><a href="#requests" class="headerlink" title="requests"></a><code>requests</code></h2><p>是第三方套件，非python中內建，在使用它的時候就需要先安裝，執行<code>pip install requests</code>；<code>requests</code>功能非常強大，它比<code>urllib</code>更加方便快速。<br>範例，使用<code>get</code>方法進行網站請求:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">header=&#123;<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0'</span>&#125;</span><br><span class="line">page = requests.get(<span class="string">"https://group.i-fit.com.tw/?route=buy&amp;id=1&amp;in="</span>, headers= header)</span><br><span class="line"></span><br><span class="line">print(page) <span class="comment"># &lt;Response [200]&gt;</span></span><br><span class="line"></span><br><span class="line">print(page.text) <span class="comment"># 解析網頁 -&gt; 以Unicode進行編碼</span></span><br></pre></td></tr></table></figure>
+<p>上面的範例程式碼裡面<code>print(page)</code>會回傳一個<code>&lt;Response [200]&gt;</code>的response物件，<code>page.text</code>會以<strong>Unicode</strong>的形式進行編碼。</p>
+<h2 id="幾個爬蟲要點"><a href="#幾個爬蟲要點" class="headerlink" title="幾個爬蟲要點"></a>幾個爬蟲要點</h2><ul>
+<li>選定目標網址</li>
+<li>分析目標網站的HTML網頁結構</li>
+<li>Devtools觀察request訊息</li>
+<li>擷取目標資料</li>
+</ul>
+<h3 id="選定目標網址"><a href="#選定目標網址" class="headerlink" title="選定目標網址"></a>選定目標網址</h3><p>選定目標網站。<br><img src="https://i.imgur.com/9CcWhYN.png" alt=""></p>
+<h2 id="分析目標網站的HTML網頁結構"><a href="#分析目標網站的HTML網頁結構" class="headerlink" title="分析目標網站的HTML網頁結構"></a>分析目標網站的HTML網頁結構</h2><p>向目標網址發送HTTP請求封包，伺服器會回應HTML網頁原始碼，我們要定位網頁資料。<br><img src="https://i.imgur.com/srrecXg.png" alt=""></p>
+<h3 id="Devtools觀察request訊息"><a href="#Devtools觀察request訊息" class="headerlink" title="Devtools觀察request訊息"></a>Devtools觀察request訊息</h3><p>打開Devtools的Network，觀察<strong>request header</strong>，裡面有許多重要的訊息，幫助我們在爬蟲時能夠快速了解網站訊息，決定採用何種擷取資料的方法。<br><img src="https://i.imgur.com/AxqnNbd.png" alt=""></p>
+<h3 id="擷取目標資料"><a href="#擷取目標資料" class="headerlink" title="擷取目標資料"></a>擷取目標資料</h3><p>將擷取下來的資料儲存成特定格式，常見如:</p>
+<ul>
+<li>JSON</li>
+<li>CSV</li>
+<li>XLSX</li>
+<li>SQL</li>
+</ul>
+<blockquote>
+<p>這篇主要紀錄爬蟲的目的、注意要點，下篇會紀錄我目前常用的方法。</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/01/Python/[Python]%20%E7%88%AC%E8%9F%B2%E7%AD%86%E8%A8%981/" data-id="ckaz3apya002fv6t146vt3rd8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/03/Python/%5BPython%5D%20%E7%88%AC%E8%9F%B2%E7%AD%86%E8%A8%983-%20Selenium/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Python] 爬蟲筆記3- Selenium
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/08/12/Python/%5BPython%5D%20%E6%8E%A2%E8%A8%8E%E4%BE%8B%E5%A4%96%E9%8C%AF%E8%AA%A4%E7%9A%84%E8%99%95%E7%90%86%E6%A9%9F%E5%88%B6/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Python] 探討例外錯誤的處理機制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

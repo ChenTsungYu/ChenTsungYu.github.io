@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Python] 物件導向入門 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="什麼是物件導向？將現實生活中的人、事、時、地、物進行資料抽象化。類別，是具有相同屬性(Attribute)和功能(Method)的物件抽象集合，類別中包含資料的屬性、方法(也可以稱作行為)，將這些類別對應到真實生活中的人、事、時、地、物時稱作”實例化”，可以說這些對應的實際實體為實際案例(簡稱”實例”)，也作”物件”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Python] 物件導向入門">
+<meta property="og:url" content="http://yoursite.com/2020/01/03/Python/[Python]%20%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E5%85%A5%E9%96%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什麼是物件導向？將現實生活中的人、事、時、地、物進行資料抽象化。類別，是具有相同屬性(Attribute)和功能(Method)的物件抽象集合，類別中包含資料的屬性、方法(也可以稱作行為)，將這些類別對應到真實生活中的人、事、時、地、物時稱作”實例化”，可以說這些對應的實際實體為實際案例(簡稱”實例”)，也作”物件”。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-01-03T12:23:10.000Z">
+<meta property="article:modified_time" content="2020-06-03T04:57:11.997Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="OOP">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python/[Python] 物件導向入門" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/03/Python/%5BPython%5D%20%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E5%85%A5%E9%96%80/" class="article-date">
+  <time datetime="2020-01-03T12:23:10.000Z" itemprop="datePublished">2020-01-03</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Backend/">Backend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Python] 物件導向入門
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="什麼是物件導向？"><a href="#什麼是物件導向？" class="headerlink" title="什麼是物件導向？"></a>什麼是物件導向？</h1><p>將現實生活中的人、事、時、地、物進行資料抽象化。<br>類別，是具有相同屬性(Attribute)和功能(Method)的物件抽象集合，類別中包含資料的屬性、方法(也可以稱作行為)，將這些類別對應到真實生活中的人、事、時、地、物時稱作”實例化”，可以說這些對應的實際實體為實際案例(簡稱”實例”)，也作”物件”。</p>
+<a id="more"></a> 
+<p>白話一點就是: “類別” 只是將真實世界的人、事、時、地、物做分類的”概念”，需對應真實世界中的實例才具意義或是資料處理的價值，類別底下會有多個物件(多個實例)。</p>
+<p>不同物件會有不同屬性值，如: 以學生為類別(Class)名，學生A這個物件有兩個屬性，屬性名為姓名、學號，而屬性值為A、01;另一個學生B的物件則屬性值分別為B、02。由於雖然源自同一類別(學生)，但物件各自獨立，屬性值也跟著獨立，彼此互不影響。</p>
+<h1 id="好處是什麼"><a href="#好處是什麼" class="headerlink" title="好處是什麼?"></a>好處是什麼?</h1><ul>
+<li>容易擴展:<br>如上面的例子，建立一個名為學生的類別，底下可以一直增加不同的學生，他們都有自己的屬性參數。</li>
+<li>可重複使用:<br>同一個物件、類別可以重複進行呼叫，減少撰寫重複的程式碼</li>
+<li>模組化<br>可將系統細分然後分配給不同團隊來進行工作</li>
+</ul>
+<h2 id="強調重點"><a href="#強調重點" class="headerlink" title="強調重點"></a>強調重點</h2><blockquote>
+<p>一個物件（Object）可以包含屬性（Attribute）與方法（Method），而class的概念是屬性集合，並非所有物。</p>
+</blockquote>
+<h2 id="物件導向具有三大特性"><a href="#物件導向具有三大特性" class="headerlink" title="物件導向具有三大特性:"></a>物件導向具有三大特性:</h2><ul>
+<li><p>多型:</p>
+<p>  表示不同物件可以執行相同動作，但要透過它們自己的實作來執行。　如果子類別要完全實作父類別的成員，父類別則將該成員宣告為虛擬(virtual)。子類別可以使用override的方式，將自己的實作取代掉父類別的實作。</p>
+</li>
+<li><p>封裝:</p>
+<p>  每個物件都包含本身操作所需要的資訊，這個特性稱之為封裝，因此物件不需依賴其他物件來完成自己的操作。　那封裝的好處有哪些？</p>
+<ol>
+<li>良好的封裝能減少模組間的耦合。</li>
+<li>類別內部的實作可以自由修改。</li>
+<li>類別有明確的對外接口，讓外部進行呼叫。</li>
+</ol>
+</li>
+<li><p>繼承(像是親屬的垂直關係):</p>
+<p>  賦予物件重複使用和擴充的能力，父類別的資源可以透過子類別做擴充和重複使用。</p>
+<p>  繼承能定義出父類別與子類別，其中子類別繼承父類別所有的特性，且子類別還能定義新的特性。繼承有幾個重點：</p>
+<ol>
+<li>子類別可拓展父類別沒有的屬性和方法</li>
+<li>子類別能重寫父類別的方法</li>
+</ol>
+</li>
+</ul>
+<p>概略了解物件導向後就可進行實作。</p>
+<h1 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h1><ul>
+<li>宣告類別: Python使用<code>class</code>語法來定義類別，通常會用首字大寫（Capitalized）的單字為類別命名</li>
+<li><code>def __init__(self):</code> 代表宣告時會自動執行的函式，常用來定義該類別的物件屬性，<code>self</code>為必要之參數。</li>
+<li>類別中定義方法採用<code>def</code>進行<strong>方法宣告</strong></li>
+<li>訪問類別內的物件屬性使用<code>類別名.屬性名</code>的方式</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>:</span> <span class="comment"># 定義類別屬性名，進行類別宣告</span></span><br><span class="line">    major = <span class="string">"CSE"</span> <span class="comment"># 定義 static variabl</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, rollNumber, name)</span>:</span></span><br><span class="line">        self.rolNo = rollNumber</span><br><span class="line">        self.name = name</span><br><span class="line"></span><br><span class="line">student1 = Student(<span class="number">1</span>, <span class="string">"Tom"</span>)</span><br><span class="line">student2 = Student(<span class="number">2</span>, <span class="string">"Ken"</span>)</span><br><span class="line"><span class="comment"># 取得屬性名對應的屬性值 </span></span><br><span class="line">print(student1.name, student2.name) <span class="comment">#  Tom Ken</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 訪問Class內的static variabl</span></span><br><span class="line">print(Student.major, student1.major, student2.major) <span class="comment"># CSE CSE CSE</span></span><br></pre></td></tr></table></figure>
+<p>上述範例宣告一個名為Student的類別(class)，並建立其屬性，先傳入不同的參數，在賦值給student1、student2，最後再透過<code>.</code>訪問屬性值。</p>
+<h2 id="我們還可以在Class-內定義另一個Class"><a href="#我們還可以在Class-內定義另一個Class" class="headerlink" title="我們還可以在Class 內定義另一個Class"></a>我們還可以在Class 內定義另一個Class</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Car</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, make, year)</span>:</span></span><br><span class="line">        self.make = make</span><br><span class="line">        self.year = year</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Egine</span>:</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, number)</span>:</span></span><br><span class="line">            self.number = number</span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">            <span class="keyword">return</span> <span class="string">"Egine Start!"</span></span><br><span class="line"></span><br><span class="line">car1 = Car(<span class="string">"BMW"</span>, <span class="number">2017</span>)</span><br><span class="line">egine = car1.Egine(<span class="string">"MHP-9778"</span>)</span><br><span class="line">print(egine.start(), egine.number, car1.make, car1.year)</span><br><span class="line"><span class="comment"># Egine Start! MHP-9778 BMW 2017</span></span><br></pre></td></tr></table></figure>
+<p>上面範例建立一個Car類別，底下除了定義物件屬性外，另建立一個新類別Egine，並在Egine下定義其屬性名及方法。<br><code>car1 = Car(&quot;BMW&quot;, 2017)</code>建立BMW物件，在BMW下<code>car1.Egine(&quot;MHP-9778&quot;)</code>建立編號為MHP-9778的Egine物件，<code>egine.start()</code>用來呼叫Egine定義好的方法。</p>
+<h2 id="我們也可以更改物件屬性"><a href="#我們也可以更改物件屬性" class="headerlink" title="我們也可以更改物件屬性"></a>我們也可以更改物件屬性</h2><p>例子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewStudent</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, sid = <span class="number">123</span>, name=<span class="string">"Tom"</span>)</span>:</span></span><br><span class="line">        self.id = sid</span><br><span class="line">        self.name = name</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.id, self.name</span><br><span class="line"></span><br><span class="line">news1 = NewStudent()</span><br><span class="line">print(news1.id, news1.name) <span class="comment"># 123 Tom</span></span><br><span class="line">news1.id = <span class="number">345</span></span><br><span class="line">print(news1.id, news1.name) <span class="comment"># 345 Tom</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="資訊隱藏-information-hiding"><a href="#資訊隱藏-information-hiding" class="headerlink" title="資訊隱藏(information hiding)"></a>資訊隱藏(information hiding)</h2><p>物件屬性有時如果變數不希望或不該隨意給外部程式更改，只需在屬性前加上連續兩個底線。</p>
+<h3 id="資訊隱藏後-在屬性名前面加上"><a href="#資訊隱藏後-在屬性名前面加上" class="headerlink" title="資訊隱藏後: 在屬性名前面加上 __"></a>資訊隱藏後: 在屬性名前面加上 __</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NewStudent</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, sid = <span class="number">123</span>, name=<span class="string">"Tom"</span>)</span>:</span></span><br><span class="line">        self.__id = sid</span><br><span class="line">        self.__name = name</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">display</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.__id, self.__name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 無法直接訪問屬性值</span></span><br><span class="line">print(news1.id, news1.name)</span><br><span class="line"><span class="comment"># 'NewStudent' object has no attribute 'id'</span></span><br><span class="line">print(news1.__id, news1.__name) </span><br><span class="line"><span class="comment"># AttributeError: 'NewStudent' object has no attribute '__id'</span></span><br></pre></td></tr></table></figure>
+<p>但也並非完全無法更改，只是需要其他方式，例如method方法訪問屬性值，或是透過 “_” 的方式進行直接訪問</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># method 訪問屬性值</span></span><br><span class="line">print(news1.display()) <span class="comment"># (123, 'Tom') </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 透過 "_" 的方式進行直接訪問</span></span><br><span class="line">print(news1._NewStudent__id, news1._NewStudent__name)  <span class="comment"># 123 Tom</span></span><br></pre></td></tr></table></figure>
+<h2 id="回顧重點"><a href="#回顧重點" class="headerlink" title="回顧重點:"></a>回顧重點:</h2><ul>
+<li>Python使用<code>class</code>語法來定義類別，通常會用首字大寫（Capitalized）的單字為類別命名</li>
+<li><code>def __init__(self):</code> 代表宣告時會自動執行的函式，常用來定義該類別的物件屬性，<code>self</code>為必要之參數。</li>
+<li>類別中定義方法採用<code>def</code>進行方法宣告</li>
+<li>訪問類別內的物件屬性使用<code>類別名.屬性名</code>的方式</li>
+<li>物件屬性有時如果變數不希望或不該隨意給外部程式更改，只需在屬性前加上連續兩個底線<code>__</code>。</li>
+</ul>
+<h2 id="參考文章"><a href="#參考文章" class="headerlink" title="參考文章"></a>參考文章</h2><ul>
+<li><a href="http://kaiching.org/pydoing/py-guide/unit-10-object-oriented-programming-and-encapsulation.html" target="_blank" rel="noopener">物件導向與封裝</a></li>
+<li><a href="https://aji.tw/python%E4%BD%A0%E5%88%B0%E5%BA%95%E6%98%AF%E5%9C%A8__%E5%BA%95%E7%B7%9A__%E4%BB%80%E9%BA%BC%E5%95%A6/" target="_blank" rel="noopener">Name mangling</a></li>
+<li><a href="https://docs.python.org/3/tutorial/classes.html#private-variables" target="_blank" rel="noopener">Class 官方文件說明</a></li>
+<li><a href="http://blog.castman.net/%E6%95%99%E5%AD%B8/2018/05/08/python-special-names-1.html" target="_blank" rel="noopener">淺談 Python 的特殊方法 (Special Method Names) (1)</a></li>
+<li><a href="http://glj8989332.blogspot.com/2017/11/design-pattern-oop.html" target="_blank" rel="noopener">物件導向程式設計 (OOP) 基礎觀念</a></li>
+<li><a href="https://medium.com/@weilihmen/%E9%97%9C%E6%96%BCpython%E7%9A%84%E9%A1%9E%E5%88%A5-class-%E5%9F%BA%E6%9C%AC%E7%AF%87-5468812c58f2" target="_blank" rel="noopener">Python的類別(Class)…基本篇</a></li>
+<li><a href="https://openhome.cc/Gossip/Python/Inheritance.html" target="_blank" rel="noopener">繼承</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/03/Python/[Python]%20%E7%89%A9%E4%BB%B6%E5%B0%8E%E5%90%91%E5%85%A5%E9%96%80/" data-id="ckaz3apyb002jv6t19nj8dzwd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/01/05/Python/%5BPython%5D%20Lambda%E5%87%BD%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Python] Lambda函式
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/01/Python/%5BPython%5D%20%E8%AE%93Python%E7%A8%8B%E5%BC%8F%E7%A2%BC%E6%9B%B4pythonic/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Python] 讓Python程式碼更Pythonic</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

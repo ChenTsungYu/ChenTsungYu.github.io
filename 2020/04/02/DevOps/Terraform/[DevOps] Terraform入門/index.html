@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Terraform] Terraform入門(1) | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="鼠年全馬鐵人挑戰 - WEEK 08    前言因目前實習公司代理許多雲服務，有使用Terraform撰寫腳本來管理雲平台，藉此機會筆記一下學習Terraform這項工具。本篇會紀錄如何實際撰寫Terraform腳本來操作AWS S3、IAM這兩項服務。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Terraform] Terraform入門(1)">
+<meta property="og:url" content="http://yoursite.com/2020/04/02/DevOps/Terraform/[DevOps]%20Terraform%E5%85%A5%E9%96%80/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="鼠年全馬鐵人挑戰 - WEEK 08    前言因目前實習公司代理許多雲服務，有使用Terraform撰寫腳本來管理雲平台，藉此機會筆記一下學習Terraform這項工具。本篇會紀錄如何實際撰寫Terraform腳本來操作AWS S3、IAM這兩項服務。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/YvU9Gc6.png">
+<meta property="og:image" content="https://i.imgur.com/GjwMRMh.png">
+<meta property="og:image" content="https://i.imgur.com/foPxFOr.png">
+<meta property="og:image" content="https://i.imgur.com/2TawSA9.png">
+<meta property="og:image" content="https://i.imgur.com/VMlNyM0.png">
+<meta property="og:image" content="https://i.imgur.com/ulyBx4V.png">
+<meta property="og:image" content="https://i.imgur.com/G9lZodz.png">
+<meta property="og:image" content="https://i.imgur.com/hGalTTq.png">
+<meta property="og:image" content="https://i.imgur.com/IfUQbgf.png">
+<meta property="og:image" content="https://i.imgur.com/LsqXfbB.png">
+<meta property="og:image" content="https://i.imgur.com/g2SyYqH.png">
+<meta property="og:image" content="https://i.imgur.com/F8bv84x.png">
+<meta property="og:image" content="https://i.imgur.com/LdredzD.png">
+<meta property="og:image" content="https://i.imgur.com/mWQurQU.png">
+<meta property="og:image" content="https://i.imgur.com/upE1g3l.png">
+<meta property="og:image" content="https://i.imgur.com/RD3DQDZ.png">
+<meta property="og:image" content="https://i.imgur.com/oaUuKMP.png">
+<meta property="og:image" content="https://i.imgur.com/69YRDlT.png">
+<meta property="og:image" content="https://i.imgur.com/s22KCDD.png">
+<meta property="og:image" content="https://i.imgur.com/reELhuw.png">
+<meta property="og:image" content="https://i.imgur.com/SkqPeBp.png">
+<meta property="og:image" content="https://i.imgur.com/akev1CY.png">
+<meta property="og:image" content="https://i.imgur.com/pYtq42f.png">
+<meta property="article:published_time" content="2020-04-02T00:00:10.000Z">
+<meta property="article:modified_time" content="2020-06-03T07:26:07.410Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="AWS">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="Terraform">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/YvU9Gc6.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DevOps/Terraform/[DevOps] Terraform入門" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/02/DevOps/Terraform/%5BDevOps%5D%20Terraform%E5%85%A5%E9%96%80/" class="article-date">
+  <time datetime="2020-04-02T00:00:10.000Z" itemprop="datePublished">2020-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Terraform] Terraform入門(1)
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>鼠年全馬鐵人挑戰 - WEEK 08</p>
+</blockquote>
+<p><img src="https://i.imgur.com/YvU9Gc6.png" alt=""></p>
+<!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因目前實習公司代理許多雲服務，有使用Terraform撰寫腳本來管理雲平台，藉此機會筆記一下學習Terraform這項工具。本篇會紀錄如何實際撰寫Terraform腳本來操作AWS S3、IAM這兩項服務。</p>
+<a id="more"></a>
+<h1 id="什麼是Terraform？"><a href="#什麼是Terraform？" class="headerlink" title="什麼是Terraform？"></a>什麼是Terraform？</h1><p>Terraform是由HashiCorp這家公司所開發，是一個基礎架構即程式碼(Infrastructure as Code;簡稱IaC)的開源工具，關於IaC架構的細節可參考<a href="https://www.ithome.com.tw/tech/106167" target="_blank" rel="noopener">這篇</a>，而且它支持多種雲環境，還可以進行版本控制。<br>可以想像一種情況，如果今天有多個雲要進行管理，可能架構會隨時需要調整，或是要配置資料庫、網路安全等設定時Terraform變成是很好的工具去管理這些雲端的基礎架構。以AWS為例，有了Terraform後，我們便不再需要透過手動操作滑鼠點擊console介面，只要撰寫好 Terraform 腳本，一鍵就能完成想要做的事情，透過程式碼去管理擁有的雲端資源。<br>簡單歸納一下Terraform的優點及特色</p>
+<ul>
+<li>針對擁有的雲端服務做版本控管</li>
+<li>自動化測試雲端架構</li>
+<li>容易閱讀，一起開發的人可閱讀腳本理解目前使用的雲服務相關設定</li>
+<li>在不同的環境下(如: 開發、測試、實際上線)，雲服務的配置都會相同</li>
+<li>Terraform的檔案副檔名是<code>*.tf</code></li>
+<li>用<a href="http://lifuzu.com/blog/2019/02/10/using-terraform-external-data-source/" target="_blank" rel="noopener">HCL</a>語言撰寫</li>
+<li>跨平台(支援哪些平台可看<a href="https://www.terraform.io/docs/providers/" target="_blank" rel="noopener">官方文件</a>)</li>
+</ul>
+<h1 id="Hands-On-Lab"><a href="#Hands-On-Lab" class="headerlink" title="Hands On Lab"></a>Hands On Lab</h1><h2 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h2><p><a href="https://learn.hashicorp.com/terraform/getting-started/install.html" target="_blank" rel="noopener">官方載點</a><br>如果是Mac的話可以使用Homebrew</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install terraform</span><br></pre></td></tr></table></figure>
+<p>當然也可以手動下載壓縮檔，解壓縮到<code>/usr/bin</code>、<code>/usr/local/bin</code> 目錄，解壓縮得到編譯好的執行檔。</p>
+<h2 id="查看版本"><a href="#查看版本" class="headerlink" title="查看版本"></a>查看版本</h2><p>檢查是否可執行terraform，開啟終端機，輸入<code>terraform -version</code>，會顯示當前terraform版本訊息<br><img src="https://i.imgur.com/GjwMRMh.png" alt=""></p>
+<h2 id="初始化Provider"><a href="#初始化Provider" class="headerlink" title="初始化Provider"></a>初始化Provider</h2><p>先來個範例吧！<br>在專案資料夾建立一個名為<code>main.tf</code>的檔案</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure the AWS Provider</span></span><br><span class="line">provider <span class="string">"aws"</span> &#123;</span><br><span class="line">  region = <span class="string">"us-east-2"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下指令進行初始化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform init</span><br></pre></td></tr></table></figure>
+<p>terraform 會根據在當前的目錄下產生一些本地端設定，並根據上面的設定下載相對應的二進位檔，放到<code>.terraform</code>目錄中。<br>上述的程式碼中，<code>provider</code>用於決定對哪一個平台操作 <code>region</code>是AWS需要的屬性，表示地區。<br><img src="https://i.imgur.com/foPxFOr.png" alt=""></p>
+<h2 id="配置Provider"><a href="#配置Provider" class="headerlink" title="配置Provider"></a>配置Provider</h2><p>將終端機出現的<code>version = &quot;~&gt; 2.55&quot;</code> 這段資訊加入<code>main.tf</code>內。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Configure the AWS Provider</span></span><br><span class="line">provider <span class="string">"aws"</span> &#123;</span><br><span class="line">  region = <span class="string">"us-east-2"</span></span><br><span class="line">  version = <span class="string">"~&gt; 2.55"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="查看當前目錄結構"><a href="#查看當前目錄結構" class="headerlink" title="查看當前目錄結構"></a>查看當前目錄結構</h2><p><img src="https://i.imgur.com/2TawSA9.png" alt=""></p>
+<h2 id="下載並匯出-Access-Key"><a href="#下載並匯出-Access-Key" class="headerlink" title="下載並匯出 Access Key"></a>下載並匯出 Access Key</h2><p>開啟終端機，輸入下方指令，並替換成自從AWS download下來的Access Key</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> AWS_ACCESS_KEY_ID=Your Access Key</span><br><span class="line"><span class="built_in">export</span> AWS_SECRET_ACCESS_KEY=Your SECRET ACCESS Key</span><br></pre></td></tr></table></figure>
+<h2 id="建立S3"><a href="#建立S3" class="headerlink" title="建立S3"></a>建立S3</h2><h3 id="配置resource"><a href="#配置resource" class="headerlink" title="配置resource"></a>配置resource</h3><p><code>resource</code>是表示決定用指定雲平台中的哪個服務(資源)，採類似JSON的結構，結構大概會是</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">resource 雲端服務(服務)名稱 自定資源名稱 &#123;</span><br><span class="line">  屬性 = 值</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以AWS S3作為範例:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># plan - excute</span></span><br><span class="line">resource <span class="string">"aws_s3_bucket"</span> <span class="string">"my_s3_bucket"</span> &#123;</span><br><span class="line">    bucket = <span class="string">"my-s3-bucket-terraform-01"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述程式碼表示以aws_s3_bucket為雲端資源(AWS有S3這項儲存靜態資源的服務)，並自定義一個<code>my_s3_bucket</code>名稱</p>
+<h3 id="查看Terraform異動"><a href="#查看Terraform異動" class="headerlink" title="查看Terraform異動"></a>查看Terraform異動</h3><p>在實際執行之前觀察 Terraform 將做哪些哪些改變，這是為了防止我們修改到我們不應該修改的東西，或是有不是我們預期的結果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform plan</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/VMlNyM0.png" alt=""></p>
+<h3 id="執行-創建"><a href="#執行-創建" class="headerlink" title="執行/創建"></a>執行/創建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform apply</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/ulyBx4V.png" alt=""><br>這裡 Terraform 一樣會輸出相關的資訊內容，告訴你會有哪些改變，並讓你輸入去確認是否真的要執行，只要輸入 yes，就會實際開啟S3服務了。<br><img src="https://i.imgur.com/G9lZodz.png" alt=""><br>建立成功！</p>
+<p>成功後回到S3 管理介面就會看到剛剛建立好的bucket囉！<br><img src="https://i.imgur.com/hGalTTq.png" alt=""></p>
+<h3 id="查看狀態-state"><a href="#查看狀態-state" class="headerlink" title="查看狀態(state)"></a>查看狀態(state)</h3><p>terraform在執行完後，會在當前目錄下產生一個<code>terraform.tfstate</code>檔，此檔案包含了透過terraform 產生出來resource的詳細資訊，而terraform依據這個檔案來追蹤及維護resource。<br>輸入下方指令可秀出當前resource狀態的相關資訊</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform show</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/IfUQbgf.png" alt=""></p>
+<h3 id="異動"><a href="#異動" class="headerlink" title="異動"></a>異動</h3><p>假設今天我們把<code>bucket = &quot;my-s3-bucket-terraform-01&quot;</code>改成<code>bucket = &quot;my-s3-bucket-terraform-02&quot;</code>並執行<code>terraform apply</code>，會看到如下圖所示的異動資訊<br><img src="https://i.imgur.com/LsqXfbB.png" alt=""><br>回到S3管理介面會看到名稱已經做更動<br><img src="https://i.imgur.com/g2SyYqH.png" alt=""></p>
+<blockquote>
+<p>因為<code>terraform.tfstate</code>保留所有resource的狀態，執行terraform命令時，這個檔案必須要存在，確保 terraform可以正確的監聽resource的狀況。</p>
+</blockquote>
+<p>另外，透過<code>terraform plan</code>指令，可以讓你在實際執行之前觀察Terraform將做哪些哪些改變</p>
+<h3 id="啟動Versioning"><a href="#啟動Versioning" class="headerlink" title="啟動Versioning"></a>啟動Versioning</h3><p>S3有個<a href="https://docs.aws.amazon.com/AmazonS3/latest/dev/Versioning.html" target="_blank" rel="noopener">Versioning的功能</a>，現在我們要透過撰寫<code>.tf</code>黨的方式來開啟這個功能，於<code>resource</code>內添加<code>versioning {enabled = true}</code>這段程式碼</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">resource <span class="string">"aws_s3_bucket"</span> <span class="string">"my_s3_bucket"</span> &#123;</span><br><span class="line">    bucket = <span class="string">"my-s3-bucket-terraform-02"</span></span><br><span class="line">    versioning &#123;</span><br><span class="line">        enabled = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>添加完畢之後執行<code>terraform apply</code>，terraform會自動幫我們變更S3的設定，執行後會看到下方這段訊息:<br><img src="https://i.imgur.com/F8bv84x.png" alt=""><br>表示versioning功能已被開啟，接著回到aws S3的console介面點選<code>my-s3-bucket-terraform-02</code>，找到<code>Properties</code><br><img src="https://i.imgur.com/LdredzD.png" alt=""><br>上圖可檢視此功能成功被開啟！</p>
+<h3 id="刪除"><a href="#刪除" class="headerlink" title="刪除"></a>刪除</h3><p>執行<code>terraform destroy</code>就可以清除所有的資源，會要你輸入<code>yes</code>做為確認。</p>
+<h2 id="terraform-console"><a href="#terraform-console" class="headerlink" title="terraform console"></a>terraform console</h2><p>terraform也提供console的方式來遠端操作</p>
+<h3 id="實作"><a href="#實作" class="headerlink" title="實作"></a>實作</h3><p>執行下方指令進入console</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform console</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/mWQurQU.png" alt=""><br>如果要查看剛剛建立的S3 bucket，依照resource中的<code>type.name</code>的方式輸入指令，如:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws_s3_bucket.my_s3_bucket</span><br></pre></td></tr></table></figure>
+<p>表示從aws_s3_bucket這個resource中選擇剛剛建立的my_s3_bucket<br><img src="https://i.imgur.com/upE1g3l.png" alt=""><br>執行指令後會秀出該Bucket內含的相關資訊。<br>當然我們也可以往下找更詳細的資訊，如剛剛新增的<code>versioning</code>指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws_s3_bucket.my_s3_bucket.versioning</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/RD3DQDZ.png" alt=""><br>回傳值為一個<strong>list</strong>資料結構的資訊，所以可以近一步取得list內的物件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws_s3_bucket.my_s3_bucket.versioning[0].enabled</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/oaUuKMP.png" alt=""></p>
+<h3 id="退出console"><a href="#退出console" class="headerlink" title="退出console"></a>退出console</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">exit</span></span><br></pre></td></tr></table></figure>
+<h2 id="Output-查看輸出訊息"><a href="#Output-查看輸出訊息" class="headerlink" title="Output 查看輸出訊息"></a>Output 查看輸出訊息</h2><p>除了利用console查看<code>.tf</code>配置的訊息外，也可以撰寫<code>output</code>語法來輸出我們想要的訊息，例如印出剛剛在console內看到的訊息，可以把<code>aws_s3_bucket.my_s3_bucket.versioning[0].enabled</code>放入<code>output</code>中，如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output <span class="string">"my_s3_bucket_versioning"</span> &#123;</span><br><span class="line">  value = aws_s3_bucket.my_s3_bucket.versioning[0].enabled</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>my_s3_bucket_versioning</code>為自己定義的名稱，接著執行<code>terraform apply -refresh=false</code>查看訊息<br><img src="https://i.imgur.com/69YRDlT.png" alt=""><br>或是可以印出完整的訊息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output <span class="string">"my_s3_bucket_detail"</span> &#123;</span><br><span class="line">  value = aws_s3_bucket.my_s3_bucket</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="操作IAM"><a href="#操作IAM" class="headerlink" title="操作IAM"></a>操作IAM</h2><p>接著用terraform腳本來建立AWS IAM User</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># IAM User</span></span><br><span class="line">resource <span class="string">"aws_iam_user"</span> <span class="string">"my_iam_user"</span> &#123;</span><br><span class="line">    name = <span class="string">"my_iam_user001"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在終端機輸入指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform plan -out iam.tfplan</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/s22KCDD.png" alt=""><br>畫面會提示輸入<code>terraform apply &quot;iam.tfplan&quot;</code>的指令<br><img src="https://i.imgur.com/reELhuw.png" alt=""><br>印出上圖訊息表示成功建立IAM User<br><img src="https://i.imgur.com/SkqPeBp.png" alt=""><br>如上圖，進入IAM User Console介面就會看見剛剛建立好的User哦！<br>當然我們也可以印出output來做檢查</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">output <span class="string">"my_iam_user_detail"</span> &#123;</span><br><span class="line">  value = aws_iam_user.my_iam_user</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/akev1CY.png" alt=""></p>
+<h3 id="更新IAM-User-name"><a href="#更新IAM-User-name" class="headerlink" title="更新IAM User name"></a>更新IAM User name</h3><p>假設要更改User名<code>my_iam_user001</code>為<code>my_iam_user001_update</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># IAM User</span></span><br><span class="line">resource <span class="string">"aws_iam_user"</span> <span class="string">"my_iam_user"</span> &#123;</span><br><span class="line">    name = <span class="string">"my_iam_user001_update"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>更改完畢後，輸入下方指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">terraform apply -target=aws_iam_user.my_iam_user</span><br></pre></td></tr></table></figure>
+<h3 id="建立多個IAM-User"><a href="#建立多個IAM-User" class="headerlink" title="建立多個IAM User"></a>建立多個IAM User</h3><p>本篇只有先記錄最基礎的用法，更多相關用法可參考<a href="https://www.terraform.io/docs/providers/aws/r/iam_user.html" target="_blank" rel="noopener">官方文件</a>。假設今天要一次建立兩個User，做法是給予IAM User這個Resource次數(count)，並透過物件的方式assign，如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resource <span class="string">"aws_iam_user"</span> <span class="string">"my_iam_user"</span> &#123;</span><br><span class="line">    count = 2</span><br><span class="line">    name = <span class="string">"my_iam_user_<span class="variable">$&#123;count.index&#125;</span>"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中index編號是從0開始，執行<code>terraform apply</code>後打開console介面會看到新建立的兩個User，分別為<code>my_iam_user_0</code>、<code>my_iam_user_1</code><br><img src="https://i.imgur.com/pYtq42f.png" alt=""></p>
+<h2 id="補充一些較常用的指令"><a href="#補充一些較常用的指令" class="headerlink" title="補充一些較常用的指令"></a>補充一些較常用的指令</h2><ul>
+<li><code>terraform fmt</code>： 將指令進行統一格式，改善因多人共同開發，各自風格差異過大的問題。</li>
+<li><code>terraform graph</code>： 圖形化所有資源的相異性。</li>
+<li><code>terraform import</code> : 導入目前已經在雲端上手動建立資源到Terraform中。</li>
+<li><code>terraform validate</code>： 用於驗證是否存在語法錯誤。</li>
+</ul>
+<p>以上透過AWS兩個服務範例來實作Terraform腳本，倘若有疏漏或錯誤之處，可在下方留言讓我知道！</p>
+<h1 id="參閱"><a href="#參閱" class="headerlink" title="參閱"></a>參閱</h1><p><a href="https://godleon.github.io/blog/DevOps/terraform-getting-started/" target="_blank" rel="noopener">Terraform 入門學習筆記</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/02/DevOps/Terraform/[DevOps]%20Terraform%E5%85%A5%E9%96%80/" data-id="ckaz3aq0o00a9v6t16z7le8yb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/03/DevOps/Terraform/%5BDevOps%5D%20Terraform%E5%85%A5%E9%96%80(2)%20-%20%E8%AE%8A%E6%95%B8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Terraform] Terraform入門(2) - 變數
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/25/aws/%5BAWS%5D%20%E7%94%A8SSH%E9%80%A3%E6%8E%A5EC2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[AWS] 用SSH連接EC2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[CSS] Flexbox 排版 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言這篇要討論的是比較新式的排版-FlexBoxFlexBox為了適應不同螢幕尺寸和顯示設備而生的布局模式。現在因為手機普及，使用者大多用手機上網，為了改善使用者體驗，寫網頁需要考量到網頁呈現在手機上的排版方式。 Go!">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[CSS] Flexbox 排版">
+<meta property="og:url" content="http://yoursite.com/2019/07/14/CSS/CSS%20Layout%20_FlexBox/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言這篇要討論的是比較新式的排版-FlexBoxFlexBox為了適應不同螢幕尺寸和顯示設備而生的布局模式。現在因為手機普及，使用者大多用手機上網，為了改善使用者體驗，寫網頁需要考量到網頁呈現在手機上的排版方式。 Go!">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*h7mkSdBrIBz2AGA01h1Q0g.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*8IPyQsqR8RRVdxun7-XagQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*KQSIbMKZvIqYhldd8pYWuw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2020/1*WEfJZYhCNuUEkP5buHLpUg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*zHqd6ItJcVAQrkylyQdhsg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*xiIO9KTLmCDwg4rLfBMOBw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*a5AgSc84eL6vtwL8u0K8xw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*kVr4tHeO01m5QQ-NECNK9Q.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*nZx6vVl3o-450T0DHpncgg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2720/1*QSFSTSfEEfh5F6sf9ntXVg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2744/1*weDasYtK5HQJ6rs4q-6Nyw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2720/1*JW_9ZPuA9aEt5qV4Y_iK4A.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2734/1*yJmxX8l6nSXtuWntYC54MQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2720/1*m3JambN1uARfE0r6gOQgwg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2508/1*OQGoib5oNgA2YiYZYWcEpg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2508/1*b1P1tmkgWF561rcRPeNhYw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2504/1*f0sE5eWxGP8-y8YPyWsFow.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2506/1*A2YEzdPBLFYSQKTkXFl9Yg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*NY7tyQgYB8I_afXY7DLPHA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*uu3MEalvqE9QjZ7k0a45kQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*dBzk-cYUOYnQbNHkUjw08g.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*Rei0E53Kr2nciE3WOuHEkw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*Dip5yZi0ntRUyODglRUcig.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2372/1*RWosnmm2HB-du7EDqPFKjQ.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*5goK4FLcD0uxJt_qk1DeRg.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2000/1*EAKgVtcNXdZReI43fwYorA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*iUMhvmCwWHTvpGMwGo7QFw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*HiHtnyKlPeRRF5obEIEWCw.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*cFLhxQ-6TmzfYntITJpC4g.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*owbTS_kon1vF6tp7KlpBiA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*q7sqKkvzBZ2q7M-rlTK4jA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*wefi3pPkS6T5CXP7eTgeCA.png">
+<meta property="og:image" content="https://cdn-images-1.medium.com/max/2692/1*HiHtnyKlPeRRF5obEIEWCw.png">
+<meta property="article:published_time" content="2019-07-14T09:23:10.000Z">
+<meta property="article:modified_time" content="2020-06-03T07:25:52.104Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Css">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn-images-1.medium.com/max/2000/1*h7mkSdBrIBz2AGA01h1Q0g.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-CSS/CSS Layout _FlexBox" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/07/14/CSS/CSS%20Layout%20_FlexBox/" class="article-date">
+  <time datetime="2019-07-14T09:23:10.000Z" itemprop="datePublished">2019-07-14</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Frontend/">Frontend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [CSS] Flexbox 排版
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>這篇要討論的是比較新式的排版-FlexBox<br>FlexBox為了<strong>適應不同螢幕尺寸和顯示設備</strong>而生的布局模式。現在因為手機普及，使用者大多用手機上網，為了改善使用者體驗，寫網頁需要考量到網頁呈現在手機上的排版方式。</p>
+<h1 id="Go"><a href="#Go" class="headerlink" title="Go!"></a>Go!</h1><a id="more"></a> 
+<p>FlexBox的特徵:</p>
+<p>首先，要先將FlexBox做分類， 分為<strong>外容器屬性(Container)</strong>與<strong>內元件屬性(Items)。</strong></p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*h7mkSdBrIBz2AGA01h1Q0g.png" alt=""></p>
+<h2 id="外容器-Container"><a href="#外容器-Container" class="headerlink" title="外容器(Container):"></a>外容器(Container):</h2><p>若想切換FlexBox的排版模式，要在CSS樣式宣告display，display分為兩種：</p>
+<p>1.display:** flex** 為塊級元素，似block</p>
+<p>２.display: <strong>inline-flex</strong> 為行內塊元素，似inline-block</p>
+<p>以下提供範例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">      * &#123;</span><br><span class="line">           margin: 0;</span><br><span class="line">           padding: 0;</span><br><span class="line">        &#125;</span><br><span class="line">        .box &#123;</span><br><span class="line">          max-width: 100%;</span><br><span class="line">          border: 3px black solid;</span><br><span class="line">          display:flex;</span><br><span class="line">        &#125;</span><br><span class="line">        .item &#123;</span><br><span class="line">            width: 150px;</span><br><span class="line">            text-align: center;</span><br><span class="line">            padding: 1rem;</span><br><span class="line">            font-size: 2rem;</span><br><span class="line">        &#125;</span><br><span class="line">        .item:nth-of-type(1) &#123;</span><br><span class="line">            background: red;</span><br><span class="line">            padding-bottom: 1rem;</span><br><span class="line">            font-size: 2rem;</span><br><span class="line">        &#125;</span><br><span class="line">        .item:nth-of-type(2) &#123;</span><br><span class="line">            background: yellow;</span><br><span class="line">            padding-bottom: 5rem;</span><br><span class="line">            font-size: 2rem;</span><br><span class="line">        &#125;</span><br><span class="line">        .item:nth-of-type(3) &#123;</span><br><span class="line">            background: green;</span><br><span class="line">             font-size: 2rem;</span><br><span class="line">        &#125;</span><br><span class="line">        .item:nth-of-type(4) &#123;</span><br><span class="line">            background: blue;</span><br><span class="line">            font-size: 2rem;</span><br><span class="line">        &#125;</span><br><span class="line">        .item:nth-of-type(5) &#123;</span><br><span class="line">            background: pink;</span><br><span class="line">            font-size: 2rem;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;&#x2F;style&gt;    </span><br><span class="line">&lt;div class&#x3D;&quot;box&quot;&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;item1 item&quot;&gt;item1&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;item2 item&quot;&gt;item2&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;item3 item&quot;&gt;item3&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;item4 item&quot;&gt;item4&lt;&#x2F;div&gt;</span><br><span class="line">        &lt;div class&#x3D;&quot;item5 item&quot;&gt;item5&lt;&#x2F;div&gt;</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>當外層盒子宣告display時，裡面的盒子會變成水平排列。</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*8IPyQsqR8RRVdxun7-XagQ.png" alt=""></p>
+<p>好，到這邊我們需要先瞭解幾件事情：</p>
+<ul>
+<li><p>.box 已經變成了 Flexbox Model 排版模式，會直接影響到其第一層子元素( item)的排版行為。</p>
+</li>
+<li><p>.box 是 Flexbox Model 中的 Flex container。</p>
+</li>
+<li><p>item 是 Flexbox Model 中的 Flex item(s)，因為是 .box的第一層子元素。</p>
+</li>
+<li><p>此範例適用於任何父子元素，不僅限於 ul、li，也可以用在任何 div 或其它元素。</p>
+</li>
+</ul>
+<h2 id="Flex-Container-相關屬性，此上圖程式碼為例"><a href="#Flex-Container-相關屬性，此上圖程式碼為例" class="headerlink" title="Flex Container 相關屬性，此上圖程式碼為例"></a>Flex Container 相關屬性，此上圖程式碼為例</h2><h3 id="共有六種屬性可以設定，在記屬性前必須需先了解FlexBox的兩個軸線。"><a href="#共有六種屬性可以設定，在記屬性前必須需先了解FlexBox的兩個軸線。" class="headerlink" title="共有六種屬性可以設定，在記屬性前必須需先了解FlexBox的兩個軸線。"></a>共有六種屬性可以設定，在記屬性前必須需先了解FlexBox的兩個軸線。</h3><p><img src="https://cdn-images-1.medium.com/max/2000/1*KQSIbMKZvIqYhldd8pYWuw.png" alt=""></p>
+<p>當 .box 設定為 <strong>display:flex **時，就代表會有這兩個隱形的軸，</strong>Main Axis** 表示<strong>從左至右</strong>；<strong>Cross Axis **表示</strong>從上至下**。</p>
+<p>當** flex-direction** 設定為以下的值時，就會影響到<strong>第一層子元素(Flex Items)</strong>的排列方向：</p>
+<ul>
+<li><p>row：為預設值，代表 Flex Items 會從左至右依序排列。</p>
+</li>
+<li><p>column：代表 Flex Items 會從上至下依序排列。</p>
+</li>
+<li><p>row-reverse：代表 Flex Items 會從右至左依序排列。</p>
+</li>
+<li><p>column-reverse：代表 Flex Items 會從下至上依序排列。</p>
+</li>
+</ul>
+<p>程式碼(前四個):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">  &#x2F;&#x2F; 第一種</span><br><span class="line">  flex-direction: row || column || row-reverse || column-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn-images-1.medium.com/max/2020/1*WEfJZYhCNuUEkP5buHLpUg.png" alt="flex-direction: row-reverse;"><em>flex-direction: row-reverse;</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*zHqd6ItJcVAQrkylyQdhsg.png" alt="flex-direction: column"><em>flex-direction: column</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*xiIO9KTLmCDwg4rLfBMOBw.png" alt="flex-direction: column-reverse"><em>flex-direction: column-reverse</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line"> &#x2F;* 第2種*&#x2F;</span><br><span class="line">  flex-wrap: wrap || no-wrap || wrap-reverse;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>說明：</p>
+<ul>
+<li>wrap：代表當 Flex Items 數量過多，多到 Flex Container 裝不下的時候，會斷行，會斷行的方向會是往下斷行。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*a5AgSc84eL6vtwL8u0K8xw.png" alt="flex-wrap: wrap"><em>flex-wrap: wrap</em></p>
+<ul>
+<li>no-wrap：此為<strong>預設值</strong>，代表即使 Flex Items 數量過多，依然不會斷行，Flex Container 都會試圖去包含這些 Flex Items 在同一列。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*kVr4tHeO01m5QQ-NECNK9Q.png" alt="flex-wrap: nowrap"><em>flex-wrap: nowrap</em></p>
+<ul>
+<li>wrap-reverse：代表當 Flex Items 數量過多，多到 Flex Container 裝不下的時候，會斷行，會斷行的方向會是往上斷行。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*nZx6vVl3o-450T0DHpncgg.png" alt="flex-wrap: wrap-reverse"><em>flex-wrap: wrap-reverse</em></p>
+<ul>
+<li>flex-flow 單純只是個 flex-direction 和 flex-wrap 同時用的縮寫</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">&#x2F;* 第三種*&#x2F;</span><br><span class="line">  flex-flow: &lt;flex-direction&gt; &lt;flex-wrap&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>justify-content 是用來定義 Flex Items 該如何在 Main Axis 排列。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line">&#x2F;* 第四種 *&#x2F;</span><br><span class="line">  justify-content: flex-start || flex-end || center || space-between || space-around || space-evenly ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>flex-start</strong>：是預設值。代表 Flex Items 從 Main Axis 的起點開始排列。</p>
+<p><strong>flex-end</strong>：代表 Flex Items 整個的結尾要往 Main Axis 的尾端貼齊。</p>
+<p><strong>center：</strong>item針對 Main Axis 來置中。</p>
+<p><strong>space-between：</strong> 各個 Flex Item 延著 Main Axis <strong>平均分散</strong>，但 Flex Item 之間會<strong>保留相同大小的空間，首、尾都要貼緊邊界</strong>。</p>
+<p><strong>space-around：</strong>各個 Flex Item 延著 Main Axis 平均分散，但每一個 Flex Item 周圍都要保持相同的距離，<strong>在不設margin下</strong>，<strong>首、尾不貼邊界，且距離邊界保留的空間大小相等</strong>。</p>
+<p><strong>space-evenly：</strong>每個小方塊之間和與父容器之間擁有相同的間隔。</p>
+<h2 id="space-between-amp-space-around-amp-space-evenly區別"><a href="#space-between-amp-space-around-amp-space-evenly區別" class="headerlink" title="space-between &amp; space-around &amp; space-evenly區別"></a>space-between &amp; space-around &amp; space-evenly區別</h2><ul>
+<li><p>space-between：每個小方塊<strong>擁有相同的間隔</strong>，但與父容器之間沒有間隔。</p>
+</li>
+<li><p>space-around：每個小方塊之間與父容器有間隔，但小方塊與父容器之間的間隔是小方塊彼此間隔的一半。 <strong>假設今天與父容器的間隔為X，那小方格之間的間隔就是2X。</strong></p>
+</li>
+<li><p>space-evenly：每個小方塊之間和與父容器之間擁有相同的間隔。<strong>假設今天與父容器的間隔為X，那小方格之間的間隔仍為X。</strong></p>
+</li>
+</ul>
+<p>來看看實作:</p>
+<p><img src="https://cdn-images-1.medium.com/max/2720/1*QSFSTSfEEfh5F6sf9ntXVg.png" alt="justify-content: flex-start"><em>justify-content: flex-start</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2744/1*weDasYtK5HQJ6rs4q-6Nyw.png" alt="justify-content: flex-end"><em>justify-content: flex-end</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2720/1*JW_9ZPuA9aEt5qV4Y_iK4A.png" alt="justify-content: center"><em>justify-content: center</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2734/1*yJmxX8l6nSXtuWntYC54MQ.png" alt="justify-content: space-between"><em>justify-content: space-between</em></p>
+<p><img src="https://cdn-images-1.medium.com/max/2720/1*m3JambN1uARfE0r6gOQgwg.png" alt="justify-content: space-around"><em>justify-content: space-around</em></p>
+<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items :"></a>align-items :</h3><p>與 justify-content 非常相似，但定義 Flex Items 該如何在 <strong>Cross Axis 排列</strong></p>
+<ul>
+<li>flex-start： 表Flex Items <strong>高度並不會增加</strong>至 Flex Container 的高度，各 Flex Items 會直接對齊 Cross Axis 的起點。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2508/1*OQGoib5oNgA2YiYZYWcEpg.png" alt=""></p>
+<ul>
+<li>flex-end： 表Flex Items <strong>高度並不會增加</strong>至 Flex Container 的高度，各 Flex Items 會直接對齊 Cross Axis 的最終點。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2508/1*b1P1tmkgWF561rcRPeNhYw.png" alt=""></p>
+<ul>
+<li>center：每個 Flex Items 會直接對齊** Cross Axis 高度的中間**。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2504/1*f0sE5eWxGP8-y8YPyWsFow.png" alt=""></p>
+<ul>
+<li>stretch：<strong>預設值，</strong>表 Flex Items 的高度，沿著 Cross Axis，都會自動增加高度至 Flex Container 的高度。按照字面就是延伸，<strong>將Item的高度延伸至Container的高度</strong>。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2506/1*A2YEzdPBLFYSQKTkXFl9Yg.png" alt=""></p>
+<ul>
+<li>baseline：會依據 Flex Items 的基準線來對齊。下圖範例可知雖然各個item高度不同，但對齊的基準是文字內容。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*NY7tyQgYB8I_afXY7DLPHA.png" alt=""></p>
+<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content:"></a>align-content:</h3><p>主要是用在 Flex Container 中的 <strong>Flex Items 產生多行</strong>時，這些 Flex Item 該如何針對 Cross Axis 來排列。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.box&#123;</span><br><span class="line"> &#x2F;* 第六種 *&#x2F;</span><br><span class="line">  align-content: flex-start || flex-end || center || stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>flex-start：遇到 Flex Items 斷行，會沿著 Cross Axis 排列，似置頂的方式：</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*uu3MEalvqE9QjZ7k0a45kQ.png" alt=""></p>
+<ul>
+<li>flex-end：遇到 Flex Items 斷行，會沿著 Cross Axis 會如下排列(置底)：</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*dBzk-cYUOYnQbNHkUjw08g.png" alt=""></p>
+<ul>
+<li>center: 遇到 Flex Items 斷行，會沿著 Cross Axis 會如下排列(置中)：</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*Rei0E53Kr2nciE3WOuHEkw.png" alt=""></p>
+<ul>
+<li>stretch：預設值，遇到 Flex Items 斷行，各 items 的<strong>高度會沿著 Cross Axis 自動增減</strong>。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*Dip5yZi0ntRUyODglRUcig.png" alt=""></p>
+<h2 id=""><a href="#" class="headerlink" title=""></a><note></h2><p><strong>Main Axis和Across Axis 會因為flex-direction的設置而有所不同，當flex-direction設置為column時，Main Axis和Across Axis要和flex-direction: row時相反。</strong></p>
+<h3 id="即row的Main-Axis-column的Across-Axis，反之亦然。"><a href="#即row的Main-Axis-column的Across-Axis，反之亦然。" class="headerlink" title="即row的Main Axis = column的Across Axis，反之亦然。"></a>即row的<strong>Main Axis = column的Across Axis，反之亦然。</strong></h3><h2 id="Flex-Item"><a href="#Flex-Item" class="headerlink" title="Flex Item :"></a>Flex Item :</h2><p>上面實作完Container相關的屬性後，往下實作Flex Item 相關屬性。</p>
+<h3 id="Flex-Item共有六種屬性可以設定"><a href="#Flex-Item共有六種屬性可以設定" class="headerlink" title="Flex Item共有六種屬性可以設定:"></a>Flex Item共有六種屬性可以設定:</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line"> &#x2F;* 第一種 *\</span><br><span class="line">  order: &lt;number&gt;; &#x2F;&#x2F; 預設值 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="order"><a href="#order" class="headerlink" title="order :"></a>order :</h3><p>可以是任何的整數，所有的 Flex Items 預設值都是0。所有的 Flex Items 排列順序都會按照 order 值的大小，從最小開始排，<strong>依序排到最大值</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.item:nth-of-type(1) &#123;</span><br><span class="line">            background: red;</span><br><span class="line">            order: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因為item的order被設為1，比其他item的order值(預設為0)還要大，故排至最後。</p>
+<p><img src="https://cdn-images-1.medium.com/max/2372/1*RWosnmm2HB-du7EDqPFKjQ.png" alt=""></p>
+<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow:"></a>flex-grow:</h3><p>設定該 Flex Item 自行延伸，將多餘空間填滿。 flex-grow <strong>預設值是 0</strong>，其表不延展填滿。</p>
+<p><strong>*若同時有多個元素都設有數值時,是</strong>相對倍數做放大。**</p>
+<p><strong>* **不可為負值</strong>，但可為小數點。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line">  &#x2F;&#x2F; 第二種</span><br><span class="line">  flex-grow: 0 ; &#x2F;&#x2F; 預設值是 0</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>若將item1的flex-grow值設為1，可以得下面結果:</p>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*5goK4FLcD0uxJt_qk1DeRg.png" alt="剩餘的空間被 item1 所填滿"><em>剩餘的空間被 item1 所填滿</em></p>
+<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink:"></a>flex-shrink:</h3><p>元件的縮減，是一個數值，空間分配不足時會改變當前元件的收縮程度，預設值為 1，如果<strong>設置為 0 則不會縮放</strong>。收縮的程度也是相對於其他元素的。數值<strong>不可為負數</strong>。</p>
+<p>***可用於在改變螢幕大小時，將不重要的資訊做縮小。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line">   &#x2F;* 第三種 *&#x2F;</span><br><span class="line">  flex-shrink:1  &#x2F;&#x2F; 預設值是 1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下範例實作，將item1的flex-shrink設為4，會得到以下結果:</p>
+<p><img src="https://cdn-images-1.medium.com/max/2000/1*EAKgVtcNXdZReI43fwYorA.png" alt="item1 所小的幅度大於其他 item"><em>item1 所小的幅度大於其他 item</em></p>
+<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis:"></a>flex-basis:</h3><p>元件的基準值， 用來設定 Flex Item 的寬度，單位可以是任何百分比、不同的單位值(e.g. px ,rem)， <strong>預設值為auto。 預設</strong>情況下，Flex Item 的<strong>寬度是會依據內容來自動變寬。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.item:nth-of-type(1) &#123;</span><br><span class="line">           flex-basis: 50px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*iUMhvmCwWHTvpGMwGo7QFw.png" alt="item1被限制在50px的寬度"><em>item1被限制在50px的寬度</em></p>
+<h3 id="flex"><a href="#flex" class="headerlink" title="flex:"></a>flex:</h3><p>flex 是縮寫，分別代表 flex-grow、flex-shrink、flex-basis。</p>
+<p>*<em>flex: default *</em>是 flex: 0 1 auto; 的縮寫。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line">   &#x2F;* 第五種 *&#x2F;</span><br><span class="line">  flex: &lt;flex-grow&gt; &lt;flex-shrink&gt; &lt;flex-basis&gt;; &#x2F;&#x2F; 預設值依序為 0 1 auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>如果要設其中1個或2個單位的話,會有不同結果:</strong></p>
+<p><strong>1個值:</strong></p>
+<p><strong>flex:2; /* **flex-grow</strong> <em>/*</em></p>
+<p><strong>flex: 30px ; /* **flex-basis</strong> <em>/*</em></p>
+<p><strong>2個值:</strong></p>
+<p><strong>flex: 1 30px; /* **flex-grow | flex-basis *</strong>/**</p>
+<p><strong>flex: 2 2 ; /* **flex-grow | flex-shrink</strong> <em>/*</em></p>
+<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self:"></a>align-self:</h3><p>只會影響特定 Flex Item ，針對該Flex Item的Cross Axis 排列方式調整，不會影響到其它的 Flex Items。下面範例以<strong>item3為調整對象</strong>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.item&#123;</span><br><span class="line">   &#x2F;* 第六種  *&#x2F;</span><br><span class="line">  align-self: auto || flex-start || flex-end || center || baseline || stretch; </span><br><span class="line">  &#x2F;&#x2F; 預設值是 stretch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>auto：該 Flex Item 的值，會直接參考 Flex Container 的 align-items 值，兩者相同。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*HiHtnyKlPeRRF5obEIEWCw.png" alt=""></p>
+<ul>
+<li>flex-start：該 Flex Item 會對齊 Cross Axis 的起點，高度不會自動擴展。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*cFLhxQ-6TmzfYntITJpC4g.png" alt=""></p>
+<ul>
+<li>flex-end：該 Flex Item 會對齊 Cross Axis 的底部，高度不會自動擴展。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*owbTS_kon1vF6tp7KlpBiA.png" alt=""></p>
+<ul>
+<li>center：該 Flex Item 會對齊 Cross Axis 的中間，高度不會自動擴展。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*q7sqKkvzBZ2q7M-rlTK4jA.png" alt=""></p>
+<ul>
+<li>baseline： 有設定成 baseline 的這些 Flex Items ，會彼此對齊 baseline。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*wefi3pPkS6T5CXP7eTgeCA.png" alt="將 item1~3 都設 baseline"><em>將 item1~3 都設 baseline</em></p>
+<ul>
+<li>stretch(預設)：該 Flex Item 會自動擴展，佔滿整個 Flex Container。</li>
+</ul>
+<p><img src="https://cdn-images-1.medium.com/max/2692/1*HiHtnyKlPeRRF5obEIEWCw.png" alt=""></p>
+<p>以上為這次的筆記整理，相較以往的排版，這樣的排版的確彈性許多。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/07/14/CSS/CSS%20Layout%20_FlexBox/" data-id="ckaz3apzj0063v6t1dyotdmzv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Css/" rel="tag">Css</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/07/14/Javascript/ajax(basic)/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [JavaScript] Ajax
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/07/14/Internet/Proxy/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Proxy</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

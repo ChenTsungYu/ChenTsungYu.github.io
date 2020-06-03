@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Mac/Linux] bash shell筆記- 檔案權限與目錄 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="鼠年全馬鐵人挑戰 - WEEK 04   前言本文紀錄如何在bash shell做檔案權限的配置。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Mac&#x2F;Linux] bash shell筆記- 檔案權限與目錄">
+<meta property="og:url" content="http://yoursite.com/2020/03/08/OS/[Linux]%20bash%20shell%E7%AD%86%E8%A8%98-%20%E6%AA%94%E6%A1%88%E6%AC%8A%E9%99%90%E8%88%87%E7%9B%AE%E9%8C%84%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="鼠年全馬鐵人挑戰 - WEEK 04   前言本文紀錄如何在bash shell做檔案權限的配置。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/iycyiZj.png">
+<meta property="og:image" content="https://i.imgur.com/vH6fPPD.png">
+<meta property="og:image" content="https://i.imgur.com/WwStCjv.png">
+<meta property="og:image" content="https://i.imgur.com/0oHRFAV.png">
+<meta property="og:image" content="https://i.imgur.com/x4vdxPH.png">
+<meta property="og:image" content="https://i.imgur.com/rEdBFfr.png">
+<meta property="og:image" content="https://i.imgur.com/gvUamus.png">
+<meta property="og:image" content="https://i.imgur.com/k3HbwLh.png">
+<meta property="og:image" content="https://i.imgur.com/J6oVF3c.png">
+<meta property="og:image" content="https://i.imgur.com/a9upCyU.png">
+<meta property="og:image" content="https://i.imgur.com/lm8u2a9.png">
+<meta property="og:image" content="https://i.imgur.com/9qeykyI.png">
+<meta property="og:image" content="https://i.imgur.com/cPjJzZp.png">
+<meta property="og:image" content="https://i.imgur.com/EXtMEdl.png">
+<meta property="article:published_time" content="2020-03-08T12:23:10.000Z">
+<meta property="article:modified_time" content="2020-06-03T06:54:44.778Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Mac">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="w3HexSchool">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/iycyiZj.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OS/[Linux] bash shell筆記- 檔案權限與目錄配置" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/03/08/OS/%5BLinux%5D%20bash%20shell%E7%AD%86%E8%A8%98-%20%E6%AA%94%E6%A1%88%E6%AC%8A%E9%99%90%E8%88%87%E7%9B%AE%E9%8C%84%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2020-03-08T12:23:10.000Z" itemprop="datePublished">2020-03-08</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/OS/">OS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Mac/Linux] bash shell筆記- 檔案權限與目錄
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>鼠年全馬鐵人挑戰 - WEEK 04</p>
+</blockquote>
+<!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文紀錄如何在bash shell做檔案權限的配置。</p>
+<a id="more"></a>
+<h1 id="檔案具有的三種身份"><a href="#檔案具有的三種身份" class="headerlink" title="檔案具有的三種身份"></a>檔案具有的三種身份</h1><p>Linux檔案的基本權限有九個，分別是<strong>owner、group、others</strong>三種身份各有自己的read、write、execute權限</p>
+<ul>
+<li>檔案擁有者(user)</li>
+<li>群組(group)</li>
+<li>其他人(other)</li>
+</ul>
+<p>如果對所有開啟檔案所有權限，顯示的字元為：<code>-rwxrwxrwx</code>，需要把這九個權限(不包含<code>-</code>)，以三個為一組做區分。</p>
+<h1 id="相關指令"><a href="#相關指令" class="headerlink" title="相關指令"></a>相關指令</h1><h2 id="查看vim是否存在"><a href="#查看vim是否存在" class="headerlink" title="查看vim是否存在"></a>查看vim是否存在</h2><p><code>vi</code></p>
+<h2 id="查看vim的路徑"><a href="#查看vim的路徑" class="headerlink" title="查看vim的路徑"></a>查看vim的路徑</h2><p><code>which vim</code>或是<code>which is vim</code>或<code>whereis vim</code><br><img src="https://i.imgur.com/iycyiZj.png" alt=""></p>
+<h2 id="建立檔案"><a href="#建立檔案" class="headerlink" title="建立檔案"></a>建立檔案</h2><p><code>vim fileName</code>或是<code>vim fileName.sh</code>，<code>.sh</code>可加可不加。</p>
+<h3 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/vH6fPPD.png" alt=""><br>會進入vim的編輯模式，看到新增的pb_do檔，輸入<code>echo &quot;hi!&quot;</code>後，執行<code>:wq!</code>保存並退出。</p>
+<h2 id="查看系統變數"><a href="#查看系統變數" class="headerlink" title="查看系統變數"></a>查看系統變數</h2><p><code>$PATH</code>或是<code>echo $PATH</code><br><img src="https://i.imgur.com/WwStCjv.png" alt=""></p>
+<h2 id="執行檔案"><a href="#執行檔案" class="headerlink" title="執行檔案"></a>執行檔案</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./pb_do</span><br></pre></td></tr></table></figure>
+<p>執行上方指令會跳出權限不足的訊息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./pb_do</span><br></pre></td></tr></table></figure>
+<p>執行上方指令會跳出<code>sudo: ./pb_do: command not found</code>，表示無法執行該檔案，所以要查看該檔案內容判斷是否可執行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -l pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/0oHRFAV.png" alt=""><br>打開發跳出的訊息只有<code>r</code>、<code>rw</code>，表示此檔案只可讀取(<code>r</code>)、寫入(<code>w</code>)，而沒有<code>x</code>(執行)</p>
+<h2 id="修改檔案-目錄的權限-chmod"><a href="#修改檔案-目錄的權限-chmod" class="headerlink" title="修改檔案/目錄的權限 - chmod"></a>修改檔案/目錄的權限 - <code>chmod</code></h2><p>在Linux或其他類Unix作業系統中, 每個檔案及目錄都會有一個權限, 這個權限會定義誰可以<strong>讀取(<code>r</code>)、寫入(<code>w</code>)及執行(<code>x</code>)</strong> 該檔案。<br>檔案權限的改變需下<code>chmod</code>指令，設定方法有兩種：</p>
+<ul>
+<li>數字類型</li>
+<li>符號類型</li>
+</ul>
+<p>上一個pb_do的例子可以看到vim寫入的新檔案沒有執行的權限，所以需要修改檔案目錄權限<code>chmod</code>，更多說明可翻閱鳥哥<a href="http://linux.vbird.org/linux_basic/0210filepermission.php" target="_blank" rel="noopener">這篇文章</a></p>
+<h2 id="符號類型修改檔案權限"><a href="#符號類型修改檔案權限" class="headerlink" title="符號類型修改檔案權限"></a>符號類型修改檔案權限</h2><h3 id="範例：-加入執行的權限"><a href="#範例：-加入執行的權限" class="headerlink" title="範例： 加入執行的權限"></a>範例： 加入執行的權限</h3><p>延續上個例子，針對pb_do<strong>加入</strong>執行的權限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/x4vdxPH.png" alt=""><br>上圖可發現原本檔案資訊只有<code>-rw-r--r--@</code>變成<code>-rwxr-xr-x</code>，新增了<code>x</code>執行權限。</p>
+<p>現在擁有執行權限後，執行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/rEdBFfr.png" alt=""><br>成功執行剛剛加入的檔案！</p>
+<h3 id="範例：-移除執行的權限"><a href="#範例：-移除執行的權限" class="headerlink" title="範例： 移除執行的權限"></a>範例： 移除執行的權限</h3><p>延續上個例子，針對pb_do<strong>移除</strong>執行的權限。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod -x pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/gvUamus.png" alt=""><br>將<code>+x</code>替換成<code>-x</code>即可移除</p>
+<blockquote>
+<h3 id="如果檔案權限為-rwxr-xr-x表示"><a href="#如果檔案權限為-rwxr-xr-x表示" class="headerlink" title="如果檔案權限為-rwxr-xr-x表示:"></a>如果檔案權限為<code>-rwxr-xr-x</code>表示:</h3><ul>
+<li>user(u)：<code>u</code>表示<strong>檔案擁有者</strong>才具有可讀、可寫、可執行的權限</li>
+<li>group 與 others (g/o)：表示group與others即具有可讀與執行的權限。</li>
+</ul>
+</blockquote>
+<p>再看一個例子：</p>
+<h3 id="只對檔案擁有者修改執行的權限"><a href="#只對檔案擁有者修改執行的權限" class="headerlink" title="只對檔案擁有者修改執行的權限"></a>只對檔案擁有者修改執行的權限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod u+x pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/k3HbwLh.png" alt=""><br><code>u</code>表示檔案使用者</p>
+<h3 id="修改group的權限"><a href="#修改group的權限" class="headerlink" title="修改group的權限"></a>修改group的權限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod g+x pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/J6oVF3c.png" alt=""><br>同理可以應用在新增寫入的權限上，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod g+w pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/a9upCyU.png" alt=""><br>加入<code>w</code>寫入的檔案權限<code>-rwxrwxr--</code></p>
+<h3 id="修改others執行的權限"><a href="#修改others執行的權限" class="headerlink" title="修改others執行的權限"></a>修改others執行的權限</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod o+x pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/lm8u2a9.png" alt=""><br>加入<code>o</code>執行檔案的權限<code>-rwxrwxr--</code></p>
+<h3 id="修改所有的執行權限"><a href="#修改所有的執行權限" class="headerlink" title="修改所有的執行權限"></a>修改所有的執行權限</h3><p><code>a</code>表示所有，指令替換成<code>a</code>，例如刪除所有身份的使用權限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod a-x  pb_do</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/9qeykyI.png" alt=""><br>刪除所有身份的執行權限</p>
+<h2 id="數字類型修改檔案權限"><a href="#數字類型修改檔案權限" class="headerlink" title="數字類型修改檔案權限"></a>數字類型修改檔案權限</h2><p>除了透過符號來標示檔案權限之外，也可以使用數字來代表各個權限，個人是不太喜歡用死背的，稍微用推的很快就可以知道數字對應的權限。</p>
+<p>文章開頭有提到檔案的基本權限有九個，三個看作一組，如果拆開了看就是<code>rwx</code>為一組(<code>rwx</code>三個權限都有的情況下)，數字加總是<code>7</code>，以二進位來看的話就是<code>111</code>。<br>來看段範例:<br>假設今天要配置檔案權限是檔案擁有者可讀、寫、執行，其餘兩個身份只開放讀、執行，所以設定權限的變更時，輸入的數值就是755，詳情如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">owner = rwx = 4+2+1 = 7</span><br><span class="line">group = r-x = 4+0+1 = 5</span><br><span class="line">others= r-x = 4+0+1 = 5</span><br></pre></td></tr></table></figure>
+<p>執行下面指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 755 pb_do</span><br></pre></td></tr></table></figure>
+<p>輸出結果：<code>-rwxr-xr-x</code><br><img src="https://i.imgur.com/cPjJzZp.png" alt=""><br>上圖結果證實數值也可以做檔案權限管理。</p>
+<p>當然也可以把三個身份的三個權限都開啟，指令會變成:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod 777 pb_do</span><br></pre></td></tr></table></figure>
+<p>結果： <code>-rwxrwxrwx</code><br><img src="https://i.imgur.com/EXtMEdl.png" alt=""></p>
+<p>簡單歸納數值代表的權限</p>
+<ul>
+<li>r:4</li>
+<li>w:2</li>
+<li>x:1</li>
+</ul>
+<p>回顧一下，掌握幾個原則就可以完成配置檔案權限囉！</p>
+<ul>
+<li>每個檔案的九個基本權限(三個身份與各自擁有的權限)</li>
+<li>三個字元看作一組，分別代表的三個身份</li>
+<li>符號類型修改檔案權限(<code>r</code>/<code>w</code>/<code>x</code>)</li>
+<li>數字類型修改檔案權限(用二進位去思考，或是直接記對應的數值)。</li>
+</ul>
+<blockquote>
+<p>若內容或觀念有誤，歡迎在下面留言給我。</p>
+</blockquote>
+<h1 id="參閱"><a href="#參閱" class="headerlink" title="參閱"></a>參閱</h1><p><a href="http://linux.vbird.org/linux_basic/0210filepermission.php" target="_blank" rel="noopener">Linux 的檔案權限與目錄配置</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/03/08/OS/[Linux]%20bash%20shell%E7%AD%86%E8%A8%98-%20%E6%AA%94%E6%A1%88%E6%AC%8A%E9%99%90%E8%88%87%E7%9B%AE%E9%8C%84%E9%85%8D%E7%BD%AE/" data-id="ckaz3apxl000dv6t16ay739xm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/03/15/aws/%5BAWS%5D%20%E7%94%A8AWS%20Elastic%20Beanstalk%20%E9%83%A8%E7%BD%B2%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E5%80%8BDjango%E6%87%89%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [AWS] 用AWS Elastic Beanstalk 部署你的第一個Django應用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/03/03/aws/%5BAWS%5D%20Global%20Infrastructure/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[AWS] Global Infrastructure</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

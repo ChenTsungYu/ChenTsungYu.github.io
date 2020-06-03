@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Python] Pandas資料處理- 基本概念及操作 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前言Pandas是python的一個數據分析的函式庫，提供簡易使用的資料格式，使用者透過這項工具快速操作及分析資料，提供十分容易操作的資料結構如：DataFrame。Pandas不但可以網頁中的表格資料，還能從外部匯入資料，將這些資料進行排序、修改或是做成統計相關的圖表。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Python] Pandas資料處理- 基本概念及操作">
+<meta property="og:url" content="http://yoursite.com/2019/09/04/Python/[Python]%20Pandas%E8%B3%87%E6%96%99%E8%99%95%E7%90%86%E7%B3%BB%E5%88%971-%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言Pandas是python的一個數據分析的函式庫，提供簡易使用的資料格式，使用者透過這項工具快速操作及分析資料，提供十分容易操作的資料結構如：DataFrame。Pandas不但可以網頁中的表格資料，還能從外部匯入資料，將這些資料進行排序、修改或是做成統計相關的圖表。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/dEhBLwv.png">
+<meta property="og:image" content="https://i.imgur.com/zSGAHV4.png">
+<meta property="og:image" content="https://i.imgur.com/jTGniZI.png">
+<meta property="og:image" content="https://i.imgur.com/snAGu2G.png">
+<meta property="og:image" content="https://i.imgur.com/8kmWhmO.png">
+<meta property="og:image" content="https://i.imgur.com/9opfitL.png">
+<meta property="og:image" content="https://i.imgur.com/bT0SZuz.png">
+<meta property="og:image" content="https://i.imgur.com/Z8re3AY.png">
+<meta property="og:image" content="https://i.imgur.com/b2HYEmc.png">
+<meta property="og:image" content="https://i.imgur.com/X6mLyFO.png">
+<meta property="og:image" content="https://i.imgur.com/GL1qUPQ.png">
+<meta property="og:image" content="https://i.imgur.com/1ZwtWGI.png">
+<meta property="og:image" content="https://i.imgur.com/VnABNBv.png">
+<meta property="og:image" content="https://i.imgur.com/Ax8rinI.png">
+<meta property="og:image" content="https://i.imgur.com/ipPOCP0.png">
+<meta property="og:image" content="https://i.imgur.com/XcTFJGd.png">
+<meta property="og:image" content="https://i.imgur.com/iR24spR.png">
+<meta property="og:image" content="https://i.imgur.com/tEycEFI.png">
+<meta property="og:image" content="https://i.imgur.com/9VUz4J4.png">
+<meta property="og:image" content="https://i.imgur.com/ShoGXqR.png">
+<meta property="og:image" content="https://i.imgur.com/cphLOmU.png">
+<meta property="og:image" content="https://i.imgur.com/tW3ShQc.png">
+<meta property="og:image" content="https://i.imgur.com/Rijq0In.png">
+<meta property="og:image" content="https://i.imgur.com/PEwXToq.png">
+<meta property="og:image" content="https://i.imgur.com/mkrPX2h.png">
+<meta property="og:image" content="https://i.imgur.com/z6Sdacu.png">
+<meta property="og:image" content="https://i.imgur.com/GLmScWJ.png">
+<meta property="og:image" content="https://i.imgur.com/j47ZKHz.png">
+<meta property="og:image" content="https://i.imgur.com/XHGojyA.png">
+<meta property="og:image" content="https://i.imgur.com/iWP0Oba.png">
+<meta property="article:published_time" content="2019-09-04T12:23:10.000Z">
+<meta property="article:modified_time" content="2020-05-26T04:35:03.710Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="Pandas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/dEhBLwv.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Python/[Python] Pandas資料處理系列1- 基本概念及操作" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/09/04/Python/%5BPython%5D%20Pandas%E8%B3%87%E6%96%99%E8%99%95%E7%90%86%E7%B3%BB%E5%88%971-%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time datetime="2019-09-04T12:23:10.000Z" itemprop="datePublished">2019-09-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Backend/">Backend</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Python] Pandas資料處理- 基本概念及操作
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Pandas是python的一個數據分析的函式庫，提供簡易使用的資料格式，使用者透過這項工具快速操作及分析資料，提供十分容易操作的資料結構如：<strong>DataFrame</strong>。<br>Pandas不但可以網頁中的表格資料，還能從外部匯入資料，將這些資料進行排序、修改或是做成統計相關的圖表。</p>
+<a id="more"></a> 
+<h1 id="安裝-Pandas"><a href="#安裝-Pandas" class="headerlink" title="安裝 Pandas"></a>安裝 Pandas</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pandas</span><br></pre></td></tr></table></figure>
+
+<h1 id="Pandas資料結構"><a href="#Pandas資料結構" class="headerlink" title="Pandas資料結構"></a>Pandas資料結構</h1><ul>
+<li>Series<br>是一維陣列的資料結構，能夠保存不同資料的型態，如：整數、字串、浮點數。</li>
+<li>DataFrame<br>是一個二維陣列的資料結構，可以操作某行/列，或是多行/列的資料，也可以做排序、插入、修改或刪除等操作。</li>
+</ul>
+<p><strong>DataFrame</strong> 是常用資料處理的格式，尤其是在做報表處理的時候非常方便。</p>
+<h1 id="Series基本操作"><a href="#Series基本操作" class="headerlink" title="Series基本操作"></a>Series基本操作</h1><h2 id="建立Series"><a href="#建立Series" class="headerlink" title="建立Series"></a>建立Series</h2><p><code>Series</code>可以處理一維資料的型態包含陣列(array)、字典(dictionary)、單一資料。</p>
+<h3 id="資料為陣列-array-時"><a href="#資料為陣列-array-時" class="headerlink" title="資料為陣列(array)時"></a>資料為陣列(array)時</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd </span><br><span class="line"></span><br><span class="line">cars = [<span class="string">"高雄"</span>, <span class="string">"花蓮"</span>, <span class="string">"台東"</span>, <span class="string">"台北"</span>, <span class="string">"台中"</span>]</span><br><span class="line"></span><br><span class="line">select = pd.Series(cars)  </span><br><span class="line">print(select)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/dEhBLwv.png" alt=""></p>
+<h3 id="資料為字典-dictionary-時"><a href="#資料為字典-dictionary-時" class="headerlink" title="資料為字典(dictionary)時"></a>資料為字典(dictionary)時</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">seri = &#123;  </span><br><span class="line">    <span class="string">"col0"</span>: <span class="string">"0"</span>,</span><br><span class="line">    <span class="string">"col1"</span>: <span class="string">"1"</span>,</span><br><span class="line">    <span class="string">"col2"</span>: <span class="string">"2"</span>,</span><br><span class="line">    <span class="string">"col3"</span>: <span class="string">"3"</span>,</span><br><span class="line">    <span class="string">"col4"</span>: <span class="string">"4"</span>,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">seris = pd.Series(seri)</span><br><span class="line">seris</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/zSGAHV4.png" alt=""></p>
+<h3 id="取值"><a href="#取值" class="headerlink" title="取值"></a>取值</h3><h4 id="透過索引值或key名，篩選出目標值"><a href="#透過索引值或key名，篩選出目標值" class="headerlink" title="透過索引值或key名，篩選出目標值"></a>透過<strong>索引值或key名</strong>，篩選出目標值</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">print(seris[<span class="number">1</span>]) <span class="comment"># 依照索引值取單一值</span></span><br><span class="line">print(<span class="string">"--------"</span>)</span><br><span class="line">print(seris[<span class="string">"col2"</span>]) <span class="comment"># 依照key名稱取單一值</span></span><br><span class="line">print(<span class="string">"--------"</span>)</span><br><span class="line">print(seris[[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>]]) <span class="comment"># 依照索引值取多個值</span></span><br><span class="line">print(<span class="string">"--------"</span>)</span><br><span class="line">print(seris[[<span class="string">"col1"</span>, <span class="string">"col3"</span>, <span class="string">"col4"</span>]]) <span class="comment"># 依照key名稱取多個值</span></span><br><span class="line">print(<span class="string">"--------"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/jTGniZI.png" alt=""></p>
+<h4 id="透過索引值或key名，篩選出目標值-1"><a href="#透過索引值或key名，篩選出目標值-1" class="headerlink" title="透過索引值或key名，篩選出目標值"></a>透過<strong>索引值或key名</strong>，篩選出目標值</h4><p>透過切片(<code>slice</code>)的方式進行索引值或key名，分割出目標值的範圍。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(seris[:<span class="number">3</span>]) <span class="comment"># slice方法依照索引值選取目標範圍</span></span><br><span class="line">print(<span class="string">"--------"</span>)</span><br><span class="line">print(seris[:<span class="string">"col3"</span>]) <span class="comment"># slice方法依照"key"名稱選取目標範圍</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/snAGu2G.png" alt=""></p>
+<h3 id="資料為資料為單一資料時"><a href="#資料為資料為單一資料時" class="headerlink" title="資料為資料為單一資料時"></a>資料為資料為單一資料時</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">student = <span class="string">"Tom"</span>  </span><br><span class="line">ser = pd.Series(student, index = range(<span class="number">3</span>))  </span><br><span class="line">print(ser)  </span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">結果</span></span><br><span class="line"><span class="string">0    Tom</span></span><br><span class="line"><span class="string">1    Tom</span></span><br><span class="line"><span class="string">2    Tom</span></span><br><span class="line"><span class="string">dtype: object</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="DataFrame基本操作"><a href="#DataFrame基本操作" class="headerlink" title="DataFrame基本操作"></a>DataFrame基本操作</h1><h2 id="建立DataFrame"><a href="#建立DataFrame" class="headerlink" title="建立DataFrame"></a>建立DataFrame</h2><h3 id="資料為陣列-array-時-1"><a href="#資料為陣列-array-時-1" class="headerlink" title="資料為陣列(array)時"></a>資料為陣列(array)時</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">students = [[<span class="string">"A"</span>, <span class="string">"male"</span>],[<span class="string">"B"</span>, <span class="string">"female"</span>], [<span class="string">"C"</span>, <span class="string">"male"</span>]]</span><br><span class="line"></span><br><span class="line">df = pd.DataFrame(students, columns = [<span class="string">"name"</span>, <span class="string">"gender"</span>]) <span class="comment"># 指定欄位名稱  </span></span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/8kmWhmO.png" alt=""></p>
+<h3 id="資料為字典-dictionary-時-1"><a href="#資料為字典-dictionary-時-1" class="headerlink" title="資料為字典(dictionary)時"></a>資料為字典(dictionary)時</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"></span><br><span class="line">students = &#123;  </span><br><span class="line">    <span class="string">"name"</span>: [<span class="string">"A"</span>,<span class="string">"B"</span>, <span class="string">"C"</span>],</span><br><span class="line">    <span class="string">"stid"</span>: [<span class="number">1</span>,<span class="number">2</span>, <span class="number">3</span>],</span><br><span class="line">    <span class="string">"gender"</span>: [<span class="string">"male"</span>,<span class="string">"female"</span>, <span class="string">"male"</span>],</span><br><span class="line">    <span class="string">"age"</span>: [<span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>],</span><br><span class="line">    <span class="string">"city"</span>: [<span class="string">"高雄"</span>, <span class="string">"台北"</span>, <span class="string">"台中"</span>]</span><br><span class="line">&#125;</span><br><span class="line">df = pd.DataFrame(students)</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/9opfitL.png" alt=""></p>
+<h2 id="讀取資料"><a href="#讀取資料" class="headerlink" title="讀取資料"></a>讀取資料</h2><p>pandas支援的資料格式很多種，常見的格式包含:</p>
+<ul>
+<li><code>read_csv()</code> 讀取*.csv格式的檔案</li>
+<li><code>read_html()</code> 讀取*.heml格式的檔案</li>
+<li><code>read_sql()</code> 讀取*.csv格式的檔案</li>
+<li><code>read_excel()</code> 讀取*.xlsx格式的檔案</li>
+<li><code>read_json()</code> 讀取*.json格式的檔案</li>
+</ul>
+<h2 id="寫入資料"><a href="#寫入資料" class="headerlink" title="寫入資料"></a>寫入資料</h2><ul>
+<li><code>to_csv()</code> 讀取*.csv格式的檔案</li>
+<li><code>to_html()</code> 讀取*.heml格式的檔案</li>
+<li><code>to_sql()</code> 讀取*.csv格式的檔案</li>
+<li><code>to_excel()</code> 讀取*.xlsx格式的檔案</li>
+<li><code>to_json()</code> 讀取*.json格式的檔案</li>
+</ul>
+<h2 id="說明"><a href="#說明" class="headerlink" title="說明"></a>說明</h2><ul>
+<li><code>encoding=&quot;utf-8-sig&quot;</code>: 將BOM去除的<code>utf-8</code>編碼</li>
+<li><code>index_col=0</code>: 去除索引欄位</li>
+</ul>
+<h2 id="寫入資料範例-csv為例"><a href="#寫入資料範例-csv為例" class="headerlink" title="寫入資料範例(*.csv為例)"></a>寫入資料範例(<code>*.csv</code>為例)</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line">scores = [</span><br><span class="line">    [<span class="number">60</span>, <span class="number">70</span>, <span class="number">80</span>], [<span class="number">90</span>, <span class="number">66</span>, <span class="number">50</span>], [<span class="number">47</span>, <span class="number">50</span>, <span class="number">88</span>]</span><br><span class="line">]</span><br><span class="line">students = [</span><br><span class="line">    <span class="string">"student1"</span>, <span class="string">"student2"</span>, <span class="string">"student3"</span></span><br><span class="line">]</span><br><span class="line">subjects = [</span><br><span class="line">    <span class="string">"國"</span>, <span class="string">"英"</span>, <span class="string">"數"</span></span><br><span class="line">]</span><br><span class="line">df = pd.DataFrame(scores, columns=subjects, index=students )</span><br><span class="line">print(df)</span><br><span class="line"></span><br><span class="line">df.to_csv(<span class="string">"scores.csv"</span>, encoding=<span class="string">"utf-8-sig"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="讀取資料範例"><a href="#讀取資料範例" class="headerlink" title="讀取資料範例"></a>讀取資料範例</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="comment"># 讀檔</span></span><br><span class="line">data = pd.read_csv(<span class="string">"scores.csv"</span>, encoding=<span class="string">"utf-8-sig"</span>, index_col=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">data.head()</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/bT0SZuz.png" alt=""></p>
+<h3 id="讀取線-csv檔"><a href="#讀取線-csv檔" class="headerlink" title="讀取線.csv檔"></a>讀取線<code>.csv</code>檔</h3><p>透過正確的URL就可以讀取網路上的任意<code>.csv</code>檔案轉成DataFrame。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">df = pd.read_csv(<span class="string">'http://bit.ly/kaggletrain'</span>)</span><br><span class="line">df.head()</span><br></pre></td></tr></table></figure>
+
+<h2 id="顯示前5筆資料"><a href="#顯示前5筆資料" class="headerlink" title="顯示前5筆資料"></a>顯示前5筆資料</h2><p><code>df.head()</code>: 使用.head()可以顯示資料，(預設5筆)，當然也能自訂，只需要內加上要顯示資料的筆數<br><img src="https://i.imgur.com/Z8re3AY.png" alt=""></p>
+<p>顯示最後一筆<br><code>df.head(1)</code><br><img src="https://i.imgur.com/b2HYEmc.png" alt=""></p>
+<h2 id="顯示後5筆資料"><a href="#顯示後5筆資料" class="headerlink" title="顯示後5筆資料"></a>顯示後5筆資料</h2><p><code>df.tail()</code>:<br>要顯示最後五筆資料則可以使用<code>df.tail()</code>，和<code>df.head()</code>一樣，可以在括號內加上要顯示資料的筆數</p>
+<h2 id="資料資訊"><a href="#資料資訊" class="headerlink" title="資料資訊"></a>資料資訊</h2><p>使用<code>df.info()</code>可以看到該檔案資訊<br><img src="https://i.imgur.com/X6mLyFO.png" alt=""></p>
+<h2 id="知道檔案的大小"><a href="#知道檔案的大小" class="headerlink" title="知道檔案的大小"></a>知道檔案的大小</h2><p>回傳訊息為：<strong>顯示(rows,columns)</strong><br><img src="https://i.imgur.com/GL1qUPQ.png" alt=""></p>
+<h2 id="篩選資料"><a href="#篩選資料" class="headerlink" title="篩選資料"></a>篩選資料</h2><h3 id="選擇一項資料"><a href="#選擇一項資料" class="headerlink" title="選擇一項資料"></a>選擇一項資料</h3><p><code>df[&quot;欄位名稱&quot;]</code><br>假設我們想要選擇某個科目的欄位所有資料，以<strong>英文</strong>為例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">"英"</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/1ZwtWGI.png" alt=""></p>
+<h3 id="選擇某幾筆資料"><a href="#選擇某幾筆資料" class="headerlink" title="選擇某幾筆資料"></a>選擇某幾筆資料</h3><p>假設我們要前兩筆英文科目的成績資料</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[<span class="string">"英"</span>][:<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/VnABNBv.png" alt=""></p>
+<h3 id="選擇多項資料"><a href="#選擇多項資料" class="headerlink" title="選擇多項資料"></a>選擇多項資料</h3><p>要擴增選擇的欄位很簡單，用一個<code>list</code>的資料結構即可完成。<br><code>df[[&#39;欄位名稱&#39;,&#39;欄位名稱&#39;]]</code><br>以取得<strong>英文、數學</strong>這兩格欄位為例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df[[<span class="string">"英"</span>, <span class="string">"數"</span>]].head()</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/Ax8rinI.png" alt=""></p>
+<h3 id="loc-quot-x-label-quot-quot-y-label-quot"><a href="#loc-quot-x-label-quot-quot-y-label-quot" class="headerlink" title="loc[&quot;x_label&quot;, &quot;y_label&quot;]"></a><code>loc[&quot;x_label&quot;, &quot;y_label&quot;]</code></h3><p><code>loc[&quot;x_label&quot;, &quot;y_label&quot;]</code>基於行(column)和列(row)進行資料篩選，<code>x_label</code>表示列(row)的篩選，而<code>y_label</code>則是基於行(column)。</p>
+<h4 id="範例"><a href="#範例" class="headerlink" title="範例"></a>範例</h4><p>原始資料:<br><img src="https://i.imgur.com/ipPOCP0.png" alt=""><br>針對student1至student3及國文英文科進行篩選，採用切片(slice)的方式。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用index的標籤來篩選出資料 concat_df</span></span><br><span class="line">concat_df.loc[<span class="string">"student1"</span>:<span class="string">"student3"</span>, :<span class="string">"英"</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/XcTFJGd.png" alt=""></p>
+<h3 id="iloc"><a href="#iloc" class="headerlink" title="iloc[]"></a><code>iloc[]</code></h3><p>基於行和列的索引值進行篩選，索引值都是從0開始。</p>
+<h4 id="範例-1"><a href="#範例-1" class="headerlink" title="範例"></a>範例</h4><p>篩選列(row)的前五筆及行(column)的前兩筆</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用index位置來篩選出資料</span></span><br><span class="line">concat_df.iloc[:<span class="number">5</span>, :<span class="number">2</span>]</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/iR24spR.png" alt=""></p>
+<h3 id="運算子篩選資料"><a href="#運算子篩選資料" class="headerlink" title="運算子篩選資料"></a>運算子篩選資料</h3><p>除了上述方法外，pandas也可以利用運算子的方式來篩選條件，如條件運算的:<code>==  !=</code>、<code>&gt; &lt;</code>、<code>&gt;= &lt;=</code>，</p>
+<h4 id="範例-2"><a href="#範例-2" class="headerlink" title="範例"></a>範例</h4><p>假設要篩選出英文分數&gt;70分的學生</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 運算子篩選資料</span></span><br><span class="line">concat_df[<span class="string">"英"</span>]  &gt; <span class="number">70</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/tEycEFI.png" alt=""></p>
+<p>執行範例程式碼後可看到回傳條件顯示<code>True</code>或<code>False</code>，接著以<code>True</code>或<code>False</code>當作篩選條件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">condition = (concat_df[<span class="string">"英"</span>]  &gt; <span class="number">70</span>)</span><br><span class="line">concat_df[condition]</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/9VUz4J4.png" alt=""></p>
+<h3 id="多個運算子篩選資料"><a href="#多個運算子篩選資料" class="headerlink" title="多個運算子篩選資料"></a>多個運算子篩選資料</h3><p>如果過濾條件不只一個，布林運算子就派上用場了！</p>
+<h4 id="範例-3"><a href="#範例-3" class="headerlink" title="範例"></a>範例</h4><p>篩選出國等於80分、數學大於60分、英文大於70分的學生，三個條件都須符合的話用<code>and</code>運算，或是<code>&amp;</code>符號。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">condition1 = (concat_df[<span class="string">"國"</span>] == <span class="number">80</span>)</span><br><span class="line">condition2 = (concat_df[<span class="string">"數"</span>] &gt; <span class="number">60</span>)</span><br><span class="line">condition3 = (concat_df[<span class="string">"英"</span>] &gt; <span class="number">70</span>)</span><br><span class="line">concat_df[(condition1 &amp; condition2 &amp; condition3)]</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/ShoGXqR.png" alt=""></p>
+<h2 id="資料新增"><a href="#資料新增" class="headerlink" title="資料新增"></a>資料新增</h2><p>新增column並加上資料，採用<code>insert()</code>方法<br><code>df.insert(位置索引值,column=&quot;欄位名稱&quot;,value=&quot;該筆資料的值&quot;)</code></p>
+<p>新增一個叫<strong>物理</strong>的欄位名稱在索引值為1(第二個欄位)的位置，裡面的值是<code>[80, 90, 100]</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">phy_arr=[<span class="number">80</span>, <span class="number">90</span>, <span class="number">100</span>]</span><br><span class="line">df.insert(<span class="number">1</span>, column=<span class="string">"物理"</span>, value=phy_arr)</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/cphLOmU.png" alt=""></p>
+<h3 id="空的資料填充"><a href="#空的資料填充" class="headerlink" title="空的資料填充"></a>空的資料填充</h3><p>把<code>NaN</code>的資料代換成自訂的資料，語法: <code>fillna(要替換的值)</code><br>範例:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">df.fillna(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="資料刪除"><a href="#資料刪除" class="headerlink" title="資料刪除"></a>資料刪除</h2><p><code>DataFrame.drop(labels=None,axis=0, index=&quot;索引值&quot;, columns=&quot;欄位名&quot;, inplace=False)</code></p>
+<h3 id="參數說明："><a href="#參數說明：" class="headerlink" title="參數說明："></a>參數說明：</h3><ul>
+<li>labels: 要刪除的行/列的名字</li>
+<li>axis: 預設為0，指刪除列(row);若要刪除行(column)時要指定axis=1；</li>
+<li>index: 直接指定要刪除的列(row)</li>
+<li>columns: 直接指定要刪除的行(column)</li>
+<li>inplace =False，預設不改變原資料，而是回傳一個執行刪除操作後的新dataframe；</li>
+<li>inplace=True，會在原數據上進行刪除操作，無返回值。</li>
+</ul>
+<p>因此，刪除行列有兩種方式：<br>1）labels=None,axis=0的組合<br>2）index或columns直接指定要刪除的行或列</p>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><blockquote>
+<ol>
+<li>指定參數<code>axis = 0</code>表示要刪除的值(row)，<code>axis = 1</code>表示要刪除欄位(column)。</li>
+<li>刪除資料的話，預設不改變原資料，而是回傳刪除後的新表格，所以要取新表格的資料要採用<strong><em>賦值</em></strong>的方式</li>
+</ol>
+</blockquote>
+<h3 id="刪除欄位列-column"><a href="#刪除欄位列-column" class="headerlink" title="刪除欄位列(column)"></a>刪除欄位列(column)</h3><p>假設今天要刪除<strong>物理</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 刪除欄位</span></span><br><span class="line">df.drop(<span class="string">"物理"</span>, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或是</span></span><br><span class="line">df.drop(columns=<span class="string">"物理"</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/tW3ShQc.png" alt=""></p>
+<h3 id="刪除列-row"><a href="#刪除列-row" class="headerlink" title="刪除列(row)"></a>刪除列(row)</h3><p>刪除索引值(index)為<strong>student1</strong>的列</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df.drop(<span class="string">"student1"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#或是</span></span><br><span class="line">df.drop(index=[<span class="string">"student1"</span>])</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/Rijq0In.png" alt=""></p>
+<p>若要刪除多個值，給定一個<code>list</code>即可。<br><img src="https://i.imgur.com/PEwXToq.png" alt=""></p>
+<p>刪除多個列也同理。</p>
+<h3 id="刪除空值"><a href="#刪除空值" class="headerlink" title="刪除空值"></a>刪除空值</h3><p>有時候得到的資料不一定是完全都有數值，很可能含有<code>NaN</code>，這時候就需要把它給刪除。<br><code>df.dropna()</code></p>
+<h2 id="資料排序"><a href="#資料排序" class="headerlink" title="資料排序"></a>資料排序</h2><h3 id="sort-values"><a href="#sort-values" class="headerlink" title="sort_values()"></a><code>sort_values()</code></h3><p>指定欄位的數值排序採用<code>.sort_values(&quot;欄位名&quot;, ascending=True, axis=0)</code>方法，<code>ascending=True</code>和<code>axis=0</code>為預設的排列方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df.sort_values(<span class="string">"物理"</span>, ascending=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 順序反轉</span></span><br><span class="line">df.sort_values(<span class="string">"物理"</span>, ascending=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/mkrPX2h.png" alt=""></p>
+<h4 id="當axis-1時，改以行-columns-為排序方式"><a href="#當axis-1時，改以行-columns-為排序方式" class="headerlink" title="當axis=1時，改以行(columns)為排序方式"></a>當<code>axis=1</code>時，改以行(columns)為排序方式</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">df.sort_values(<span class="string">"student1"</span>, axis=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 反轉</span></span><br><span class="line">df.sort_values(<span class="string">"student1"</span>, ascending=<span class="literal">False</span>, axis=<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/z6Sdacu.png" alt=""></p>
+<h2 id="合併資料"><a href="#合併資料" class="headerlink" title="合併資料"></a>合併資料</h2><p>合併多個CSV檔成單一DataFrame，若遇上相同類型的資料被分成多個不同的 CSV檔的情形，可以將之合併。</p>
+<h3 id="範例-4"><a href="#範例-4" class="headerlink" title="範例"></a>範例</h3><p>假設本地分別有<code>scores1.csv</code>、<code>scores2.csv</code>兩個檔案。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scores1_df = pd.read_csv(<span class="string">"scores1.csv"</span>, encoding=<span class="string">"utf-8-sig"</span>, index_col=<span class="number">0</span>)</span><br><span class="line">print(scores1_df)</span><br><span class="line"><span class="comment"># ========</span></span><br><span class="line">scores2_df = pd.read_csv(<span class="string">"scores2.csv"</span>, encoding=<span class="string">"utf-8-sig"</span>, index_col=<span class="number">0</span>)</span><br><span class="line">print(scores2_df)</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/GLmScWJ.png" alt=""></p>
+<p>讀取DataFrames後發現格式一模一樣，可以將其進行合併。<br>使用<code>pd.concat</code> 將資料格式相同但分散在不同CSV檔合併成單一 DataFrame，方便之後處理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">concat_df = pd.concat([scores1_df, scores2_df],axis=<span class="number">0</span>)</span><br><span class="line">concat_df</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/j47ZKHz.png" alt=""></p>
+<h2 id="改變欄位名稱"><a href="#改變欄位名稱" class="headerlink" title="改變欄位名稱"></a>改變欄位名稱</h2><h3 id="方法一-df-rename-rename-dic-axis-1"><a href="#方法一-df-rename-rename-dic-axis-1" class="headerlink" title="方法一: df.rename(rename_dic, axis=1)"></a>方法一: <code>df.rename(rename_dic, axis=1)</code></h3><p>透過<code>df.rename(rename_dic, axis=1)</code>方法，回傳一個新的df，<strong>不改變原始df</strong>。</p>
+<blockquote>
+<p>pandas預設處理的軸為列(row)：以<code>axis=0</code>表示；而<code>axis=1</code>表示想以行(column)為單位</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 方法一: df.rename(rename_dic, axis=1)，不改變原始df</span></span><br><span class="line">rename_dic = &#123;<span class="string">"age"</span>: <span class="string">"a"</span>, <span class="string">"city"</span>: <span class="string">"ct"</span>&#125;</span><br><span class="line">new_df = df.rename(rename_dic, axis=<span class="number">1</span>) </span><br><span class="line">new_df</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.imgur.com/XHGojyA.png" alt=""></p>
+<h3 id="方法二-df-columns"><a href="#方法二-df-columns" class="headerlink" title="方法二:  df.columns()"></a>方法二:  <code>df.columns()</code></h3><p>透過<code>df.columns()</code>方法，<strong>會改變原始df</strong>，對目標欄位重新命名。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 方法二:  df.columns() </span></span><br><span class="line">df.columns = [<span class="string">'na'</span>, <span class="string">'id'</span>] + list(df.columns[<span class="number">2</span>:])</span><br><span class="line">df</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/iWP0Oba.png" alt=""></p>
+<h1 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h1><p><a href="https://github.com/PyDataScience/PythonforDataScience/tree/master/Pandas?fbclid=IwAR1ezon5b71LNNWSo9We2PGOoK78K2sy9jZPTgvq2lIn1R51EOEzX7clU5g" target="_blank" rel="noopener">Python for Data Science</a><br><a href="https://pandas.pydata.org/pandas-docs/stable/getting_started/tutorials.html" target="_blank" rel="noopener">tutorials</a><br><a href="https://ithelp.ithome.com.tw/articles/10185922" target="_blank" rel="noopener">[第 14 天] 常用屬性或方法（3）Data Frame</a></p>
+<p><a href="https://leemeng.tw/practical-pandas-tutorial-for-aspiring-data-scientists.html" target="_blank" rel="noopener">資料科學家的 pandas 實戰手冊：掌握 40 個實用數據技巧</a></p>
+<p><a href="https://ithelp.ithome.com.tw/articles/10194003" target="_blank" rel="noopener">[Day08]Pandas資料的取得與篩選！</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/09/04/Python/[Python]%20Pandas%E8%B3%87%E6%96%99%E8%99%95%E7%90%86%E7%B3%BB%E5%88%971-%20%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%8F%8A%E6%93%8D%E4%BD%9C/" data-id="ckaz3apzs006zv6t1gp5a7is2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/" rel="tag">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/09/11/Database/MongoDB/%5BMongoDB%5D%20MongoDB%E5%AE%89%E8%A3%9D%E8%88%87%E9%80%A3%E6%8E%A5/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Database] MongoDB安裝與連接
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/09/03/Python/%5BPython%5D%20%E7%88%AC%E8%9F%B2%E7%AD%86%E8%A8%983-%20Selenium/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Python] 爬蟲筆記3- Selenium</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

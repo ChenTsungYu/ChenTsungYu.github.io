@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[Docker] Docker 實作篇 - Image、Container | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="鼠年全馬鐵人挑戰 - WEEK 11   前言之前簡單的介紹過Docker後，本篇文紀錄Docker系統架構及操作Image、Container的基本指令。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Docker] Docker 實作篇 - Image、Container">
+<meta property="og:url" content="http://yoursite.com/2020/04/19/DevOps/Docker/[DevOps]%20Docker%20%E5%AF%A6%E4%BD%9C%E7%AF%87%20-%20Image%E3%80%81Container/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="鼠年全馬鐵人挑戰 - WEEK 11   前言之前簡單的介紹過Docker後，本篇文紀錄Docker系統架構及操作Image、Container的基本指令。">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/26LiQlQ.png">
+<meta property="og:image" content="https://i.imgur.com/rfveMIF.png">
+<meta property="og:image" content="https://i.imgur.com/WrUHGP3.png">
+<meta property="og:image" content="https://i.imgur.com/0WJTk5x.png">
+<meta property="article:published_time" content="2020-04-19T09:00:10.000Z">
+<meta property="article:modified_time" content="2020-06-03T06:53:50.270Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/26LiQlQ.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-DevOps/Docker/[DevOps] Docker 實作篇 - Image、Container" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/19/DevOps/Docker/%5BDevOps%5D%20Docker%20%E5%AF%A6%E4%BD%9C%E7%AF%87%20-%20Image%E3%80%81Container/" class="article-date">
+  <time datetime="2020-04-19T09:00:10.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/DevOps/">DevOps</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [Docker] Docker 實作篇 - Image、Container
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>鼠年全馬鐵人挑戰 - WEEK 11</p>
+</blockquote>
+<!-- toc -->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>之前簡單的介紹過Docker後，本篇文紀錄Docker系統架構及操作Image、Container的基本指令。</p>
+<a id="more"></a>
+<h2 id="Docker-系統架構"><a href="#Docker-系統架構" class="headerlink" title="Docker 系統架構"></a>Docker 系統架構</h2><p>Docker系統架構主要是<strong>Client-Server</strong>架構，Client 端稱為Docker Client，Server端稱為Docker Daemon<br><img src="https://i.imgur.com/26LiQlQ.png" alt=""><br>當我們對docker下指令時，會發request給Docker Daemon去執行指令對應的工作。</p>
+<h3 id="Docker-Daemon做哪些事"><a href="#Docker-Daemon做哪些事" class="headerlink" title="Docker Daemon做哪些事?"></a>Docker Daemon做哪些事?</h3><ul>
+<li>管理多個container</li>
+<li>管理多個從DockerHub pull下來或是在本地由dockerfile建立的Image</li>
+<li>將本地建立好Image推到雲端上的repository</li>
+</ul>
+<h1 id="Hands-on-Lab"><a href="#Hands-on-Lab" class="headerlink" title="Hands on Lab"></a>Hands on Lab</h1><p>初步了解Docker 系統架構後，接著來著手學習相關指令吧！</p>
+<h2 id="Docker-登入"><a href="#Docker-登入" class="headerlink" title="Docker 登入"></a>Docker 登入</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker login</span><br></pre></td></tr></table></figure>
+<p>執行上述指令後，輸入自己在Docker Hub上建立的帳號密碼就可以登入了</p>
+<h2 id="Docker-image相關的基本指令"><a href="#Docker-image相關的基本指令" class="headerlink" title="Docker image相關的基本指令"></a>Docker image相關的基本指令</h2><h3 id="查看相關指令說明"><a href="#查看相關指令說明" class="headerlink" title="查看相關指令說明"></a>查看相關指令說明</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --<span class="built_in">help</span></span><br></pre></td></tr></table></figure>
+<h3 id="查看所有的image"><a href="#查看所有的image" class="headerlink" title="查看所有的image"></a>查看所有的image</h3><p>執行下方指令會列出所有local端的image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/rfveMIF.png" alt=""></p>
+<h3 id="遠端下載image"><a href="#遠端下載image" class="headerlink" title="遠端下載image"></a>遠端下載image</h3><p>Docker Hub 上有大量的Image可以用，如果要從遠端的Docker Registry 下載至本地端，可以執行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull image_name</span><br></pre></td></tr></table></figure>
+<p>docker pull Image名稱的格式有兩種:</p>
+<ul>
+<li>Docker Registry位址：位址的格式一般是 &lt;網域名/IP&gt;[:連接埠號碼]。 預設位址是 Docker Hub。</li>
+<li>Repository name：Repository name是兩段式名稱:  <code>&lt;使用者名稱&gt;/image_name:image_tag</code>。對於 Docker Hub，若未給定使用者名稱，則預設為從官方的image，也就是library</li>
+</ul>
+<h4 id="範例-pull非官方的Image"><a href="#範例-pull非官方的Image" class="headerlink" title="範例: pull非官方的Image"></a>範例: pull非官方的Image</h4><p><img src="https://i.imgur.com/WrUHGP3.png" alt=""><br>例如今天我的docker hub上已經有個自己build好的image(如上圖)，我要將其pull下來，我可以執行下方指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull tom861012/imagedemo:0.0.1.RELEASE</span><br></pre></td></tr></table></figure>
+<p><code>tom861012</code>為我的docker hub帳號，<code>imagedemo</code>為image名稱而<code>0.0.1.RELEASE</code>為tag名。</p>
+<h4 id="範例：-從官方的Image-pull-MySQL-Image"><a href="#範例：-從官方的Image-pull-MySQL-Image" class="headerlink" title="範例： 從官方的Image pull MySQL Image"></a>範例： 從官方的Image pull MySQL Image</h4><p>將image_name替換成目標image，例如要下載MySQL這個image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql</span><br></pre></td></tr></table></figure>
+<h3 id="查找相關的image"><a href="#查找相關的image" class="headerlink" title="查找相關的image"></a>查找相關的image</h3><p>若要查找存放在remote repository的image，可以用<code>search</code>這個指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search image_name</span><br></pre></td></tr></table></figure>
+<h3 id="範例：-MySQL-Image"><a href="#範例：-MySQL-Image" class="headerlink" title="範例： MySQL Image"></a>範例： MySQL Image</h3><p>將image_name替換成目標image，例如要查找MySQL相關image</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql</span><br></pre></td></tr></table></figure>
+<h3 id="查看目標image的歷史紀錄"><a href="#查看目標image的歷史紀錄" class="headerlink" title="查看目標image的歷史紀錄"></a>查看目標image的歷史紀錄</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image <span class="built_in">history</span> image_name</span><br></pre></td></tr></table></figure>
+<h3 id="查看目標image的相關數據資料"><a href="#查看目標image的相關數據資料" class="headerlink" title="查看目標image的相關數據資料"></a>查看目標image的相關數據資料</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image inspect image_name</span><br></pre></td></tr></table></figure>
+<h3 id="刪除local端的image"><a href="#刪除local端的image" class="headerlink" title="刪除local端的image"></a>刪除local端的image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker image remove image</span><br><span class="line">或是</span><br><span class="line">docker rmi</span><br></pre></td></tr></table></figure>
+<h3 id="一次刪除不必要-未使用-的image"><a href="#一次刪除不必要-未使用-的image" class="headerlink" title="一次刪除不必要(未使用)的image"></a>一次刪除不必要(未使用)的image</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi $(docker images --filter <span class="string">"dangling=true"</span> -q --no-trunc)</span><br></pre></td></tr></table></figure>
+<h3 id="替image加上tag"><a href="#替image加上tag" class="headerlink" title="替image加上tag"></a>替image加上tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag  Image ID repository_address:image_tag</span><br></pre></td></tr></table></figure>
+<p>若在沒有指定 TAG 是哪個版本的情況下，預設會是<code>latest</code>表示最新版本，當然我們也自訂tag 名稱，如：加入Repository 版本號，打包出來的 Docker Image，後面的TAG 就會從<code>latest</code> 變成指定的版本號了。<br>實務上為了易於辨識，通常會在Tag中加入版本號。</p>
+<h2 id="Container相關的基本指令"><a href="#Container相關的基本指令" class="headerlink" title="Container相關的基本指令"></a>Container相關的基本指令</h2><h3 id="建立並執行docker-container"><a href="#建立並執行docker-container" class="headerlink" title="建立並執行docker container"></a>建立並執行docker container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p port:container_port repository:image_tag_name</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>-p</code>: 為<code>--publish</code> 的簡寫</li>
+<li><code>repository</code> 為DockerHub所存放Repository，其中包含多個Image，每個Image有不同的標籤(tag)</li>
+<li><code>image_tag_name</code> : image的tag name</li>
+</ul>
+<blockquote>
+<p>執行<code>docker run</code>時，若本地端無此Image存在時，會從DockerHub上找目標Repository拉下來(pull down)到本地</p>
+</blockquote>
+<h3 id="docker-run中間的過程"><a href="#docker-run中間的過程" class="headerlink" title="docker run中間的過程"></a>docker run中間的過程</h3><ul>
+<li>先在local image cache尋找該image</li>
+<li>若找不到該image，會往遠端的image repository尋找(預設為<strong>Docker Hub</strong>)</li>
+<li>拉下(pull)下載最新版本的image</li>
+<li>根據pull下來的image來建新的container</li>
+<li>在 docker engine 裡面給 container 私有網路上的虛擬 ip</li>
+<li>開啟主機端的port(看你設定哪個port)並轉址到 containe的port(若沒有下<code>--publish</code>指令就不會打開任何 port)</li>
+</ul>
+<h3 id="背景執行-detach"><a href="#背景執行-detach" class="headerlink" title="背景執行: detach"></a>背景執行: detach</h3><p>在<code>docker run</code>的指令中加上<code>--detach</code>(或是簡寫<code>-d</code>)，可以讓docker在背景執行。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p port:container_port -d repository:image_tag_name</span><br></pre></td></tr></table></figure>
+<p>這個指令會印出<strong>container ID</strong></p>
+<h3 id="查看執行中的-Docker-Container"><a href="#查看執行中的-Docker-Container" class="headerlink" title="查看執行中的 Docker Container"></a>查看執行中的 Docker Container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container ls</span><br></pre></td></tr></table></figure>
+<p>執行上述指令可以查看container相關的資訊，如ID、名稱、執行的Command、建立時間、所在的Image及對應的port等等。<br>或是執行下方指令也可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<h3 id="停止docker-container"><a href="#停止docker-container" class="headerlink" title="停止docker container"></a>停止docker container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container stop containerID(可以取前四個)</span><br></pre></td></tr></table></figure>
+<p>或是將<code>stop</code>指令改為<code>kill</code>也可以</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container <span class="built_in">kill</span> containerID(可以取前四個)</span><br></pre></td></tr></table></figure>
+<p>雖然<code>stop</code>、<code>kill</code>都可以將container停止，兩者的區別在於<code>kill</code>指令是強行終止container，而<code>stop</code>是循序的，會先给container發送一個TERM訊號(signal)，讓container做一些退出前必须的安全性操作，container自动停止運作，相對之下較為優雅(graceful)</p>
+<h3 id="刪除-container"><a href="#刪除-container" class="headerlink" title="刪除 container"></a>刪除 container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm containerID</span><br></pre></td></tr></table></figure>
+<h3 id="清理所有停止運行的container"><a href="#清理所有停止運行的container" class="headerlink" title="清理所有停止運行的container"></a>清理所有停止運行的container</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker container prune</span><br></pre></td></tr></table></figure>
+<h3 id="啟動已終止容器"><a href="#啟動已終止容器" class="headerlink" title="啟動已終止容器"></a>啟動已終止容器</h3><p>利用<code>start</code>指令，將一個已經終止的容器啟動執行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start container_name或id</span><br></pre></td></tr></table></figure>
+<h3 id="觀察-container-的資源使用量"><a href="#觀察-container-的資源使用量" class="headerlink" title="觀察 container 的資源使用量"></a>觀察 container 的資源使用量</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stats</span><br></pre></td></tr></table></figure>
+<p><code>stats</code>指令會顯示目前所有執行中的 container所吃掉的 CPU, 記憶體, 網路和磁碟 I/O 等等，<strong>它是即時性的</strong>！讓使用者可以知道每個 Container 使用掉多少的系統資源。</p>
+<h3 id="限制container記憶體的使用量"><a href="#限制container記憶體的使用量" class="headerlink" title="限制container記憶體的使用量"></a>限制container記憶體的使用量</h3><p>加上<code>-m</code>這個指令參數表示<code>--memory</code>，可以指定記憶體的容量限制，如下方範例為限制<strong>512m</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p port:container_port -d -m 512m repository:image_tag_name</span><br></pre></td></tr></table></figure>
+<h3 id="限制container-CPU的使用量"><a href="#限制container-CPU的使用量" class="headerlink" title="限制container CPU的使用量"></a>限制container CPU的使用量</h3><p>加上<code>--cpu-quota</code>這個指令參數可以指定 CPU 資源限制，最大為<strong>1000000</strong>，下方範例為上限的一半: 500000</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p port:container_port -d -m 512m --cpu-quota=500000 repository:image_tag_name</span><br></pre></td></tr></table></figure>
+<h3 id="查看log"><a href="#查看log" class="headerlink" title="查看log"></a>查看log</h3><p>查看container id的log</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker logs containerID(可以取前四個)</span><br></pre></td></tr></table></figure>
+<h2 id="docker-system相關的基本指令"><a href="#docker-system相關的基本指令" class="headerlink" title="docker system相關的基本指令"></a>docker system相關的基本指令</h2><h3 id="查看docker系統資訊"><a href="#查看docker系統資訊" class="headerlink" title="查看docker系統資訊"></a>查看docker系統資訊</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system info</span><br></pre></td></tr></table></figure>
+<h3 id="查看硬碟使用情況"><a href="#查看硬碟使用情況" class="headerlink" title="查看硬碟使用情況"></a>查看硬碟使用情況</h3><p>用了一段時間Docker後，會發現它佔用了不少硬碟空間，如果想知道硬碟的使用情況可以加上<code>df</code>指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system df</span><br></pre></td></tr></table></figure>
+<p><img src="https://i.imgur.com/0WJTk5x.png" alt=""></p>
+<h3 id="監控事件活動"><a href="#監控事件活動" class="headerlink" title="監控事件活動"></a>監控事件活動</h3><p>Docker 有提供<code>events</code>指令用來監聽Docker的事件紀錄，可用來查找問題，例如容器一直執行不起來的時候，就可以使用 docker events 來觀察到底是失敗在哪一個階段。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system events</span><br></pre></td></tr></table></figure>
+<p>下這個指令時，記得要開另外一個終端機，因為這個指令是一直持續監控事件的狀態，所以要一直讓他run才有辦法監聽事件</p>
+<h3 id="刪除所有未使用的-containers-networks-images"><a href="#刪除所有未使用的-containers-networks-images" class="headerlink" title="刪除所有未使用的 containers, networks, images"></a>刪除所有未使用的 containers, networks, images</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker system prune</span><br></pre></td></tr></table></figure>
+
+<h1 id="參考教學"><a href="#參考教學" class="headerlink" title="參考教學"></a>參考教學</h1><p><a href="https://tingsyuanwang.github.io/blogs/2017/07/23/docker-%E5%BF%AB%E9%80%9F%E5%AD%B8%E7%BF%92%E8%87%AA%E6%88%91%E6%8C%91%E6%88%B0-Day1/" target="_blank" rel="noopener">docker 快速學習自我挑戰 Day1</a></p>
+<p><a href="https://hackmd.io/@titangene/docker-getting-started-slide?print-pdf#/" target="_blank" rel="noopener">docker入門觀念</a></p>
+<p><a href="https://hackmd.io/@bluewings1211/SJkLOW9_l?type=view#%E5%88%97%E5%87%BA%E6%98%A0%E5%83%8F%E6%AA%94" target="_blank" rel="noopener">手把手教你安裝、使用 docker 並快速產生 Anaconda 環境 (1)</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/19/DevOps/Docker/[DevOps]%20Docker%20%E5%AF%A6%E4%BD%9C%E7%AF%87%20-%20Image%E3%80%81Container/" data-id="ckaz3aq07008lv6t1hpeuem55" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/26/DevOps/Docker/%5BDevOps%5D%20Docker%E5%8C%96%E4%BD%A0%E7%9A%84Python%20Flask%20APP%20%E4%B8%A6%E4%B8%8A%E5%82%B3%E8%87%B3Docker%20Hub/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [Docker] Docker化你的Python Flask APP 並上傳至Docker Hub
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/13/DevOps/Terraform/%5BDevOps%5D%20Terraform%E5%85%A5%E9%96%80(5)%20-%20%E5%88%A9%E7%94%A8Terraform%E4%BE%86%E5%BB%BA%E7%BD%AE%E5%A4%9A%E5%80%8B%E7%92%B0%E5%A2%83(workspace)/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Terraform] Terraform入門(5) - 利用Terraform來建置多個workspace</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>[AWS] 初識AWS中的VPC | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="鼠年全馬鐵人挑戰 - WEEK 13    前言本文做為有關VPC的閱讀筆記">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[AWS] 初識AWS中的VPC">
+<meta property="og:url" content="http://yoursite.com/2020/04/28/aws/[AWS]%20%E5%88%9D%E8%AD%98AWS%E4%B8%AD%E7%9A%84VPC/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="鼠年全馬鐵人挑戰 - WEEK 13    前言本文做為有關VPC的閱讀筆記">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i.imgur.com/e85z7IM.jpg">
+<meta property="og:image" content="https://i.imgur.com/gwjvpnl.png">
+<meta property="og:image" content="https://i.imgur.com/eYzBgRO.png">
+<meta property="article:published_time" content="2020-04-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-06-03T07:23:51.585Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="w3HexSchool">
+<meta property="article:tag" content="AWS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.imgur.com/e85z7IM.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-aws/[AWS] 初識AWS中的VPC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/28/aws/%5BAWS%5D%20%E5%88%9D%E8%AD%98AWS%E4%B8%AD%E7%9A%84VPC/" class="article-date">
+  <time datetime="2020-04-27T16:00:00.000Z" itemprop="datePublished">2020-04-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Cloud/">Cloud</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      [AWS] 初識AWS中的VPC
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>鼠年全馬鐵人挑戰 - WEEK 13</p>
+</blockquote>
+<p><img src="https://i.imgur.com/e85z7IM.jpg" alt=""></p>
+<!--toc-->
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文做為有關VPC的閱讀筆記</p>
+<a id="more"></a>
+<h1 id="何謂VPC"><a href="#何謂VPC" class="headerlink" title="何謂VPC"></a>何謂VPC</h1><p>VPC全名是Virtual Private Cloud，是一個建立在雲端上的封閉區域網路，一般來說，基於安全考量，公司都會有自己的一套內部網路環境，對外網路會有一台防火牆保護，避免外部隨意連進來，在防火牆內就像是一個VPC。<br>想像一種情況，若有公司內部的資料庫開放讓外部進行連線，只要有正確的帳號密碼，誰都可以連進來，那將是非常危險的事情。若是即使帳號密碼正確，但只有某幾台機器可以連進來，安全性相對提高，後者即是VPC的主要功能。<br>VPC中可以選擇自己的 IP 地址範圍、建立子網路(subnet)、配置路由表(Route Table)和網路閘道(Internet Gateway)，以及選擇公有和私有網路</p>
+<blockquote>
+<p>每個Region的網路互相獨立，同一個Region可同時建立多個VPC，VPC間彼此獨立不干擾。</p>
+</blockquote>
+<h1 id="Amazon-VPC-包含哪些部分？"><a href="#Amazon-VPC-包含哪些部分？" class="headerlink" title="Amazon VPC 包含哪些部分？"></a>Amazon VPC 包含哪些部分？</h1><h2 id="Elastic-IP-EIP"><a href="#Elastic-IP-EIP" class="headerlink" title="Elastic IP(EIP):"></a>Elastic IP(EIP):</h2><p>即固定IP，以AWS EC2來說，預設是使用變動的IP，每次重啟EC2時都會賦予新的IP，若要讓EC2綁定一組固定IP，就可以在EC2的管理介面中配發一組EIP給他。</p>
+<h3 id="需注意的重點："><a href="#需注意的重點：" class="headerlink" title="需注意的重點："></a>需注意的重點：</h3><p>Elastic IP在每個Region剛開始只會給5個額度，用完需另外申請。</p>
+<h2 id="Subnet-子網路"><a href="#Subnet-子網路" class="headerlink" title="Subnet(子網路):"></a>Subnet(子網路):</h2><p>Subnet就是在VPC的網段下，再細分不同的子網段。Subnet可區分為<strong>Public</strong>、<strong>Private</strong>和<strong>Vpn-Only</strong>三種，以公司內部網路來看，會切成不同的子網段。<br><strong>Public</strong>: 直接對外服務，擁有Elastic IP(EIP)，透過 Internet Gateway可直接訪問Internet<br><strong>Private</strong>: 私有的子網段，該網段只能與內部網路溝通，無法直接訪問 Internet<br><strong>VPN-Only</strong>：只允許特定的VPN連接</p>
+<h3 id="Subnet需注意的幾個重點："><a href="#Subnet需注意的幾個重點：" class="headerlink" title="Subnet需注意的幾個重點："></a>Subnet需注意的幾個重點：</h3><ul>
+<li>每個subnet的CIDR Block不能重複，也不能大於VPC</li>
+<li>一般來說，subnet除了切開CIDR外，還會區分不同的AZ(可用區域)，避免單一個區域內機房失效的問題</li>
+</ul>
+<h2 id="Route-Table-路由表"><a href="#Route-Table-路由表" class="headerlink" title="Route Table(路由表):"></a>Route Table(路由表):</h2><p>一般網路封包在傳送時，起點到終點位置的傳輸路徑由Router來決定，而Route Table可決定往特定網段(Destination)的封包如何傳送(Target)</p>
+<h3 id="常見Target類型："><a href="#常見Target類型：" class="headerlink" title="常見Target類型："></a>常見Target類型：</h3><ul>
+<li>local</li>
+<li>NAT Portal</li>
+<li>internet gateway(簡稱igw)</li>
+<li>virtual gateway(簡稱vgw)可用在連接企業內部的VPN</li>
+</ul>
+<h3 id="幾個注意的重點"><a href="#幾個注意的重點" class="headerlink" title="幾個注意的重點"></a>幾個注意的重點</h3><ul>
+<li>每個 subnet 只能指定零或一張 route table</li>
+<li>可以設其中一張route table為預設值；讓未指定的subnet都參照它</li>
+</ul>
+<h2 id="Internet-Gateway"><a href="#Internet-Gateway" class="headerlink" title="Internet Gateway:"></a>Internet Gateway:</h2><p>讓VPC與外部網際網路溝通的通道，Route Table會將封包往 Gateway送，即可對外進行溝通。</p>
+<h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>全名為<strong>Network Address Translation</strong>，主要的功能是連結內部與外部的網路，如區域網路內的服務器，只允許內對外的連線，但不允許外對內的連線，皆透過同一個對外IP來進行對外部的溝通。</p>
+<h3 id="注意的重點"><a href="#注意的重點" class="headerlink" title="注意的重點:"></a>注意的重點:</h3><ul>
+<li>在<strong>Public subnet</strong>建立一個NAT Gateway</li>
+<li>NAT Gateway需指定一組EIP，建立外部連線</li>
+</ul>
+<h2 id="Endpoint-端點"><a href="#Endpoint-端點" class="headerlink" title="Endpoint(端點)"></a>Endpoint(端點)</h2><p>在<strong>Private subnet</strong>內，連接AWS某些Service時 e.g. S3，可透過建置Endpoint來串接。</p>
+<h2 id="VPC需注意的幾個重點："><a href="#VPC需注意的幾個重點：" class="headerlink" title="VPC需注意的幾個重點："></a>VPC需注意的幾個重點：</h2><ul>
+<li>VPC在設定之後不能改，要改只能重建</li>
+<li>每個區域的每個AWS帳戶最多5個VPC，要更多的話需要跟AWS發ticket</li>
+<li>VPC 的subnet可以從最小<code>/28</code>到最大<code>/16</code>，即最少可以開14個IP addresses的VPC，以及最大65534個IP addresses的VPC。</li>
+<li>每個VPC可擁有200 subnets</li>
+<li>每個VPC都是獨立環境，可透過NAT來連接不同VPC</li>
+<li>VPC的計費：<br>如果是建立、使用VPC本身的話不收其他費用。但VPC內包含其他AWS服務的話，如：EC2，則會收取其他Services的使用費，依照這些資源公佈的費率計算，可能還需支付資料傳輸費用。</li>
+</ul>
+<h1 id="範例討論"><a href="#範例討論" class="headerlink" title="範例討論"></a>範例討論</h1><p>最後以官方文件的範例來做討論。<br><img src="https://i.imgur.com/gwjvpnl.png" alt=""><br>圖片取自<a href="https://docs.aws.amazon.com/vpc/latest/userguide/how-it-works.html" target="_blank" rel="noopener">官方文件</a><br>上圖為官方給的預設VPC架構圖，可從AWS Console進行點擊<br><img src="https://i.imgur.com/eYzBgRO.png" alt=""><br>預設的架構會是：</p>
+<ul>
+<li>預設VPC會發的CIDR為<code>172.31.0.0/16</code></li>
+<li>預設替每一個AZ分配一個<code>/20</code>的Subnet: <code>172.31.0.0/20</code>、<code>172.31.16.0/20</code></li>
+<li>兩個Subnet內各有一台EC2 instance，即<code>172.31.0.5</code>、<code>172.31.16.5</code></li>
+<li>EC2 instance會自動被分配一組外部IP，即圖片中的Public IP: <code>203.0.113.17</code>、<code>203.0.113.23</code>，只要重新開機，會自動重新分配新的IP。</li>
+<li>透過<strong>Internet Gateway</strong>建立對外網的連線，即<code>igw-id</code></li>
+<li>兩個Subnet都會遵循Main route table建立的路徑，只要收件者IP是<code>172.31.0.0/16</code>的網段，網路封包就會往內網送；其餘封包(<code>0.0.0.0/0</code>表任意連線)，就往Internet Gateway發送。</li>
+</ul>
+<h1 id="參考文件"><a href="#參考文件" class="headerlink" title="參考文件"></a>參考文件</h1><ul>
+<li><a href="https://aws.amazon.com/tw/vpc/faqs/" target="_blank" rel="noopener">Official Docs</a></li>
+<li><a href="https://shazi.info/aws-%E5%85%A7-vpc-%E8%88%87-subnet-%E8%A6%8F%E5%8A%83%E3%80%81%E7%90%86%E8%A7%A3/" target="_blank" rel="noopener">AWS 內 VPC 與 Subnet 規劃、理解</a></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/28/aws/[AWS]%20%E5%88%9D%E8%AD%98AWS%E4%B8%AD%E7%9A%84VPC/" data-id="ckaz3apyk0032v6t1aj9z9qf8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/29/aws/%5BAWS%5DAWSome%20Day/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          [AWS] AWSome Day Online Conference
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/26/DevOps/Docker/%5BDevOps%5D%20Docker%E5%8C%96%E4%BD%A0%E7%9A%84Python%20Flask%20APP%20%E4%B8%A6%E4%B8%8A%E5%82%B3%E8%87%B3Docker%20Hub/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">[Docker] Docker化你的Python Flask APP 並上傳至Docker Hub</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Backend/">Backend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cloud/">Cloud</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Conference/">Conference</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/DevOps/">DevOps</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Frontend/">Frontend</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Internet/">Internet</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/OS/">OS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AWS/" rel="tag">AWS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Canvas/" rel="tag">Canvas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Conference/" rel="tag">Conference</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Css/" rel="tag">Css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Database/" rel="tag">Database</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DevOps/" rel="tag">DevOps</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Django/" rel="tag">Django</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Docker/" rel="tag">Docker</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ELK/" rel="tag">ELK</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Github/" rel="tag">Github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Go/" rel="tag">Go</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Internet/" rel="tag">Internet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Mac/" rel="tag">Mac</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MongoDB/" rel="tag">MongoDB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/" rel="tag">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NoSQL/" rel="tag">NoSQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/" rel="tag">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OS/" rel="tag">OS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Pandas/" rel="tag">Pandas</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Project/" rel="tag">Project</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Proxy/" rel="tag">Proxy</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/" rel="tag">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL-Server/" rel="tag">SQL Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session-Cookie/" rel="tag">Session Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Terraform/" rel="tag">Terraform</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Vue/" rel="tag">Vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebScraping/" rel="tag">WebScraping</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/w3HexSchool/" rel="tag">w3HexSchool</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A8%88%E6%A6%82/" rel="tag">計概</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AWS/" style="font-size: 18px;">AWS</a> <a href="/tags/Canvas/" style="font-size: 11px;">Canvas</a> <a href="/tags/Conference/" style="font-size: 10px;">Conference</a> <a href="/tags/Css/" style="font-size: 10px;">Css</a> <a href="/tags/Database/" style="font-size: 15px;">Database</a> <a href="/tags/DevOps/" style="font-size: 17px;">DevOps</a> <a href="/tags/Django/" style="font-size: 12px;">Django</a> <a href="/tags/Docker/" style="font-size: 12px;">Docker</a> <a href="/tags/ELK/" style="font-size: 11px;">ELK</a> <a href="/tags/Github/" style="font-size: 10px;">Github</a> <a href="/tags/Go/" style="font-size: 13px;">Go</a> <a href="/tags/Internet/" style="font-size: 11px;">Internet</a> <a href="/tags/JavaScript/" style="font-size: 16px;">JavaScript</a> <a href="/tags/Linux/" style="font-size: 12px;">Linux</a> <a href="/tags/Mac/" style="font-size: 12px;">Mac</a> <a href="/tags/MongoDB/" style="font-size: 11px;">MongoDB</a> <a href="/tags/MySQL/" style="font-size: 12px;">MySQL</a> <a href="/tags/NoSQL/" style="font-size: 11px;">NoSQL</a> <a href="/tags/OOP/" style="font-size: 11px;">OOP</a> <a href="/tags/OS/" style="font-size: 11px;">OS</a> <a href="/tags/Pandas/" style="font-size: 11px;">Pandas</a> <a href="/tags/Project/" style="font-size: 10px;">Project</a> <a href="/tags/Proxy/" style="font-size: 10px;">Proxy</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/SQL-Server/" style="font-size: 11px;">SQL Server</a> <a href="/tags/Session-Cookie/" style="font-size: 10px;">Session Cookie</a> <a href="/tags/Terraform/" style="font-size: 14px;">Terraform</a> <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a> <a href="/tags/Vue/" style="font-size: 13px;">Vue</a> <a href="/tags/WebScraping/" style="font-size: 12px;">WebScraping</a> <a href="/tags/w3HexSchool/" style="font-size: 19px;">w3HexSchool</a> <a href="/tags/%E8%A8%88%E6%A6%82/" style="font-size: 10px;">計概</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">May 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">August 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/05/25/aws/%5BAWS%5D%20%E7%94%A8%20ssh-agent%20forwarding%20%E7%99%BB%E5%85%A5%20EC2%20instance/">[AWS] 用 ssh-agent forwarding 登入 EC2 instance</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/23/DevOps/ELK/%5BELK%5D%20Elasticsearch/">[ELK] Elasticsearch</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/18/Internet/Webhook%20VS.%20WebSocket/">Webhook VS. WebSocket</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/16/DevOps/ELK/%5BELK%5D%20Hello!%20ELK/">[ELK] Hello! ELK</a>
+          </li>
+        
+          <li>
+            <a href="/2020/05/09/aws/%E6%88%91%E6%94%B6%E5%88%B0AWS%E5%85%8D%E8%B2%BB%E5%B8%B3%E8%99%9F%E7%9A%84%E5%B8%B3%E5%96%AE/">[AWS] 我收到AWS寄來免費帳號的帳單</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
