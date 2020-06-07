@@ -11,7 +11,19 @@
 <li>independent process(獨立行程)： 該Process無法影響其它Process的執行，同時它也不受其他Process影響，獨立的Process之間不會有任何共享資料。</li>
 <li>cooperating process(合作行程)：該Process能夠影響其它Process，或是受其它Process影響，故Process之間會有共享的資料，需要有進行資訊交換的管道</li>
 </ul>
-<p>簡單做個整理：<br>| independent process | cooperating process |<br>| ——– | ——– |<br>| Process之間不會有任何共享的資料| Process之間會有部分共享的資料 |</p>
+<p>簡單做個整理：</p>
+<table>
+<thead>
+<tr>
+<th>independent process</th>
+<th>cooperating process</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Process之間不會有任何共享的資料</td>
+<td>Process之間會有部分共享的資料</td>
+</tr>
+</tbody></table>
 <p>Process間的溝通需透過IPC(interprocess communication) ，IPC有兩種模式設計:</p>
 <ul>
 <li>Share Memory</li>
@@ -74,7 +86,26 @@
 </ul>
 </li>
 </ul>
-<p>將兩者的比較做個整理：<br>| | Share Memory | Message Passing |<br>| ——– | ——– | ——– |<br>| 溝通方式  | 共享一部分的記憶體(透過共享變數存取資料) | Process 之間建立Communication Link |<br>| 共享性  | 共享變數所有process皆可存取 | process間有專屬的Link，不會隨意被其他Process共用 |</p>
+<p>將兩者的比較做個整理：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Share Memory</th>
+<th>Message Passing</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>溝通方式</td>
+<td>共享一部分的記憶體(透過共享變數存取資料)</td>
+<td>Process 之間建立Communication Link</td>
+</tr>
+<tr>
+<td>共享性</td>
+<td>共享變數所有process皆可存取</td>
+<td>process間有專屬的Link，不會隨意被其他Process共用</td>
+</tr>
+</tbody></table>
 <h2 id="多個Process間，如何確定是哪個Process接收到訊息？"><a href="#多個Process間，如何確定是哪個Process接收到訊息？" class="headerlink" title="多個Process間，如何確定是哪個Process接收到訊息？"></a>多個Process間，如何確定是哪個Process接收到訊息？</h2><ul>
 <li>規定在某一時間內，只有一個Process可以接收訊息。</li>
 <li>由系統決定，是哪個Process接收，再回傳訊息告知是誰收到。</li>
