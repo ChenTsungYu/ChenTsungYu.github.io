@@ -2,8 +2,9 @@
 title:  '[JavaScript] Date& Timer'
 catalog: true
 date: 2019/07/13 13:45:01
-tags: JavaScript
-categories: Frontend
+tags: [JavaScript]
+categories: [Frontend]
+toc: true
 ---
 <!-- toc -->
 # 前言

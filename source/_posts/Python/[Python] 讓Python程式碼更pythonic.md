@@ -2,8 +2,9 @@
 title: "[Python] 讓Python程式碼更Pythonic"
 catalog: true
 date: 2020/01/01 20:23:10
-tags: Python
+tags: [Python]
 categories: Backend
+toc: true
 ---
 <!-- toc -->
 # 前言

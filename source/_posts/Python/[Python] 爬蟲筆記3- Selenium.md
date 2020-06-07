@@ -3,7 +3,8 @@ title: "[Python] 爬蟲筆記3- Selenium"
 catalog: true
 date: 2019/09/03 20:23:10
 tags: [Python, WebScraping]
-categories: Backend
+categories: [Backend]
+toc: true
 ---
 <!-- toc -->
 # 前言

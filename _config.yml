@@ -97,27 +97,6 @@ pagination_dir: page
 #plugins:
 #  - hexo-algoliasearch
 
-# algolia:
-algolia:
-  appId: "DCEH2MPT4E" ## 剛剛複製的 API Keys，也就是 applicationID
-  applicationID: "DCEH2MPT4E" ## 剛剛複製的 API Keys，也就是 applicationID
-  apiKey: "ea7fa46750a4d69f9f222e4469f93e45" ## 剛剛複製的 API Keys
-  adminApiKey: "c415910932520744f1dba2670f432075" ## 剛剛複製的 API Keys
-  chunkSize: 5000
-  indexName: "hexo"
-  fields:
-    - content:strip:truncate,0,200
-    - excerpt:strip
-    - gallery
-    - permalink
-    - photos
-    - slug
-    - tags
-    - categories
-    - title
-    - date
-
-
 # Include / Exclude file(s)
 ## include:/exclude: options only apply to the 'source/' folder
 include:

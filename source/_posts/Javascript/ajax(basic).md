@@ -2,8 +2,9 @@
 title: '[JavaScript] Ajax'
 catalog: true
 date: 2019/07/14 17:23:10
-tags: JavaScript
-catagories: Hexo
+tags: [JavaScript]
+catagories: [JavaScript]
+toc: true
 ---
 <!-- toc -->
 

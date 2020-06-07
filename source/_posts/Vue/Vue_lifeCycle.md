@@ -3,8 +3,9 @@ title: '[Vue.js] Lifecycle Hooks'
 catalog: true
 date: 2019/07/17 21:50:17
 subtitle: "Basic Concept"
-tags: Vue
+tags: [Vue]
 categories: Frontend
+toc: true
 ---
 <!-- toc -->
 

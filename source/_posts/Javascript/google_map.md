@@ -2,8 +2,9 @@
 title:  '[JavaScript] 使用Google Map API'
 catalog: true
 date: 2019/07/19 13:45:01
-tags: JavaScript
-categories: Frontend
+tags: [JavaScript, GoogleMap]
+categories: [Frontend]
+toc: true
 ---
 >筆記如何使用Google Map API 進行服務
 <!-- toc -->

@@ -4,10 +4,10 @@ catalog: true
 date: 2020/02/20 20:23:10
 tags: [Python, Django, w3HexSchool]
 categories: Backend
+toc: true
 ---
 
 > 鼠年全馬鐵人挑戰 - WEEK 02
-
 <!-- toc -->
 # 前言
 Django提供獨特的模板語法，將HTML頁面做動態載入。因為在HTML檔，無法使用python來撰寫程式，Django的模板引擎讓撰寫好的python程式碼可以建構在網頁上面。簡單來說，透過模板語法，我們可以在HTML檔寫入python的程式碼，讓網頁變成動態載入的狀態。

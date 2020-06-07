@@ -4,6 +4,7 @@ catalog: true
 date: 2020/01/22 20:23:10
 tags: [Mac, Linux] 
 categories: OS
+toc: true
 ---
 > 本篇紀錄Mac常用的指令(會持續更新)
 <!-- toc -->

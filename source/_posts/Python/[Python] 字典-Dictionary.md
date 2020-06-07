@@ -2,8 +2,9 @@
 title: "[Python] 字典-Dictionary"
 catalog: true
 date: 2019/08/03 20:23:10
-tags: Python
+tags: [Python]
 categories: Backend
+toc: true
 ---
 <!-- toc -->
 # 前言

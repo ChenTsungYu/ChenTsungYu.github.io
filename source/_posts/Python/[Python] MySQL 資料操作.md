@@ -4,6 +4,7 @@ date: 2019/09/13 20:54:10
 tags: [Database, MySQL, Python]
 catalog: true
 categories: Backend
+toc: true
 ---
 ![](https://i.imgur.com/v9Jp9x8.png)
 <!-- toc -->

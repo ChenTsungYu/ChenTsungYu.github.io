@@ -3,7 +3,8 @@ title: "[Python] 物件導向入門"
 catalog: true
 date: 2020/01/03 20:23:10
 tags: [Python, OOP]
-categories: Backend
+categories: [Backend]
+toc: true
 ---
 <!-- toc -->
 # 什麼是物件導向？

@@ -5,6 +5,7 @@ date: 2019/07/14 23:51:53
 subtitle: "Basic Concept"
 tags: OOP
 categories: Frontend
+toc: true
 ---
 <!-- toc -->
 # 何謂物件導向?

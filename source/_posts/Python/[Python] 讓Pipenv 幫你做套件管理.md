@@ -2,8 +2,9 @@
 title: "[Python] 讓Pipenv 幫你做套件管理"
 catalog: true
 date: 2020/01/10 20:23:10
-tags: Python
-categories: Backend
+tags: [Python]
+categories: [Backend]
+toc: true
 ---
 ![](https://miro.medium.com/max/2400/1*zPe_kLqaQ7Iie19_uH4vUA.jpeg)
 <!-- toc -->

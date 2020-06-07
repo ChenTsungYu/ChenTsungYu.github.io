@@ -2,8 +2,9 @@
 title: "[Python] 淺談 Python 中的Decorator(下)"
 catalog: true
 date: 2020/02/07 20:23:10
-tags: Python
+tags: [Python]
 categories: Backend
+toc: true
 ---
 <!-- toc -->
 # 前言

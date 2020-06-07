@@ -2,8 +2,9 @@
 title:  '[JavaScript] Array'
 catalog: true
 date: 2019/07/18 13:45:01
-tags: JavaScript
-categories: Frontend
+tags: [JavaScript]
+categories: [Frontend]
+toc: true
 ---
 <!-- toc -->
 # 前言
