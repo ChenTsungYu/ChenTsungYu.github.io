@@ -1,9 +1,9 @@
 ---
-title: "[OS] 作業系統筆記-Process間的溝通"
+title: "[Django] 在Ubuntu中運用Nginx、Gunicorn 架設 Django API Server"
 catalog: true
-date: 2020/06/07
-tags: [OS, w3HexSchool] 
-categories: OS
+date: 2020/07/19
+tags: [Django, w3HexSchool] 
+categories: Django
 toc: true
 ---
 >鼠年全馬鐵人挑戰 - WEEK 19
@@ -16,7 +16,7 @@ toc: true
 - Web Framework: Django 3.0; djangorestframework 3.11
 - Server: Nginx 1.14
 - Database: MySQL
-
+<!--more-->
 # 實作
 ## 安裝環境
 安裝所需要的環境，會下載python3、mysql、nginx
