@@ -2,7 +2,7 @@
 title: "[Python] 探討例外錯誤的處理機制"
 catalog: true
 date: 2019/08/12 20:23:10
-tags: Python
+tags: [Python]
 categories: Backend
 toc: true
 ---

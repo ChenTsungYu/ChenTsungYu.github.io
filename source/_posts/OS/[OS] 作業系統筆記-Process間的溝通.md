@@ -6,6 +6,7 @@ tags: [OS, w3HexSchool]
 categories: OS
 toc: true
 ---
+>鼠年全馬鐵人挑戰 - WEEK 18
 <!--toc-->
 # 前言
 [上篇](https://chentsungyu.github.io/2020/03/21/OS/%5BOS%5D%20%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1%E7%AD%86%E8%A8%98-Process/)筆記過Process的狀態及管理，本篇筆記Process間的溝通
@@ -18,11 +19,10 @@ toc: true
 - cooperating process(合作行程)：該Process能夠影響其它Process，或是受其它Process影響，故Process之間會有共享的資料，需要有進行資訊交換的管道
 
 簡單做個整理：
+
 | independent process | cooperating process |
 | -------- | -------- |
 | Process之間不會有任何共享的資料| Process之間會有部分共享的資料 |
-
-
 
 Process間的溝通需透過IPC(interprocess communication) ，IPC有兩種模式設計:
 - Share Memory
@@ -69,6 +69,7 @@ Process間會建立連接通道(Communication Link)來溝通，非借助共享�
 
 
 將兩者的比較做個整理：
+
 | | Share Memory | Message Passing |
 | -------- | -------- | -------- |
 | 溝通方式  | 共享一部分的記憶體(透過共享變數存取資料) | Process 之間建立Communication Link |
