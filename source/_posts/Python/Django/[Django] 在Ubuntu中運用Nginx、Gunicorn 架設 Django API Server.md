@@ -3,13 +3,13 @@ title: "[Django] 在Ubuntu中運用Nginx、Gunicorn 架設 Django API Server"
 catalog: true
 date: 2020/07/19
 tags: [Django, w3HexSchool] 
-categories: Django
+categories: Backend
 toc: true
 ---
 >鼠年全馬鐵人挑戰 - WEEK 19
 <!--toc-->
 # 前言
-前幾天因為正在進行的Side Project，用朋友開給我的虛擬機(VM)架設一台API Server，趁還有記憶時趕快來筆記一下。
+目前正在進行一個Side Project，用朋友開給我的虛擬機(VM)架設一台API Server，趁還有記憶時趕快來筆記一下。
 
 ## 前置作業:
 - OS: Ubuntu 18.04
@@ -17,7 +17,10 @@ toc: true
 - Server: Nginx 1.14
 - Database: MySQL
 <!--more-->
+
 # 實作
+架構圖如下:
+![](https://i.imgur.com/IRUbP5n.png)
 ## 安裝環境
 安裝所需要的環境，會下載python3、mysql、nginx
 ```
@@ -78,7 +81,7 @@ source <yourenv>/bin/activate
 以我為例，我的虛擬環境名稱為`env`
 ![](https://i.imgur.com/vlS6qMf.png)
 
-啟動虛擬環境後會看到終端機的最左方有的`(env)`表示啟動虛擬環境，若要若要退出虛擬環境則執行`deactive`。
+啟動虛擬環境後會看到終端機的最左方有的`(env)`表示啟動虛擬環境，若要退出虛擬環境則執行`deactive`。
 
 下載專案所需的相依套件
 ```bash=
@@ -132,11 +135,11 @@ python3 manage.py collectstatic
 ```
 執行下方指令進行資料庫遷移
 ```bash=
-python manage.py makemigrations
-python manage.py migrate
+python3 manage.py makemigrations
+python3 manage.py migrate
 ```
-
-使用gunicorn測試Server
+## gunicorn
+### 使用gunicorn測試Server
 ```bash=
 cd ~/<yourprojectdir>
 gunicorn --bind 0.0.0.0:8000 <yourproject>.wsgi
@@ -148,7 +151,7 @@ gunicorn --bind 0.0.0.0:8000 <yourproject>.wsgi
 ```bash=
 deactivate
 ```
-## 設定gunicorn
+### 設定gunicorn
 建立`gunicorn.socket`
 ```bash=
 sudo vim /etc/systemd/system/gunicorn.socket
@@ -215,7 +218,7 @@ sudo systemctl status gunicorn.socket
 file /run/gunicorn.sock
 ```
 ![](https://i.imgur.com/hSUerTR.png)
-如果發現沒有在裡面，或是有其他問題，可以執行下方指令查看Log找問題
+如果發現沒有在`/run`這個資料夾中，或是有其他問題，可以執行下方指令查看Log找問題
 ```bash=
 sudo journalctl -u gunicorn.socket
 ```
@@ -262,14 +265,14 @@ location / {
     }
 }
 ```
-通過將檔案連結到啟動網站的目錄來啟動該檔案
+將檔案連結到啟動網站的目錄來啟動該檔案
 ```bash=
-sudo ln -s /etc/nginx/sites-available/testproject.conf /etc/nginx/sites-enabled
+sudo ln -s /etc/nginx/sites-available/project_name.conf /etc/nginx/sites-enabled
 sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-設防火牆。需要開放80 port上的流量，並刪除8000port，禁止訪問。
+設防火牆需要開放80 port上的流量，並刪除8000 port，禁止訪問。
 ```bash=
 sudo ufw delete allow 8000
 sudo ufw allow 'Nginx Full'
