@@ -4,6 +4,7 @@ catalog: true
 date: 2020/09/30 09:00
 tags: [AWS, MySQL, w3HexSchool, Linux]
 categories: [Cloud]
+toc: true
 ---
 > 鼠年全馬鐵人挑戰 - WEEK 20
 
@@ -80,7 +81,7 @@ S3 是 AWS 提供的儲存服務，用於存放和擷取任意數量的資料，
 回到剛剛創建User的介面，搜尋新創建的policy名稱進行勾選，就可以繼續執行一步到創建完成。
 ![](https://i.imgur.com/J7fFnle.png)
 下載個人金鑰置個人電腦，金鑰為機密資訊，務必好好保管！也可以寄信至個人信箱
-![](https://i.imgur.com/DYx2RuZ.png)
+![](https://i.imgur.com/YW5oKIC.png)
 ## 撰寫備份用的 shell script
 ### 建立`runbackup.sh`
 ```bash=
