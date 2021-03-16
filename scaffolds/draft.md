@@ -1,5 +1,5 @@
 # [AWS] SysOps 證照筆記整理
-###### tags: `AWS` `nextlink`
+###### tags: `AWS`
 
 # Monitoring & Reporting
 ## Cloudwatch
