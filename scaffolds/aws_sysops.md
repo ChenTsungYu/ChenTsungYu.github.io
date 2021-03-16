@@ -502,7 +502,7 @@ a management tool which gives you **visibility and control over AWS infrastructu
 - works with ec2, s3, synamoDB, lambda, etc...
 
 ### SSM Documents
-- documents can be in **json or yaml **
+- documents can be in **json or yaml**
 - user define parameters
 - user define actions
 - main documents already exist in aws
@@ -572,6 +572,9 @@ updating the **private DNS** for the database
 endpoint. => Don't worry about change ip address
 
 ## RDS read replicas
+Once the Read Replica is created, **database updates on the source DB Instance** will be
+replicated using a supported engine's native, asynchronous replication. You can create multiple Read Replicas for a given source DB Instance and distribute your application’s read traffic amongst them
+
 - allowed to **elastically scale out** beyond the capacity constraints of a single DB Instance for **read-heavy database workloads**.
 - **Read only copies** of your database
 - For **performance improvement**, you need **Read Replicas**
