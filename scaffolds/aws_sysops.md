@@ -1,5 +1,8 @@
-# [AWS] SysOps 證照筆記整理
-###### tags: `AWS` `nextlink`
+# [AWS] AWS Certified SysOps Administrator – Associate
+###### tags: `AWS`
+
+# Resource
+A CLOUD GURU
 
 # Monitoring & Reporting
 ## Cloudwatch
