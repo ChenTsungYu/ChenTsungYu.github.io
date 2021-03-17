@@ -627,3 +627,6 @@ When a new read replica is created you will be able to **connect to it using a n
 
 ### Extra
 - [Synchronous vs. Asynchronous Replication Strategies](https://www.nakivo.com/blog/synchronous-vs-asynchronous-replication-strategy/)
+
+### Lab
+須先對RDS 啟用 Backup 才允許 Create read replica
