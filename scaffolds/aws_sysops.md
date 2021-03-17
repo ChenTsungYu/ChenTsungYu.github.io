@@ -680,7 +680,11 @@ share DB snapshots that have been encrypted "at rest" using the AES-256 encrypti
 - when you delete a db instance, you can retain automated backups 
 - backups have a retention period of you set between 0 and 35 dys
 ### snapshots
-- snapshots takes IO operatoins and can stop the dtabase from seconds to minutes snapshots taken on multi az db don't impact the master - just the standby snapshots are incremental after the first snapshots
-you can copy & share db snapshots
-manual snapshots don't expire
-you can take a final snapshot when you delete your db
+- snapshots takes **I/O operatoins** and can stop the dtabase from seconds to minutes 
+- snapshots taken on multi-az db **don't impact the master** - just the standby 
+- snapshots are incremental after the first snapshots
+- you can copy & share db snapshots
+- **manual snapshots don't expire**
+- you can **take a final snapshot** when you delete your db
+
+# Aurora
