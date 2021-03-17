@@ -629,4 +629,58 @@ When a new read replica is created you will be able to **connect to it using a n
 - [Synchronous vs. Asynchronous Replication Strategies](https://www.nakivo.com/blog/synchronous-vs-asynchronous-replication-strategy/)
 
 ### Lab
-須先對RDS 啟用 Backup 才允許 Create read replica
+須先對RDS 啟用 Automate Backup 才允許 Create read replica
+
+## Encrypting RDS Instances
+### Steps To Encrypt RDS Snaps
+- Take a Snap of existing RDS instance
+![](https://i.imgur.com/Kp2lIl9.png)
+- Copy the snap to the same/different region
+![](https://i.imgur.com/zGzlBAj.png)
+- Encrypt the copy during the copy process.
+![](https://i.imgur.com/MNlGcAf.png)
+- Restore the snap
+![](https://i.imgur.com/wPhbr1I.png)
+- encryption at rest capability with **aws kms --aes 256**
+![](https://i.imgur.com/ru3turd.png)
+Encrypted by default and not allowed to be disble
+![](https://i.imgur.com/olBpICl.png)
+
+### How To Share Encrypted Snaps Between Accounts?
+share DB snapshots that have been encrypted "at rest" using the AES-256 encryption algorithm.
+
+**Step:**
+- Create a **CUSTOM KMS Encryption key**.
+- Create an RDS snapshot using the **custom key**.
+- Share the CUSTOM AWS KMS encryption key that was used to encrypt the snapshot.
+- Use the AWS Management Console, AWS CLI, or Amazon RDS API to share the encrypted snapshot with the other accounts.
+
+**Restrictions:**
+- can't share encrypted snapshots **as public**.
+- can't share Oracle or Microsoft SQL Server snapshots that are encrypted using Transparent Data Encryption (TDE).
+- can't share a snapshot that has been encrypted using the **default** AWS KMS encryption key of the AWS account that shared the snapshot
+
+## RDS vs Aurora
+- Aurora is a proproetary tech from aws
+- **postgresql** and **mysql** are both supported as aurora db
+- Aurora is AWS cloud optimized and claims 5x performance improvement over mysql over 3x of poestgresql
+- **Aurora** can have **15 replicas** while **mysql has 5**
+
+## DB parameter group
+- you can configure the db engine using parameter groups 
+- synamic parameters are apllied immediately
+- static parameters are applied after instance reboot
+- you can modify parameter group associated with a db 
+- see doc for list of parameters for a db technology
+
+## RDS backups vs snapshots
+### backups
+- backups are continuous and allow point in time recovery
+- backups happen during maintenance widows
+- when you delete a db instance, you can retain automated backups 
+- backups have a retention period of you set between 0 and 35 dys
+### snapshots
+- snapshots takes IO operatoins and can stop the dtabase from seconds to minutes snapshots taken on multi az db don't impact the master - just the standby snapshots are incremental after the first snapshots
+you can copy & share db snapshots
+manual snapshots don't expire
+you can take a final snapshot when you delete your db
