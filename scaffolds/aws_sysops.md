@@ -660,12 +660,6 @@ share DB snapshots that have been encrypted "at rest" using the AES-256 encrypti
 - can't share Oracle or Microsoft SQL Server snapshots that are encrypted using Transparent Data Encryption (TDE).
 - can't share a snapshot that has been encrypted using the **default** AWS KMS encryption key of the AWS account that shared the snapshot
 
-## RDS vs Aurora
-- Aurora is a proproetary tech from aws
-- **postgresql** and **mysql** are both supported as aurora db
-- Aurora is AWS cloud optimized and claims 5x performance improvement over mysql over 3x of poestgresql
-- **Aurora** can have **15 replicas** while **mysql has 5**
-
 ## DB parameter group
 - you can configure the db engine using parameter groups 
 - synamic parameters are apllied immediately
@@ -687,4 +681,64 @@ share DB snapshots that have been encrypted "at rest" using the AES-256 encrypti
 - **manual snapshots don't expire**
 - you can **take a final snapshot** when you delete your db
 
-# Aurora
+## Aurora
+- Aurora is a proproetary tech from aws
+- Aurora storage automatically grows in increment of 10GB, up to 64TB
+- Aurora can have **15 read replicas** (storage autoscaling)
+- **2 copies** of your data is contained **in each AZ**, with **minimum of 3 AZ**. **6 copies of your data** => **Redundancy**
+- **Storage is self-healing**: Data blocks and disks are continuously scanned for errors and repaired automatically
+
+### Aurora Cluster
+![](https://i.imgur.com/eLlybZH.png)
+### Type of Aurora Replica
+- Aurora Read Replicas
+- MySQL Read Replicas
+
+### Issue: Aurora 100% CPU Utilization?
+- Is it **Writes** causing the issue?    
+A: Scale Up (increase **instance size**)
+- Q: Is it **Reads** causing the issue?   
+A: Scale Out (increase the **number of read replicas**).
+
+### Aurora Serverless
+- an on-demand, auto-scaling configuration for Aurora (MySQL-compatible edition) => automatically start-up, shut down, and scale up or down capacity based on your application's needs
+- pay on a per-second basis for the database capacity you use
+- Encryption at rest is **turned on by default**
+- Once Encryption is turned on, **all read replicas will be encrypted**
+- Choice of Migration (just a few clicks in the Amazon RDS Management Console): 
+    - standard 
+    - serverless configurations
+
+### Aurora Lab
+- **Multi-AZ** Deployment
+![](https://i.imgur.com/Sq3zol0.png)
+- **Role of writing and reading are in different zone**
+![](https://i.imgur.com/qWMBneC.png)
+- Create a reader -> Scenario: CPU achive 100%
+![](https://i.imgur.com/sZp6bLK.png)
+
+## Failover Control
+AWS RDS Failover is defined by Tiers. The lower the tier **the higher the priority with Tier 0** being the highest priority available
+![](https://i.imgur.com/iWnI4T7.png)
+Tiers 0 > Tiers 1 > Tiers 2 > .... > Tiers 15
+
+![](https://i.imgur.com/16yPW6J.png)
+
+## Cross Region Replicas - Creating a new
+cross region replica will also **create a new
+Aurora cluster** in the target region. If the
+replication is disrupted, you will have to set
+up again. It is recommended that you
+select **"Multi-AZ Deployment"** to ensure
+high availability for the target cluster
+
+## Extra
+- DB **Cluster level** can't be deleted before  the node level of instances are deleted
+
+
+## RDS vs Aurora
+- **postgresql** and **mysql** are both supported as aurora db
+- Aurora is AWS cloud optimized and claims 5x performance improvement over mysql over 3x of poestgresql
+- **Aurora** can have **15 replicas** while **mysql has 5**
+- Encryption of Aurora at rest is turned on by **default**; RDS for Mysql & PostgreSQL isn't
+
