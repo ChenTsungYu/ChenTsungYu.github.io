@@ -521,7 +521,7 @@ sometimes you want control over the ec2 instance placement strategy
 - Cluster: instances are all created in a single AZ -> **Low latency, high network throughput** ![](https://i.imgur.com/36gLmN5.png)
 - Partition: instances are created **in a logical segment** call partition (can be **Multi-AZ**)
 ![](https://i.imgur.com/FK2Tx2B.png)
-- Spread: spreads instances across underlying hardware(max 7 instances per group per AZ) -> **Max availability in order to minimize the impact**
+- Spread: spreads instances across underlying hardware(**max 7 instances per group per AZ**) -> **Max availability in order to minimize the impact**
 ![](https://i.imgur.com/hTzmgna.png)
 
 # High Availability
@@ -735,10 +735,109 @@ high availability for the target cluster
 ## Extra
 - DB **Cluster level** can't be deleted before  the node level of instances are deleted
 
-
 ## RDS vs Aurora
 - **postgresql** and **mysql** are both supported as aurora db
 - Aurora is AWS cloud optimized and claims 5x performance improvement over mysql over 3x of poestgresql
 - **Aurora** can have **15 replicas** while **mysql has 5**
 - Encryption of Aurora at rest is turned on by **default**; RDS for Mysql & PostgreSQL isn't
 
+# Elasticache
+- web service that makes it easy to deploy, operate, and scale an **in-memory cache** in the cloud
+- significantly improve **latency and throughput** for many **read-heavy application** workloads (such as social networking, gaming, media sharing and Q&A portals)
+- Caching improves application performance by **storing critical pieces of data in memory** for low-latency access. 
+- Cached information may include the results of I/O-intensive database queries or the results of computationally-intensive calculations
+
+## Type of Elasticache
+
+### Memcached
+- adopted memory object caching system
+- ElastiCache is **protocol compliant** with Memcached
+
+### Redis
+- an open-source in-memory key-value store
+- supports **Master / Slave replication** and **Multi-AZ** which can be used to achieve cross AZ redundancy.
+
+## Tips
+- Elasticache is a good choice if your database is particularly **read-heavy** and **not prone to frequent changing**.
+- The important things for monitoring:
+    - CPU Utilization
+	- Swap Usage
+	- Evictions
+	- Concurrent Connections
+
+> **Redshift** is a good answer if the reason your database is feeling stress is
+because management keep running **OLAP transactions** on it etc.
+
+# Cloudfront
+- CDN Service
+- system of distributed servers
+## Key Terminolog
+- Edge Location - This is the **location where content will be cached**. This is separate to an AWS Region/AZ.
+- Origin - This is the origin of all the files that the CDN will distribute. This can be an S3 Bucket, an EC2 Instance, an Elastic Load Balancer, or Route53.
+- Distribution - This is the name given the CDN which consists of a collection of Edge Locations.
+
+## How Cloudfront work?
+![](https://i.imgur.com/NrKgjgL.png)
+Amazon CloudFront can be used to deliver your entire website, including dynamic, static, streaming, and interactive content using a
+global network of edge locations. Requests for your content are automatically routed to the nearest edge location, so content is delivered with the best possible performance.
+
+## Purpose of Cloudfront
+- reduce the number of requests that the origin server must respond to directly.
+- reduce the load of origin server
+- reduce the latency (more object are server from Cloudfront edge loactions which are closer to users) 
+![](https://i.imgur.com/5oTTnJ9.png)
+
+## Cache Hit Ratios
+The more requests that CloudFront is able to serve from edge locations, the better it works.
+
+**The ratio of requests served from edge locations** (rather than the origin) is known as the cache hit ratio. 
+
+> The more requests from edge locations, the **better the performance**
+
+### How to maximise Cache Hit Ratios
+#### Specifying How Long CloudFront Caches Your Objects: 
+configure your origin to **add a Cache-Control max-age** directive to your objects, and **specify the longest practical value for max-age**
+
+The **shorter the cache duration**, the more frequently CloudFront forwards another request to your origin to determine whether the object has changed and, if so, to get the latest version.
+#### Caching Based on Query String Parameters
+Query String Parameters examples:
+- http://www.example.com?**id=a1**
+- http://www.example.com?**id=A1**
+- http://www.example.com?**Id=a1**
+- http://www.example.com?**ID=a1**
+
+the examples above would be calling to origin server **four difference times** -> The cases are different
+
+Query String Parameter is **CASE SENSITIVE**. Ensure your application uses consistent variables.
+#### Caching Based on Cookie Values
+Create **separate cache behaviors for static and dynamic content**, and configure CloudFront to **forward cookies to origin** only for **dynamic content**.
+
+**Example**
+
+If you create a cache behavior for which the path pattern is `*.css` and for which CloudFront doesn't cache based on cookie values, then CloudFront forwards requests for `.css` files to your origin **only for the first request** that an edge location receives for a given `.css` file and for the first request after a `.css` file expires
+#### Caching Based on Request Headers
+If you configure CloudFront to cache based on request headers, you can improve caching if you Configure CloudFront to **forward and cache based on only specified headers** instead of forwarding and caching based on all headers.
+
+Also try to **avoid caching based on request headers** that have **large numbers of unique values**.
+![](https://i.imgur.com/6sBd5d9.png)
+#### Remove Accept-Encoding Header When Compression is Not Needed
+By default, when CloudFront receives a request, it checks the value of the Accept-Encoding header. If the value of the header contains gzip, then CloudFront adds the header and value **gzip— Accept-Encoding: gzip—to the cache key**, and then forwards it to the origin. 
+
+This behaviour ensures that CloudFront serves either an object or a compressed version of the object, based on the value of the Accept-Encoding header. 
+
+If compression is not enabled—because the origin doesn't support it, CloudFront doesn't support it, or the content is not compressible—you can increase the cache hit ratio by specifying different behaviour
+#### Serving Media Content by Using HTTP
+You can use CloudFront to deliver on-demand video or live streaming video using any HTTP origin. One way you can set up video workflows in the cloud is by using CloudFront together with AWS Media Services.
+
+# Troubleshooting Autoscaling
+## Instances not launching in to Autoscaling Groups
+Below is a list of things to look for if your instances are not launching in to an autoscaling group:
+- Associated Key Pair does not exist
+- Security group does not exist
+- Autoscaling config is not working correctly
+- Autoscaling group not found
+- Instance type specified is not supported in the AZ
+- AZ is no longer supported
+- Invalid EBS device mapping
+- Autoscaling service is not enabled on your account
+- Attempting to attach and EBS block device to an instance-store AMI
