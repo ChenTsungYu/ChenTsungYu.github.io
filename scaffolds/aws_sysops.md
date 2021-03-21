@@ -1,9 +1,7 @@
-# [AWS] AWS Certified SysOps Administrator – Associate
-###### tags: `AWS`
-
+# AWS Certified SysOps Administrator – Associate
+###### tags: `AWS` `exam`
 # Resource
-A CLOUD GURU
-
+A Cloud Guru
 # Monitoring & Reporting
 ## Cloudwatch
 ![](https://i.imgur.com/cHicVsN.png)
@@ -48,7 +46,7 @@ ec2 的 Metrics 相關範例:
 
 ### Metrics granularity (粒度) -> for ec2
 - basic(normal) monitoring(default):
-  metrics are collected at a **5 min** interal 
+  metrics are collected at a **5 min** interval 
 - detailed monitor(paid): 
   metrics are collectd at a **1 min** interval includes CPU, Network, Disk and Status Check Metrics; or your can set 3 mins or any amount less than 5 mins
 - custom metric
@@ -56,7 +54,7 @@ basic resolution: minimum granularity is **1 min**
 high resolution: all the way to 1 second resolution
 ![](https://i.imgur.com/QWG1e7m.png)
 
-### Cloud Alarm
+### Cloudwatch Alarm
 設置門檻值，可用於整合 EC2 CPU Utilizaion, ELB or Charges on AWS Billing 發布警報
 
 ## EBS
@@ -71,7 +69,7 @@ high resolution: all the way to 1 second resolution
     - 低延遲
     - system boot volumes
     - 適合**開發、測試環境**
-    - 最高上限為 10,000 IOPS; 16GB
+    - 最高上限為 **10,000 IOPS; 16GB**
 - Provision IOPS (SSD) - io1
     - for critical business app
     - 可容許**大於 10,000 IOPS** or 160 MB/s of hhroughput of per volumn
@@ -102,6 +100,7 @@ high resolution: all the way to 1 second resolution
 - insufficient data: insufficient data
 
 **Exam Tip:**
+
 Know that Degraded or Severely Degraded = Warning
 Stalled or Not Available = Impaired
 
@@ -841,3 +840,142 @@ Below is a list of things to look for if your instances are not launching in to 
 - Invalid EBS device mapping
 - Autoscaling service is not enabled on your account
 - Attempting to attach and EBS block device to an instance-store AMI
+
+# Storage & Data management
+## [S3](https://aws.amazon.com/s3/faqs/)
+- an object (key-value) storage (for files, images, web pages)
+- an unlimited storage
+- Files are stored in Buckets (similar to a folder)
+- Names must be unique globally -> S3 is a universal namespace
+- **region leve**
+- Amazon guarantee and built for **99.99%** availability for the S3 platform
+- Tiered Storage Available
+- Lifecycle Management
+- Versioning
+- Encryption
+- Secure your data - Access Control Lists and Bucket Policies => 限制特定條件才能夠對 S3 存取
+
+### [Storage Tiers/Classes](https://aws.amazon.com/s3/storage-classes/?nc1=h_ls)
+![](https://i.imgur.com/kYAmxEh.png)
+#### Standard: 
+99.99% availability, 99.999999999% durability, stored redundantly **across multiple
+devices in multiple facilities**, and is designed to sustain the loss of 2 facilities concurrently.
+#### IA (Infrequently Accessed): 
+For data that is **accessed less frequently**, but requires rapid access when needed. Lower fee than S3, but you are **charged a retrieval fee**.
+#### One Zone IA: 
+Same as IA however data is stored **in a single A-Ze only**, still 99.999999999% durability, but only 99.5% availability. Cost is **20% less than regular S3 - IA**.
+#### Reduced Redundancy Storage: 
+Designed to provide **99.99% durability** and **99.99% availability** of objects **over a given year**. Used for data that can be recreated if lost, e.g. thumbnails. (Starting to disappear from AWS documentation but may still feature in exam)
+#### Glacier:
+Very cheap, but used for archival only. Optimised for data that is **infrequently accessed** and it **takes 3 - 5 hours** to restore from Glacier
+
+#### Intelligent Tiering
+- the only cloud storage class
+- be suitable for data Unknown (e.g. new applications) or unpredictable (e.g. data lakes) access patterns
+- 2 tiers: frequent and infrequent access
+- Automatically moves your data to most cost-effective tier based on how frequently you access each object
+- 99.999999999% durability, 99.9 availability over a given year
+- Optimizes cost
+- **No fees for accessing data** but a small monthly **fee for monitoring / automation** $0.0025 per 1,000 objects
+
+### Charge
+- Storage **per GB**
+- **Requests** (Get, Put, Copy, etc.)
+- Storage Management Pricing
+    - Inventory, Analytics, and Object Tags
+- Data Management Pricing
+    - Data transferred out of S3
+- **Transfer Acceleration**
+    - Use of CloudFront to optimize transfers
+
+### S3 Lifecycle Policies
+- used to ensure users are using the most cost effective option to store objects in S3
+- based on **object creation date**
+- S3 can transition your objects to Infrequently Accessed Storage or to Glacier based on the rules you configure
+- can also set an expiry date for object you want S3 to delete after a certain time period has elapsed
+
+### MFA Delete & S3 Versioning
+#### S3 Versioning
+- S3 Versioning enables users to revert to older versions of S3 objects.
+- Multiple versions of an object are **stored in the same bucket**.
+- Versioning also protects users from accidental / malicious deletes.
+- With **versioning enabled**, a DELETE action doesn’t delete the object version, but **applies a delete marker** instead.
+- To **permanently delete**, provide the **object Version ID** in the delete request
+
+#### MFA Delete
+- You will need a valid code from your MFA device in order to permanently delete an object version.
+- MFA also needed to **suspend / reactivate versioning** on an S3 bucket
+
+### S3 Encryption
+- Encryption In-Transit
+    - SSL/TLS (HTTPS)
+- Encryption At Rest
+    - Server Side Encryption
+        - SSE-S3
+        - SSE-KMS
+        - SSE-C
+    - Client Side Encryption
+
+#### Enforcing Encryption on S3 Buckets
+
+Every time a file is uploaded to S3, a **PUT request is initiated**
+
+If the file is to be encrypted at upload time, the **x-amz-server-side-encryption**
+parameter will be included in the request header.
+![](https://i.imgur.com/AzNjQn0.png)
+
+> If you want to enforce the use of encryption for your files stored in S3, use an **S3 Bucket Policy to deny all PUT requests** that **don’t include** the **x-amz-server-side encryption** parameter in the request header.
+
+### Lab
+![](https://i.imgur.com/hsGCsqZ.png)
+- Eidt policy
+![](https://i.imgur.com/0oUYNBQ.png)
+- Conditional
+![](https://i.imgur.com/A9xba0P.png)
+- policy JSON
+![](https://i.imgur.com/bxjWDgc.png)
+- Fixed policy JSON with adding `/*` after Resource
+![](https://i.imgur.com/f9Lk3pk.png)
+- Server-side Encryption Settings
+![](https://i.imgur.com/wWrzUiE.png)
+
+## EBS Volumes v.s. Instance Store Volumes
+### two types of volumes
+#### Root Volume 
+where your operating system is installed
+- Root device volumes can either be **EBS volumes** or **Instance Store volumes**.
+- An **Instance store** root device volume’s maximum size is **10Gb**.
+- An **EBS** root device volume can be **up to 1 or 2Tb** (depending on the OS)
+#### Additional Volumes
+e.g. D:\ E:\ F:\ or /dev/sdb, /dev/
+sdc, /dev/sdd
+
+### Terminating an Instance - EBS
+- EBS root device volumes are **terminated by DEFAULT** when the EC2 instance is terminated. You can stop this by **unselecting the "Delete on Termination"** option
+![](https://i.imgur.com/04FwIGl.png)
+- Other EBS volumes attached to the instance are preserved, however, if you delete the instance
+### Terminating an Instance - Instance Store
+- Instance store device root volumes are terminated by DEFAULT when the EC2 instance is terminated. **You cannot stop this**
+![](https://i.imgur.com/cj1vsjz.png)
+- Other **instance store** volumes will **be deleted on termination automatically**
+- Other **EBS** volumes attached to the EC2 instance will **persist automatically**
+
+### Stopping an Instance
+- EBS-backed instances: **can be stopped**.
+- Instance Store-backed instances: **CANNOT be stopped** (only rebooted or terminated)
+
+### Instance Store Data
+The data in an instance store **persists only during the lifetime** of its associated instance. If an instance reboots (intentionally or unintentionally), data in the instance store persists. However, data on instance store volumes is **lost** under the following circumstances:
+- Failure of an underlying drive
+- Stopping an Amazon EBS-backed instance
+- Terminating an instance
+
+#### Note
+Don't rely on instance store volumes for valuable, longterm data. Instead, **keep your data safe** by using a replication strategy across multiple instances, storing data in **S3**, or using **EBS volumes**
+
+**Comparison**
+![](https://i.imgur.com/eO5DCzi.png)
+
+### Tips
+![](https://i.imgur.com/wdG5pXF.jpg)
+
