@@ -979,3 +979,294 @@ Don't rely on instance store volumes for valuable, longterm data. Instead, **kee
 ### Tips
 ![](https://i.imgur.com/wdG5pXF.jpg)
 
+### Upgrading EC2 Volume Types
+- EBS volumes can be changed on the fly(except for magnetic standard)
+- Best practice to **stop the EC2 Instance** and then change the volume
+- Users can change volume by **taking snapshot** and then **use snapshot to create a new volume**
+- If a volume changes on the fly, users must wait for 6hr making another change
+- Users can scale EBS volume up only
+- Volumes must be in the same AZ as the EC2 Instance
+
+## Encyption & Downtime
+most AWS resources, encryption can only be enabled **at creation**
+- **EFS (Elastic File System)**: If you want to encrypt an EFS filesystem already exists, you will need to create a new encrypted EFS and migrate your data.
+- **RDS (Relational Database)**: If you want to encrypt an existing RDS, you will need to create a new encrypted database and migrate your data
+
+### EBS Volumes
+- **cannot encrypt an unencrypted volume** or **unencrypt an encrypted volume**
+- can **migrate data** between **encrypted and unencrypted** volumes (e.g. use rsync or Robocopy)
+#### How to encrypt an existing volume? (important)
+create snapshot -> **copy the snapshot** and **apply encryption** at the same time to give you an encrypted snapshot -> restore the encrypted snapshot to new encrypted volume
+
+### S3
+- **S3 Buckets and Objects**: enable encryption on your S3 Buckets and Objects **at any time**.
+
+### Tips
+Remember that for the majority of services, you will need to enable encryption at creation time:
+- EFS
+- RDS
+- EBS Volumes
+- To add encryption later will involve migrating your data in some way: you may wish to stop your applications at this time.
+- **S3 Buckets and Objects**: enable encryption on your S3 Buckets and Objects **at any time**.
+
+## KMS & CloudHSM?
+- Both allow users to **generate, store and manage cryptographic keys** used to protect data in AWS
+- HSMs (Hardware Security Modules) are used to protect the confidentiality of your keys
+- Both offer a high level of security
+
+### KMS
+- **Shared hardware**, multi-tenant managed service
+- Suitable for applications for which multi-tenancy is not an issue
+- **Free-tier eligible**
+- **Encrypt data stored in AWS**, including EBS Volumes, S3, RDS, DynamoDB etc.
+
+### Cloud HSM 
+- physical device, user for e.g. financial payment systems
+- Dedicated HSM (Hardware Security Module) instance, hardware is **not shared with other tenants no Free-Tier**
+- HSM is under your **exclusive control within your own VPC**
+
+### Tips
+- Both KMS and CloudHSM enable you to generate, store and manage your own encryption keys to encrypt data stored in AWS
+- KMS is **multi-tenancy** and good for use cases which **do not require dedicated hardware**
+- If your application has a **requirement for dedicated hardware** for managing keys, **use CloudHSM**
+
+## AMIs
+- Template for the root volume: e.g. Operating System, Applications
+- Launch permissions: defining which AWS accounts can use the AMI to launch instances
+- **Block device mapping to specify EBS volumes** to attach to the instance at launch time
+
+### AMIs Are `Regional`
+- AMI are registered on a `per-region basis`
+
+### Sharing AWS AMIs
+- can keep it private
+- share itwith a specified list of AWS accounts
+- make it publicly available or even sell your AMI to other AWS users
+- sharing account still has control and ownership of the AMI and **is still charged for storage of the AMI** within their AWS account
+
+### Copying AMIs
+- The owner of the source AMI must **grant read permissions** for the storage that backs the AMI (**EBS snapshot or S3**)
+- If you copy an AMI that was shared with you, you are then the owner of the copy and will **be charged for storage of the target AMI** in the destination region
+
+#### Limitations
+- cannot directly copy an **encrypted AMI** shared by another account
+    - **Copy the snapshot** & **re-encrypt using your own key**
+    - The sharing account must also share with you the **underlying snapshot and encryption key** used to create the AMI
+    - You’ ll own the copied snapshot and can register it as a new AMI
+- **cannot directly copy** an AMI with an **associated billingProducts** code (applies to Windows, RedHat and AMIs from AWS Marketplace.)
+    - billingProducts code is used to **bill for the use of an AMI** e.g. where a small fee is included to cover the Windows Server or SQL Server licence
+- Launch an EC2 instance using the shared AMI and create an AMI from the instance
+
+## Snowball
+- a **physical device** used for transporting many **terabytes or petabytes** of data
+- Tamper-resistant enclosure
+- 256-bit encryption
+- Region specific, not for transporting data from one region to another
+- Connect the device to your **local network**.
+- Snowball client **automatically encrypts and copies** the data
+
+### When to Use ?
+- have many TB or PB of data to upload
+- don’t want to make expensive upgrades to your network for a one-off data transfer
+- frequently experience backlogs of data
+- in a **physically isolated environment**, **high-bandwidth internet isn't available** or is **cost-prohibitive**
+- it **takes more than a week** to upload your data
+## Snowball Edge
+- **100TB** device, which also features onboard compute power which can be clustered to act as a **single storage and compute pool**
+- undertake **local processing / edge computing**, as well as data transfer
+- **S3-compatible endpoint**, supports **NFS**, and can also **run Lambda functions** as data is copied to the device.(**S3 buckets and Lambda functions** come pre-configured on the device)
+
+## Snowball Vs Sowball Edge
+- Snowball: **Data transfer only**.
+- Snowball Edge: provides **Edge Computing** in addition **to data transfer**.
+- Snowball: 
+    - have 100s of TB to upload
+    - data is taking a few days to upload
+- Snowball Edge: 
+    - **process the data locally** before returning the device to AWS.
+
+## Storage Gateway
+consists of an **on-premises software appliance** which connects with AWS cloud-based storage to give you a **seamless and secure integration** between **on-premises IT environment and AWS**.
+![](https://i.imgur.com/zThGXXw.png)
+- Storage Gateway Virtual Appliance is **installed in data center**
+- Supports **VMware ESXi or Microsoft Hyper-V**
+- On-premises systems seamlessly **integrate with AWS storage e.g. S3**
+
+### Types of Storage Gateway
+#### File Gateway - NFS / SMB
+- Files stored **as objects** in S3 buckets
+- Accessed using **NFS or SMB** mount point
+- To your on-premises systems this appears like a file system mount backed by S3: **All the benefits of S3**: bucket policies, S3 versioning, lifecycle management, replication etc
+- **Low-cost alternative** to **on-premises storage**
+- ![](https://i.imgur.com/DMcmClX.png)
+
+#### Volume Gateway (iSCSI)
+- Stored Volumes
+    - The gateway **stores all data locally**, so your applications **get low latency access** to the entire dataset
+	- You need **your own storage infrastructure** as all data is **stored locally in your data center**
+	- Volume Gateway provides **durable off-site async backups** in the form of **EBS snapshots** which are **stored in S3**
+	- ![](https://i.imgur.com/PDnS6do.png)
+- Cached Volumes
+    - **stores all data in S3** and **caches only frequently accessed** data locally
+	- You need **only enough local storage capacity to store** the frequently accessed data
+	- Applications still **get low-latency** access to frequently used data **without a large investment in on-premises storage**
+	- ![](https://i.imgur.com/1Kg9CY8.png)
+#### Virtual Tape Gateway (VTL)
+- provides cost effective data archiving in the cloud using **Glacier**
+- **don’t need to invest** in your own tape backup infrastructure
+- **can integrate with existing tape backup infrastructure**: e.g NetBackup, Backup Exec, Veeam etc. which connect to the VTL using iSCSI
+- Data is **stored on virtual tapes** which are stored in Glacier and accessed using the VTL
+- ![](https://i.imgur.com/YIHW3Vt.png)
+
+### Tips
+- File Gateway: 
+    - Flat files（**as objects**） stored on S3, accessed using NFS or SMB
+- Volume Gateway: 2 types
+    - **Stored Volumes** - **Entire dataset stored on-site**, backed-up to S3 as **EBS Snapshots**
+    - **Cached Volumes** - Entire dataset stored in S3, **only frequently accessed data cached on-site**
+- Tape Gateway - VTL
+    - Used for archiving your backups to **Glacier**
+    - Can be used **with or without** your own backup application
+
+## Athena
+- an interactive query service: **analyse and query data** located in S3 using **standard SQL**
+- **Serverless**: nothing to provision, **pay per query / per TB scanned**
+- Works directly with **data stored S3**.
+
+### Use Cases
+- Can be used to **query log files stored in S3**, e.g. ELB logs, S3 access logs, etc.
+- **Generate business reports** on data stored in S3
+- Analyse AWS cost and Usage reports
+- Run queries on click-stream data
+
+## EFS
+![](https://i.imgur.com/1ftAJCX.png)
+- Managed NFS Filesystem (**Linux** systems Only; **FSx -> Windows**): Highly available, scalable shared filesystem
+- Multiple EC2 Instances: Great for applications which need to access shared files. e.g. a shared configuration file or state information. You cannot do this with **EBS**. 
+- Lifecycle Management: Files which have not been accessed recently get moved to EFS Infrequent Access
+- Encryption: In transit and at rest. You must **enable it at creation**, you **cannot enable it later**.
+    - Can **ONLY be enabled** at file system **creation**! If you decide to encrypt an EFS filesystem later on, you must **create a new, encrypted EFS filesystem and migrate your files**.
+
+### Lab
+- Create EFS
+![](https://i.imgur.com/RINTBU5.png)
+- Enable Lifecycle
+![](https://i.imgur.com/g5SJRjy.png)
+- Enable Encryption
+![](https://i.imgur.com/5iHlDBU.png)
+
+- Create
+![](https://i.imgur.com/ULDYRPG.png)
+- comfirm
+![](https://i.imgur.com/bfv27Te.png)
+![](https://i.imgur.com/KLTKOhu.png)
+![](https://i.imgur.com/MwpPeSm.png)
+- Click
+![](https://i.imgur.com/6FkiRaU.png)
+- Lanch the EC2 in the same VPC with EFS
+![](https://i.imgur.com/xvIBnaf.png)
+- Past the security group ID in inbound rule for target VPC
+![](https://i.imgur.com/LXE1W1V.png)
+
+# Security
+## Compliance
+### PCI DSS
+The Payment Card Industry Data Security Standard **(PCI DSS)**
+> a widely accepted set of policies and procedures intended to **optimize the security of credit, debit and cash card transactions** and protect cardholders against misuse of their personal information
+
+#### Build and Maintain a Secure Network and Systems
+- Requirement 1: Install and maintain a **firewall** configuration to protect cardholder data
+- Requirement 2: **Don't use vendor-supplied defaults** for system passwords and other security parameters
+
+#### Protect Cardholder Data
+- Requirement 3: Protect stored cardholder data
+- Requirement 4: Encrypt transmission of cardholder data across open, public networks
+
+#### Maintain a Vulnerability Management Program
+- Requirement 5: Protect all systems against malware and regularly update anti-virus software or programs
+- Requirement 6: Develop and maintain secure systems and applications
+
+#### Implement Strong Access Control Measures
+- Requirement 7: Restrict access to cardholder data by business need to know
+- Requirement 8: Identify and authenticate access to system components
+- Requirement 9: Restrict physical access to cardholder data
+
+#### Regularly Monitor and Test Networks
+- Requirement 10: Track and monitor all access to network resources and cardholder data
+- Requirement 11: Regularly test security systems and processes.
+
+#### Maintain an Information Security Policy
+- Requirement 12: Maintain a policy that addresses information security for all personnel.
+
+### Other frameworks
+- FIPS 140-2: a U.S. government computer security standard used to approve cryptographic modules. Rated from Level 1 to Level 4, with 4 being the highest security. **Cloud HSM** meets the **level 3 standard**
+
+## DDoS
+**def:**
+an attack that attempts to **make your website or application unavailable to your end users**.
+
+This can be achieved by:
+- multiple mechanisms, such as large packet floods
+- using a combination of reflection and amplification techniques
+- using large botnets.
+
+[whitepapers](https://d1.awsstatic.com/whitepapers/Security/DDoS_White_Paper.pdf)
+![](https://i.imgur.com/ZQic6wO.png)
+
+- DDoS attacks are most common at **layers 3, 4, 6, and 7** of the Open Systems
+![](https://i.imgur.com/nWlOBMp.png)
+![](https://i.imgur.com/akpBWAS.png)
+
+### How To Mitigate DDoS?
+- Minimize the Attack Surface Area
+- Be Ready to Scale to Absorb the Attack
+- Safeguard Exposed Resources
+- Learn Normal Behavior
+- Create a Plan for Attacks
+
+### AWS Shield
+- **Free service** that protects all AWS customers on ELB, CloudFront and Route 53
+- Protects against **SYN/UDP Floods**, Reflection attacks, and other **layer 3 / layer 4 attacks.**
+- **Turned on by default**
+
+### the technologies you can use to mitigate a DDoS attack:
+- CloudFront
+- Route53
+- ELB’s
+- WAFs
+- Autoscaling (Use for both WAFs and Web Servers)
+- CloudWatch
+
+## Security Token Service(STS)
+**Grants users limited and temporary access to AWS resources**. 
+
+Users can come from three sources:
+- Federation (typically Active Directory)
+	- **Uses** Security Assertion Markup Language (**SAML**)
+	- Grants temporary access based off the **users Active Directory credentials**. Doesn't need to be a user in IAM
+- **Single sign on(SSO)** allows users to log in to AWS console without assigning IAM credentials
+- Federation with Mobile Apps
+    - Use Facebook/Amazon/Google or other OpenID providers to log in.
+- **Cross Account** Access
+    - Let’s users from one AWS account access resources in another
+
+### Key term
+- **Federation**: combining or joining a list of users in one domain (such as IAM) with a list of users in another domain (such as Active Directory, Facebook etc)
+- **Identity Broker**: a service that allows you to take an identity from point A and join it (federate it) to point B
+- **Identity Store**: Services like Active Directory, Facebook, Google etc
+- **Identities**: a user of a service like Facebook etc.
+
+### Scenario
+![](https://i.imgur.com/MxomaZy.png)
+
+![](https://i.imgur.com/phYnM64.png)
+#### Steps
+1. Employee enters their username and password
+2. The application calls an Identity Broker. The broker captures the username and password
+3. The Identity Broker uses the organization’s LDAP directory to validate the employee’s identity
+4. The Identity Broker calls the new GetFederationToken function using IAM credentials. The call must include an IAM policy and a duration (1 to 36 hours), along with a policy that specifies the permissions to be granted to the temporary security credentials
+5. The Security Token Service confirms that the policy of the IAM user making the call to GetFederationToken gives permission to create new tokens and then returns four values to the application: An access key, a secret access key, a token, and a duration (the token’s lifetime)
+6. The Identity Broker returns the temporary security credentials to the reporting application.
+7. The data storage application uses the temporary security credentials (including the token) to make requests to Amazon S3.
+8. Amazon S3 uses IAM to verify that the credentials allow the requested operation on the given S3 bucket and key
+9. IAM provides S3 with the go-ahead to perform the requested operation.
