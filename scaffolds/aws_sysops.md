@@ -1173,11 +1173,9 @@ consists of an **on-premises software appliance** which connects with AWS cloud-
 ### PCI DSS
 The Payment Card Industry Data Security Standard **(PCI DSS)**
 > a widely accepted set of policies and procedures intended to **optimize the security of credit, debit and cash card transactions** and protect cardholders against misuse of their personal information
-
 #### Build and Maintain a Secure Network and Systems
 - Requirement 1: Install and maintain a **firewall** configuration to protect cardholder data
 - Requirement 2: **Don't use vendor-supplied defaults** for system passwords and other security parameters
-
 #### Protect Cardholder Data
 - Requirement 3: Protect stored cardholder data
 - Requirement 4: Encrypt transmission of cardholder data across open, public networks
@@ -1190,17 +1188,13 @@ The Payment Card Industry Data Security Standard **(PCI DSS)**
 - Requirement 7: Restrict access to cardholder data by business need to know
 - Requirement 8: Identify and authenticate access to system components
 - Requirement 9: Restrict physical access to cardholder data
-
 #### Regularly Monitor and Test Networks
 - Requirement 10: Track and monitor all access to network resources and cardholder data
 - Requirement 11: Regularly test security systems and processes.
-
 #### Maintain an Information Security Policy
 - Requirement 12: Maintain a policy that addresses information security for all personnel.
-
 ### Other frameworks
 - FIPS 140-2: a U.S. government computer security standard used to approve cryptographic modules. Rated from Level 1 to Level 4, with 4 being the highest security. **Cloud HSM** meets the **level 3 standard**
-
 ## DDoS
 **def:**
 an attack that attempts to **make your website or application unavailable to your end users**.
@@ -1228,7 +1222,6 @@ This can be achieved by:
 - **Free service** that protects all AWS customers on ELB, CloudFront and Route 53
 - Protects against **SYN/UDP Floods**, Reflection attacks, and other **layer 3 / layer 4 attacks.**
 - **Turned on by default**
-
 ### the technologies you can use to mitigate a DDoS attack:
 - CloudFront
 - Route53
@@ -1236,7 +1229,6 @@ This can be achieved by:
 - WAFs
 - Autoscaling (Use for both WAFs and Web Servers)
 - CloudWatch
-
 ## Security Token Service(STS)
 **Grants users limited and temporary access to AWS resources**. 
 
@@ -1255,7 +1247,6 @@ Users can come from three sources:
 - **Identity Broker**: a service that allows you to take an identity from point A and join it (federate it) to point B
 - **Identity Store**: Services like Active Directory, Facebook, Google etc
 - **Identities**: a user of a service like Facebook etc.
-
 ### Scenario
 ![](https://i.imgur.com/MxomaZy.png)
 
@@ -1270,3 +1261,113 @@ Users can come from three sources:
 7. The data storage application uses the temporary security credentials (including the token) to make requests to Amazon S3.
 8. Amazon S3 uses IAM to verify that the credentials allow the requested operation on the given S3 bucket and key
 9. IAM provides S3 with the go-ahead to perform the requested operation.
+## Logging
+Services:
+- AWS CloudTrail
+- AWS Config
+- AWS CloudWatch Logs
+- VPC Flow Logs
+
+Resource: [Security at Scale: Logging in AWS](https://d0.awsstatic.com/whitepapers/compliance/AWS_Security_at_Scale_Logging_in_AWS_Whitepaper.pdf)
+### Control Access to Log Files
+#### Prevent unauthorized access:
+- IAM users, groups, roles and polices
+- Amazon S3 bucket policies
+- Multi Factor Authentication 
+#### Ensure role-based access:
+- IAM users, groups, roles and polices
+- Amazon S3 bucket policies
+### Obtain Alerts on Log File Creation and Misconfiguration 
+#### Alerts when logs are created or fail:
+- CloudTrail notifications
+- AWS Config Rules
+#### Alerts are specific, but don't divulge detail
+- CloudTrail SNS notifications only point to log file location.
+### Manage Changes to AWS Resources and Log Files
+#### Log changes to system components:
+- AWS Config Rules
+- CloudTrail
+#### Controls exist to prevent modifications to logs:
+- IAM and S3 controls and policies
+- CloudTrail log file validation
+- CloudTrail log file encryption
+
+### CloudWatch vs CloudTrail vs Config?
+- CloudWatch monitors performance.
+- CloudTrail monitors API calls in the AWS platform.
+- AWS Config records the state of your AWS environment and can notify you of changes.
+
+## WAF
+- a web application **firewall**
+- **monitor** the **HTTP/HTTPS requests** that are forwarded to 
+    - **CloudFront**
+    - **ALB**
+    - **API Gateway**
+- control access to your content
+    - can configure conditions:
+        - what **IP addresses** are allowed to make this request
+        - what **query string** parameters need to be passed for the request to be allowed
+        - ALB or CloudFront will either allow this content to be received or to give A HTTP **403** Status Code
+        - Country that requests originate from
+        - Values in request headers.
+		- Strings that appear in requests, either specific strings or string that match regular expression (regex) patterns.
+		- Length of requests.
+		- Presence of SQL code that is likely to be malicious (or SQL injection).
+		- Presence of a script that is likely to be malicious (cross-site scripting).
+
+### (Basic level) allows 3 different behaviours
+- **Allow** all requests except the ones that you specify
+- **Block** all requests except the ones that you specify
+- **Count** the requests that match the properties that you specify
+
+
+### Which Services Does It integrate with?
+- Application Load Balancers
+- CloudFront
+- API Gateway
+#### It DOES NOT integrate with:
+- Classic Load Balancers
+- Network Load Balancers
+
+## Hypervisors, Isolation of AWS Resources and AWS Firewalls
+computer software, firmware or hardware that creates and runs virtual machines
+### Tips
+- Choose **HVM** over PV where possible
+- PV is isolated by **layers**, Guest OS sits on Layer 1, Applications Layer 3
+- Only AWS Adminstrators have access to hypervisors
+- AWS staff don't have access to EC2, that is your responsibility as a customer.
+- All storage memory and RAM memory is **scrubbed** before it’s delivered to you
+
+## EC2 Dedicated Instances vs Dedicated Hosts
+### Dedicated Instances
+- EC2 instances that run in a **VPC on hardware**
+- **physically isolated** at the **host hardware level** from instances that belong to other AWS accounts
+- **share hardware with** other instances from the **same AWS account** that are **not Dedicated instances**.
+- Pay for **On-Demand**
+- save up to **70%** by purchasing **Reserved Instances(RI)**
+- save up to **90%** by purchasing Spot Instances
+- In EC2 console
+![](https://i.imgur.com/WeQ4B1R.png)
+### Dedicated Hosts
+
+### Dedicated Instances vs Dedicated Hosts
+![](https://i.imgur.com/m8wKgWz.png)
+- **Both** dedicated instances and dedicated hosts **have dedicated hardware**
+- Dedicated instances are charged by the instance, dedicated hosts are charged by the host.
+- If you have **specific regulatory requirements or licensing conditions**, choose **dedicated hosts**.
+- Dedicated instances may share the same hardware with other AWS instances from the same account that are not dedicated.
+- Dedicated hosts give you much better visibility into things like sockets, cores and host id.
+
+### Systems Manager
+#### Run Command
+- Commands can be applied to a group of systems based on AWS instance tags or by selecting manually
+- SSM agent needs to be installed on all your managed instances
+- The commands and parameters are defined in a Systems Manager Document
+- Commands can be issued using AWS Console, AWS CLI, AWS Tools for Windows PowerShell, Systems Manager API or Amazon SDKs
+- You can use this service with your on-premise systems as well as EC2 instances
+
+#### Parameter Store
+- can store values as plain text or you can encrypt the data
+- can store sensitive data(e.g. key, password)![](https://i.imgur.com/iBzhSwN.png)![](https://i.imgur.com/PIa54iq.png)
+- Confidential information such as passwords, database connection strings, and license codes can be stored in SSM Parameter Store
+- access parameters accross services(e.g. EC2, CloudFormation, Lambda, EC2 Run Command )
