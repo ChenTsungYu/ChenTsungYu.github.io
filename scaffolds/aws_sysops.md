@@ -1371,3 +1371,198 @@ computer software, firmware or hardware that creates and runs virtual machines
 - can store sensitive data(e.g. key, password)![](https://i.imgur.com/iBzhSwN.png)![](https://i.imgur.com/PIa54iq.png)
 - Confidential information such as passwords, database connection strings, and license codes can be stored in SSM Parameter Store
 - access parameters accross services(e.g. EC2, CloudFormation, Lambda, EC2 Run Command )
+
+## S3
+### Pre-signed URL’s
+- They exist for a certain length of time in seconds. Default is **1 hour**
+- can access objects using pre-signed URL’s(if S3 bucket isn't public)
+- can change the limit time to view obect -> using `--expires-in` followed by the number of seconds
+### S3 Bucket Policies - Restrict IP Range(Restrict Traffic)
+- can restrict access to your S3 addresses so that only particular IP can access your S3 buckets
+#### Policy example
+```json=
+{
+ "Version": "2012-10-17",
+ "Id": "S3PolicyId1",
+ "Statement": [
+     {
+     "Sid": "IPAllow",
+     "Effect": "Allow",
+     "Principal": "*",
+     "Action": "s3:*",
+     "Resource": "arn:aws:s3:::examplebucket/*",
+     "Condition": {
+     "IpAddress": {"aws:SourceIp": “10.0.12.0/24”},
+     "NotIpAddress": {
+     "aws:SourceIp": "54.240.143.188/32"
+     }
+    }
+  }
+ ]
+}
+```
+### AWS Config with S3
+Be Aware of the following Config Rules
+- No **Public Read** Access
+- No **Public Write** Access
+## AWS Inspector vs AWS Trusted Advisor
+### AWS Inspector
+- an **automated security assessment service** that helps improve the security and compliance of applications deployed on AWS
+- automatically assesses applications for vulnerabilities or deviations from best practices
+- produces a detailed list of security findings prioritized by level of severity
+#### How to work?
+- Create “Assessment target”
+- Install agents on EC2 instances
+- Create “Assessment template”
+- Perform “Assessment run”
+- Review “Findings” against “Rules”
+#### Rules Packages:
+- Common Vulnerabilities and Exposures
+- CIS Operating System Security Configuration Benchmarks
+- Security Best Practices
+- Runtime Behavior Analysis
+#### It will
+- Monitor the network, file system, and process activity within the specified target
+- Compare what it `sees` to security rules
+- Report on security issues observed within target during run
+- Report findings and advise remediation
+#### Lab
+AWS Inspector Console
+![](https://i.imgur.com/m1rSPqi.png)
+Create a role - 1 
+![](https://i.imgur.com/0gIQvyy.png)
+Create a role - 2
+![](https://i.imgur.com/s9Vi3SO.png)
+Tag EC2 Instance
+![](https://i.imgur.com/BQGGspE.png)
+Install AWS Agent on EC2 - 1 
+![](https://i.imgur.com/pvbgtkT.png)
+Install AWS Agent on EC2 - 2
+![](https://i.imgur.com/dq6gVN8.png)
+Define an assetment target
+![](https://i.imgur.com/v8M0IQD.png)
+Define Assessment template
+![](https://i.imgur.com/1pj6GH5.png)
+Run  Assessment template
+![](https://i.imgur.com/UTeD6ts.png)
+### AWS Trusted Advisor
+An online resource will advise you on:
+- Cost Optimization
+- Performance
+- Security
+- Fault
+- Tolerance
+- Core Checks And Recommendations
+- Full Trusted Advisor - **Business** and **Enterprise Companies** Only
+## AWS Service Limits
+- Every AWS account has service limits by default
+-  limit is simply the number of services you are able to provision on a per-account basis.
+- **Trusted Advisor** offers a **Service Limits check** (in the Performance category) that displays your usage and limits for some aspects of some services ![](https://i.imgur.com/JnVB0nw.png)
+
+### Doc
+[ec2](https://docs.aws.amazon.com/general/latest/gr/ec2-service.html)
+
+## Shared Responsibility Model
+![](https://i.imgur.com/GVKwD3z.png)
+### AWS Security Responsibilities
+- global infrastructure
+- hardware, software, networking, and facilities
+- **managed services**
+### Customer Security Responsibilities
+- Infrastructure as a Service (IaaS)
+- including **updates and security patches**
+- configuration of the **AWS-provided firewall**
+
+> These are basically the same security tasks that you’re used to performing no matter where your servers are located
+
+### The model changes for different service types:
+- Infrastructure
+    - EC2
+    - EBS
+    - Auto Scaling
+    - VPC
+- Container
+    - setting up and managing network controls
+        - **firewall rules**
+        - managing platform-level identity & access management separately from **IAM**
+- Abstracted: 
+using AWS APIs, and AWS manages the underlying service components or the operating system on which they reside
+    - high-level storage(e.g. S3, Glacier) => be aware of **bucket policy**
+    - database (e.g. DynamoDB)
+    - messaging services (e.g. SQS, SES)
+
+### Tips
+- ![](https://i.imgur.com/IDTZ4NF.png)
+- ![](https://i.imgur.com/ziB8bjp.jpg)
+
+## Security Groups
+- Security Groups are **Stateful**
+- Read Security Group Rules ![](https://i.imgur.com/JVtfDX8.jpg)
+- VPC with Public & Private Subnet(s) ![](https://i.imgur.com/hA0iVLZ.jpg)
+
+## AWS Artifact
+provides on-demand downloads of **AWS security and compliance documents**
+- AWS ISO certifications
+- Payment Card Industry (PCI)
+- Service Organization Control (SOC) reports
+
+## CloudHSM vs KMS
+![](https://i.imgur.com/ItE6pCM.jpg)
+## Encryption
+### Instant Encryption
+- S3
+### Encryption with Migration
+- RDS
+- EFS
+- EBS
+### Updated
+- KMS do support asymmetric keys.
+- KMS is 140-2 compliant and CloudHSM is 140-3 compliant.
+- **DynamoDB** data is **always encrypted at rest**
+
+## CloudTrail
+![](https://i.imgur.com/fT0KMLd.png)
+### Feature
+![](https://i.imgur.com/NTtDLhT.png)
+### What's logged?
+- The identity of the API caller
+- The time of the API call
+- The source IP address of the API caller
+- The request parameters
+- The response elements returned by the service
+### Event logs
+CloudTrail Event Logs:
+- Sent to an S3 bucket
+- You manage the **retention in S3**
+- Delivered every 5 (active) minutes with up to 15 minute delay.
+- Notifications available
+- Can be aggregated **across regions**
+- Can be aggregated **across accounts**
+![](https://i.imgur.com/DT5SayV.png)
+### Validating Cloudtrail log file integrity
+- Was the log file modified, or deleted?
+- CloudTrail log file integrity validation:
+    - SHA-256 hashing
+    - SHA-256 with RSA for digital signing
+- Log files are delivered with a `digest` file.
+- Digest file can be used to validate the integrity of the log file.
+### The Security Picture of CloudTrail
+- Q) CloudTrail logs contain metadata not application data. Why should I consider securing them?
+    - A) CloudTrail logs may contain personal identifiable data such as usernames and even team membership. Also detailed configuration information such as DynamoDB table and key names may be stored. This information may prove valuable to an attacker and it is considered best practice to secure CloudTrail logs.
+- Q) How do we stop unauthorised access to
+log files?
+    - A) Use **IAM policies** and **S3 bucket policies** to **restrict access to the S3** bucket containing the log files. Use **SSE-S3** or **SSE-KMS** to encrypt the logs
+- Q) How can we be notified that a log file has
+been created, and then validate that its not
+been modified?
+    - A) Configure **SNS notifications** and log file **validation on the ‘Trail’**. Develop a solution that when triggered by SNS will validate the logs using the provided digest file
+- Q) How can we prevent logs from being
+deleted?
+    - A) **Restrict delete access with IAM and bucket policies**. Configure **S3 MFA Delete**. Validate that logs have not been deleted using log file validation
+- Q) How can we ensure that logs are
+retained for X years in accordance with our
+compliance standards?
+    - A) By default, logs will be kept indefinitely. Use **S3 Object Lifecycle Management to remove the files** after the required period of time, or **move the files to AWS Glacier** for more cost effective long term storage.
+
+### Tips:
+![](https://i.imgur.com/XyhkEEl.jpg)
