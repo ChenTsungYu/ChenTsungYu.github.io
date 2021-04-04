@@ -1701,3 +1701,64 @@ You can monitor network traffic within your **custom VPC’s** using VPC Flow Lo
 - sample: 
 ![](https://i.imgur.com/gki5Ndz.png)
 
+### Multianswer
+- if you want to route traffic approximately randomly to multiple resource 
+![](https://i.imgur.com/z6crRNc.png)
+
+# Automation
+## CloudFormation
+- a service that allows you to manage, configure and provision your AWS infrastructure as code
+- Resources are defined using a CloudFormation template
+- CloudFormation interprets the template and makes the appropriate API calls to create the resources you have defined
+- Supports YAML or JSON
+### Benefits
+- Less time and effort than configuring things manually
+- You can **version control** and **peer review** your templates
+- Free to use (**charged for what you create**)
+- Can be used to manage updates & dependencies
+- Can be used to **rollback** and **delete** the **entire stack** as well 
+
+### template
+- use YAML or JSON to describe the endstate of the insfastructure you are either provisioning or changing
+- you upload template to CloudFormation using S3
+- CloudFormation reads the template and makes the API calls on your behalf
+- The resulting resources are called a **Stack**
+
+### Tips
+- CloudFormation allows you to **manage, configure and provision** AWS infrastructure as code. (YAML / JSON)
+- Cloud Formation Template:
+    - Parameters - input custom values
+    - Conditions - e.g. provision resources based on environment
+    - Resources - mandatory - the AWS resources to create
+    - Mappings - create custom mappings like Region : AMI
+    - Transforms - reference code located in S3 e.g. Lambda code or reusable snippets of CloudFormation code
+## Elastic Beanstalk
+- a service for deploying and scaling web applications developed in many popular languages
+- upload the code and Elastic Beanstalk will handle deployment, capacity provisioning, load balancing, auto-scaling and application health
+### Benefit
+- Users can focus on writing code and don’t need to worry about any of the underlying infrastructure needed to run the application.
+- Fastest and simplest way to deploy your application in AWS
+- **Automatically scales** your application up and down
+- **Monitor and manage application health** via a dashboard
+- **Integrated with CloudWatch and X-Ray** for performance data and metrics
+- Can **fully manage the EC2 instances** for you or you can **take full administrative control**
+
+## OpsWorks
+- allows you to automate your server configuration using **Puppet** or **Chef**
+- Enables configuration management for your Operating Systems and applications
+- fully managed service => don’t need to configure and operate your own configuration management environment
+
+# Extra
+## Service Catalog
+![](https://i.imgur.com/NXfaKS3.png)
+### Portfolio
+- ollection or grouping of products 
+- Selectively grant access 
+- IAM users, groups, roles 
+- Browse and launch products Regional
+### Product
+- Service or application EC2, EBS volume, DB
+- Multi-tier web application 
+- Defined by a **CloudFormation template**
+
+### Tips
