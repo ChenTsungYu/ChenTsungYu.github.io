@@ -1563,6 +1563,141 @@ deleted?
 retained for X years in accordance with our
 compliance standards?
     - A) By default, logs will be kept indefinitely. Use **S3 Object Lifecycle Management to remove the files** after the required period of time, or **move the files to AWS Glacier** for more cost effective long term storage.
-
 ### Tips:
 ![](https://i.imgur.com/XyhkEEl.jpg)
+# Network
+## VPC
+- Can let users provision a logically isolated section of the Amazon Web Services (AWS) Cloud where users can launch AWS resources in a virtual network that users define
+- Can create a Hardware Virtual Private Network (VPN) connection between your corporate datacenter and your VPC and leverage the AWS cloud as an extension of your corporate datacenter.
+### Diagram
+![](https://i.imgur.com/CIsnvZf.png)
+### What can users do with a VPC?
+- Launch instances into a subnet of your choosing
+- Assign custom IP address ranges in each subnet
+- Configure route tables between subnets
+- Create internet gateway and attach it to our VPC
+- Much better security control over your AWS resources
+- Instance security groups
+- Subnet network access control lists (ACLS)
+
+### VPC Peering
+- Allows you to connect one VPC with another via a **direct network route** using **private IP**
+- Instances behave as if they were on the **same private network**
+- **can peer VPC's** with **other AWS accounts** as well as with other VPCs in the same account.
+- Peering is in a **star configuration**, ie 1 central VPC peers with 4 others. **NO Transitibe Peering**
+
+### VPC Transitive Peering
+![](https://i.imgur.com/5SWS7Vl.png)
+### Tips
+- Think of a VPC as a **logical datacenter** in AWS
+- 1 Subnet = 1 Availability Zone
+- Security Groups are **Stateful**; Network Access Control Lists are **Stateless**
+- Consists of
+    - Internet Gateway(Or Virtual Private Gateways)
+    - Route Tables
+    - Network Access Control Lists
+    - Subnets
+    - Security Groups
+
+### ACL
+- VPC automatically comes a default network ACL and by default it allows all outbound and inbound traffic
+- Each **subnet** in your VPC **must be associated with a network ACL**.
+- can associate a network ACL with **multiple subnets**
+- **a subnet** can be associated with **only one network ACL** at a time
+- Block IP Addresses using **network ACL’s** not Security Groups
+- A network ACL contains **a numbered list** of rules that is evaluated in **order**, **starting with the lowest numbered rule**
+- A network ACL has separate inbound and outbound rules, and each rule can either allow or deny traffic
+- Network ACLs are **stateless**; responses to allowed inbound traffic are subject to the rules for outbound traffic (and vice versa).
+
+### VPC Flow Log
+- Capture the information about IP traffic going to and from network interface in VPC.
+- Can be stored using **cloudwatch logs** -> After creating VPC flow log, users can view and retrieve it data in Cloudwatch log
+
+#### Three levels
+- VPC
+    - accept
+    - reject
+    - all
+    - ![](https://i.imgur.com/n40dXkQ.jpg)
+    - ![](https://i.imgur.com/m1LvhMq.jpg)
+- Subnet
+- Network Interface Level
+
+### CIDR
+![](https://i.imgur.com/NiekdVW.png)
+![](https://i.imgur.com/Bg9ZjwU.jpg)
+### Direct Connect Gateways
+![](https://i.imgur.com/WN9mXre.png)
+### NAT
+#### NAT instances
+![](https://i.imgur.com/exbdfsc.png)
+#### NAT Gateways
+![](https://i.imgur.com/yProOmK.png)
+
+### NAT vs Bastions
+- A NAT is used to provide internet traffic to EC2 instances in private subnets
+- A Bastion is used to securely administer EC2 instances (using SSH or RDP) in private subnets. In Australia we call them jump boxes
+
+### Resilient Architecture
+![](https://i.imgur.com/JHOn0Bp.png)
+
+### VPC Monitor
+You can monitor network traffic within your **custom VPC’s** using VPC Flow Logs
+
+# Route53 -> DNS Service
+## Structure
+![](https://i.imgur.com/ks67TwK.png)
+
+- [資料源](https://www.hcrc.edu.tw/media/education/HCRC-dns-20151120.pdf)
+- [Alias v.s. CNAME](https://docs.aws.amazon.com/zh_tw/Route53/latest/DeveloperGuide/resource-record-sets-choosing-alias-non-alias.html)
+## Type
+### SOA (start of authority) Record
+![](https://i.imgur.com/zGKGpTq.png)
+- information stored in a DNS zone about that zone
+### NS Record
+-  the fundamental type of DNS record and the `A` in A record stands for `Address`.
+-  used by a computer to **translate the name of the domain to the IP address**
+
+### TTL
+- 全名叫做 **Time to Live** -> 是 DNS 解析的時候在使用的
+- 主要作用: 設定每一筆紀錄在 DNS **快取伺服器**所**保留的時間**
+
+### CNAME Record
+- can be used to resolve one domain name to another
+### Alias Record
+- are used to map resource record sets in your hosted zone to **Elastic Load Balancers**, **CloudFront** distributions, or **S3** buckets that are configured as websites
+- Alias records work like a CNAME record in that users can map one DNS name 
+- Amazon Route 53 automatically recognizes changes in the record sets that the alias resource record set refers to
+
+### Key difference: CNAME v.s. Alias
+- A CNAME c**an’t be used for naked domain** names (zone apex). 
+- Given the choice, always choose an Alias Record over a CNAME
+
+## Routing Policies
+### Simple
+- a default routing policy when creating a new record set
+- most commonly used when you have a single resource that performs a given function for your domain
+- Sample: Route53 will respond to DNS queries that are only in the record set (ie there is no intelligence built in to this response)
+![](https://i.imgur.com/0vrDELO.png)
+### Weighted
+- let you split your traffic based on different weights assigned.
+- example: you can set 20% of your traffic to go to US-EAST-1 and 80% to go to EUWEST-1
+![](https://i.imgur.com/FmjV3KA.png)
+### Latency
+- allows you to route your traffic based on the lowest network latency for your end user (ie which region will give them the fastest response time)
+- To use latency-based routing you create a latency resource record set for the Amazon EC2 (or ELB) resource in each region that hosts your website.
+- sample:
+![](https://i.imgur.com/392LJlk.png)
+
+### Failover
+- are used when you want to create an **active/passive** set up. For example you may want your primary site to be in US-West-1 and your secondary DR Site in US-East-1
+- Route53 will **monitor the health of your primary site** using a health check.
+- **A health check monitors the health of your end points.**
+- sample: 
+![](https://i.imgur.com/r8v74Pw.png)
+
+### Geolocation
+- lets you choose **where your traffic will be sent** based on the geographic location of your users (ie the location from which DNS queries originate)
+- sample: 
+![](https://i.imgur.com/gki5Ndz.png)
+
