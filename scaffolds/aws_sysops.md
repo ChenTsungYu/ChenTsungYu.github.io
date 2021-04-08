@@ -1591,7 +1591,8 @@ compliance standards?
 ### Tips
 - Think of a VPC as a **logical datacenter** in AWS
 - 1 Subnet = 1 Availability Zone
-- Security Groups are **Stateful**; Network Access Control Lists are **Stateless**
+- Security Groups are **Stateful**; Network Access Control L![](https://i.imgur.com/XeYHBgb.png)
+ists are **Stateless**
 - Consists of
     - Internet Gateway(Or Virtual Private Gateways)
     - Route Tables
@@ -1762,3 +1763,91 @@ You can monitor network traffic within your **custom VPC’s** using VPC Flow Lo
 - Defined by a **CloudFormation template**
 
 ### Tips
+- Catalog
+    - Portfolio of products
+    - Available as a portal
+    - CloudFormation templates
+- Access Control
+    -  Users, groups and roles get access
+    - to a portfolio of products
+- Enforce Standards
+    - Approved resources only
+    - Compliance with internal policies
+    - Allowed services
+    - Configuration
+## Using Wildcards in S3 Bucket Policies
+The use of a wildcard only makes sense when dealing with **object-level** actions.
+- Buckets
+![](https://i.imgur.com/u1ApYJZ.png)
+- Objects
+![](https://i.imgur.com/tEQuqMz.png)
+### S3 Bucket & Object-level Actions
+![](https://i.imgur.com/v8rBG5T.png)
+### Tips
+![](https://i.imgur.com/Zknjyxw.png)
+## Cloudfront HTTP Error Message
+### 4XX Client Side Errors
+- **Bad request (400)**: Problem with the request e.g. malformed request
+- **Access denied (403)**: Files must be publicly accessible e.g. public access for S3 objects including S3:GetObject
+- **File Not Found (404)**: Object doesn’t exist
+### 5XX Server Side Errors
+- Bad gateway (502): CloudFront cannot connect to origin
+- Service unavailable (503): Performance issues on origin server
+- Gateway timeout (504): Request expired before a response was received from the origin server
+Usually caused by high traffic to the website and the server is not responding
+## Direct Connect
+### General
+![](https://i.imgur.com/IkthSIb.png)
+### Direct Connect Now With Multi-Account Support
+![](https://i.imgur.com/R4ybEHW.png)
+### Best Practice
+- Use **multiple accounts to segregate your workloads**, e.g. Dev, Test, Prod etc.
+- Use AWS **Organizations** to manage your **accounts under the same Payer Account**
+### Multi-Account Direct Connect
+- You **don’t need a separate Direct Connect Gateway** for each account.
+- Accounts which exists **under the same Payer Account can share a Direct Connect Gateway**.
+## VPC Peering
+### Inter-Region Peering Is Now Possible
+![](https://i.imgur.com/KYYO410.png)
+### Tips
+- Allows two VPCs in different regions to communicate using the **AWS global network**.
+- Traffic is **encrypted**.
+- Traffic **doesn't use the public internet**
+### Be careful
+- **CIDR ranges must be unique** and cannot overlap.
+- May not be available in your region
+## HTTPS & Storing SSL Certificates
+### How to manage certificates?
+User ACM(AWS Certificate Manager)
+- Free of Charge
+- automatically renew
+### Tips
+- When enabling HTTPS on your website, you’ll need to associate an SSL/TLS certificate.
+- Only **use IAM** to store certs **if ACM is not supported in your Region**
+- is good to use **AWS Certificate Manager** to store and manage certificates
+## CloudFormation
+### Stack Policy
+- a **JSON** document
+- describes what update **actions** can be performed on designated resources
+- help protect critical stack resources from unintentional updates and mistakes caused by human error
+- Sample
+![](https://i.imgur.com/XD5bszn.png)
+### Best Practices
+![](https://i.imgur.com/RWD2G5N.png)
+### Tips
+![](https://i.imgur.com/yFywgTe.png)
+### Rolling Back When failed
+- CloudFormation will roll back to the previous state **by default**
+- Why might it fail?
+You are trying to roll back something that has been **changed outside of CloudFormation**
+- What can you do?
+In most cases, you must **fix the error that caused the update rollback to fail** before you can continue to roll back your stack.
+#### Scenario
+![](https://i.imgur.com/VZwkBgx.png)
+## Recommend Resource
+### FAQs
+![](https://i.imgur.com/A2K49Qk.png)
+### Whitepapers
+![](https://i.imgur.com/CRsjtrV.png)
+![](https://i.imgur.com/qulIXd1.png)
+![](https://i.imgur.com/IT9r1tO.png)
