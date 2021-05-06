@@ -1,7 +1,7 @@
 ---
 title: "[Go] Struct(結構) 基礎"
 catalog: true
-date: 2020/01/13 20:23:10
+date: 2020/01/15 20:23:10
 tags: Go
 categories: Backend
 toc: true
