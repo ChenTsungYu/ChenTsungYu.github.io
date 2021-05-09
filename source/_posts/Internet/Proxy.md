@@ -2,8 +2,8 @@
 title: 'Proxy'
 catalog: true
 date: 2019/07/14 16:23:10
-tags: Proxy
-categories: Internet
+tags: [Proxy, Network]
+categories: Network
 toc: true
 ---
 <!-- toc -->
