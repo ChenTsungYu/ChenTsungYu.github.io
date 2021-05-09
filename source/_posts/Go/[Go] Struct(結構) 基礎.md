@@ -228,6 +228,9 @@ fmt.Println("His weight is", tom.Weight) // His weight is 180
 ```
 由上述範例可知，`Student` 組合了 `Human struct` 和 `string` 這些基本型別，實現欄位的繼承。
 
+值得注意的是：
+> 若繼承與被繼承的 struct 發生欄位欄位名稱衝突(field names conflict)，以較上層的 struct 優先次序較高
+
 另外，`Student` 亦可存取 `Human` 這個欄位作為欄位名
 ```go=
 tom.Human = Human{"Marcus", 30, 70} 

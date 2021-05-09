@@ -2,8 +2,8 @@
 title: 'Session與Cookie差別'
 catalog: true
 date: 2019/07/14 19:23:10
-tags: Session Cookie
-categories: Internet
+tags: [Session, Cookie]
+categories: Network
 toc: true
 ---
 <!-- toc -->
