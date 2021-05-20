@@ -1,8 +1,8 @@
 ---
-title: "[Django] 在Ubuntu中運用Nginx、Gunicorn 架設 Django API Server"
+title: "[Django] 在 Ubuntu 中運用 Nginx、Gunicorn 架設 Django API Server"
 catalog: true
 date: 2020/07/19
-tags: [Django, w3HexSchool] 
+tags: [Python, Django, w3HexSchool, Ubuntu] 
 categories: Backend
 toc: true
 ---

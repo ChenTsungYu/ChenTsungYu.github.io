@@ -1,8 +1,8 @@
 ---
 title: "[ELK] 如何更新 Kibana Visualization & Dashboard 對應的 Index Pattern"
 catalog: true
-date: 2021/03/15
-tags: [DevOps, ELK]
+date: 2021/03/15 23:51:53
+tags: [DevOps, ELK, Kibana]
 categories: [DevOps]
 toc: true
 ---

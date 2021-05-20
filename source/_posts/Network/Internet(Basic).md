@@ -2,8 +2,8 @@
 title: '網路概論入門'
 catalog: true
 date: 2019/07/14 20:23:10
-tags: Internet
-categories: Internet
+tags: Network
+categories: Network
 toc: true
 ---
 <!-- toc -->

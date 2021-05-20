@@ -2,8 +2,8 @@
 title: 'Webhook VS. WebSocket'
 catalog: true
 date: 2020/05/18
-tags: Internet
-categories: Internet
+tags: [Webhook, WebSocket]
+categories: Network
 toc: true
 ---
 <!-- toc -->

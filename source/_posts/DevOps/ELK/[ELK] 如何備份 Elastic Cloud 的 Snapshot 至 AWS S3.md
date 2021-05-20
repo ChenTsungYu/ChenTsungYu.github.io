@@ -1,8 +1,8 @@
 ---
 title: "[ELK] 如何備份 Elastic Cloud 的 Snapshot 至 AWS S3"
 catalog: true
-date: 2021/03/13
-tags: [DevOps, ELK]
+date: 2021/03/13 23:51:53
+tags: [DevOps, ELK, Kibana]
 categories: [DevOps]
 toc: true
 ---
