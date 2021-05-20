@@ -302,4 +302,8 @@ if p1 == p2 {
 - [使用 Golang 打造 Web 應用程式 - struct](https://willh.gitbook.io/build-web-application-with-golang-zhtw/02.0/02.4)
 - [Golang struct 教學與範例](https://calvertyang.github.io/2019/11/15/golang-structs-tutorial-with-examples/)
 - [Golang 結構入門](https://openhome.cc/Gossip/Go/Struct.html)
+<<<<<<< HEAD
 - [golang 傳值、傳指標 觀點](https://medium.com/caesars-study-review-on-web-development/golang-%E5%82%B3%E5%80%BC-%E5%82%B3%E6%8C%87%E6%A8%99-%E8%A7%80%E9%BB%9E-20bcdd42169a)
+=======
+- [golang 傳值、傳指標 觀點](https://medium.com/caesars-study-review-on-web-development/golang-%E5%82%B3%E5%80%BC-%E5%82%B3%E6%8C%87%E6%A8%99-%E8%A7%80%E9%BB%9E-20bcdd42169a)
+>>>>>>> b8fccdf282f014dcb92c5aaa482d99127f7167de
