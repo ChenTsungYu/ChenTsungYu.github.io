@@ -3,7 +3,7 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
     
-        gtag('config', 'G-CBSFY23HDZ');</script><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="../../../../../../index.html"><img src="../../../../../../img/fantasy1.svg" alt="Tom&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="../../../../../../index.html">Home</a><a class="navbar-item" href="../../../../../../archives">Archives</a><a class="navbar-item" href="../../../../../../categories">Categories</a><a class="navbar-item" href="../../../../../../tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="../../../../../../https:/github.com/ChenTsungYu"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2021-06-06T15:00:53.000Z" title="2021-06-06T15:00:53.000Z">2021/06/06</time><span class="level-item"><a class="link-muted" href="../../../../../../categories/Conference/">Conference</a></span><span class="level-item">27 minutes read (About 4087 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">[ELK] Elasticsearch Index 管理與效能優化技巧 </h1><div class="content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前陣子參與保哥在臉書上發起的直播活動 - <strong>Elasticsearch Index 管理與效能優化技巧</strong>，邀請喬叔(Joe)來跟大家分享自己過去在管理 Elasticsearch 的經驗。</p>
+        gtag('config', 'G-CBSFY23HDZ');</script><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="../../../../../../index.html"><img src="../../../../../../img/fantasy1.svg" alt="Tom&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="../../../../../../index.html">Home</a><a class="navbar-item" href="../../../../../../archives">Archives</a><a class="navbar-item" href="../../../../../../categories">Categories</a><a class="navbar-item" href="../../../../../../tags">Tags</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="My GitHub" href="../../../../../../https:/github.com/ChenTsungYu"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-6-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta size-small is-uppercase level is-mobile"><div class="level-left"><time class="level-item" dateTime="2021-06-06T15:00:53.000Z" title="2021-06-06T15:00:53.000Z">2021/06/06</time><span class="level-item"><a class="link-muted" href="../../../../../../categories/Conference/">Conference</a></span><span class="level-item">27 minutes read (About 4088 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">[ELK] Elasticsearch Index 管理與效能優化技巧 </h1><div class="content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>前陣子參與保哥在臉書上發起的直播活動 - <strong>Elasticsearch Index 管理與效能優化技巧</strong>，邀請喬叔(Joe)來跟大家分享自己過去在管理 Elasticsearch 的經驗。</p>
 <p>半年多前因工作需要，開始接觸 <a href="https://www.elastic.co/">Elastic</a> 這家公司的產品，最有名的莫過於搜尋引擎 - <strong>Elasticsearch</strong>，自己花不少時間摸索這項複雜的大型分散式系統上，這過程也因喬叔於三十天鐵人賽撰寫的<a href="https://ithelp.ithome.com.tw/users/20129543/ironman/3148">喬叔帶你上手Elastic Stack</a> 系列文章中獲益良多(<strong>聽說之後要出書，還不買爆！</strong>)，剛好這次喬叔本人受邀分享，千載難逢的機會怎麼能錯過！</p>
 <p>本文主要紀錄喬叔在本次座談分享中所提到的實戰技巧及個人經驗分享，還有加入我自己使用的心得，以下資料主要出自喬叔簡報。</p>
 <a id="more"></a>
@@ -122,7 +122,7 @@
 </ul>
 </li>
 <li>善用 Index Alias 搭配 Filter<ul>
-<li>Filter 在 Elasticsearch 是 Cachabl 的搜尋用法，相較一般的 query，filter 可被 cache，效能也較佳</li>
+<li>Filter 在 Elasticsearch 是 Cacheable 的搜尋用法，相較一般的 query，filter 可被 cache，效能也較佳</li>
 <li>Filter 類似於關連式資料庫的 View，</li>
 <li>適度將 filter 封裝於 alias 中，降低使用端的複雜化查詢</li>
 <li>資料存取範圍的權限管理： 限制使用者<strong>只能存取特定子集合</strong> or <strong>特定時間範圍</strong>的資料，適度搭配 security 權限控管，可避免使用者存取到不應取得的資料，或是一口氣查詢太多的舊資料，對效能產生影響</li>
@@ -148,23 +148,23 @@
 <h1 id="Index-生命週期管理：-Index-Lifecycle-Management"><a href="#Index-生命週期管理：-Index-Lifecycle-Management" class="headerlink" title="Index 生命週期管理： Index Lifecycle Management"></a>Index 生命週期管理： Index Lifecycle Management</h1><p>大部分存在 Elasticsearch 的資料都是<strong>隨著時間變化的</strong>。<br>隨著時間增長，如何管理且有效利用保存在 Elasticsearch 的資料顯得格為重要，官方對於<strong>時間序的資料</strong>建議採用熱溫冷架構搭配Index Lifecycle Management 進行管理<br><img src="https://i.imgur.com/bSxMHSM.jpg" alt=""></p>
 <h2 id="熱溫冷架構：-Hot-Warm-Cold-Architecture"><a href="#熱溫冷架構：-Hot-Warm-Cold-Architecture" class="headerlink" title="熱溫冷架構： Hot-Warm-Cold Architecture"></a>熱溫冷架構： Hot-Warm-Cold Architecture</h2><p>又稱三溫暖架構(?)，官方的 <a href="https://www.elastic.co/blog/implementing-hot-warm-cold-in-elasticsearch-with-index-lifecycle-management">Blog</a> 有更詳細的解釋，這邊簡單摘要</p>
 <ul>
-<li>Hot Phase: 此階段存放<strong>最新的資料</strong>，同時使用機率也最高，所以會負責處理 indexing 的資料，還有頻繁的搜尋請求 =&gt; 配置較多的 primary shard。</li>
-<li>Rollover: 由於資料會隨時間增長，透過 Rollover 的機制，對 Index 進行 Rotate，進而產生新的 Index 來接新的資料，原先的 Index 則會進入下個階段</li>
-<li>Warm Phase: 當一份 Index 的資料成長到一定的量 or 已經過了一段時間，則將該資料轉到 Warm 階段，這時的資料是 <code>read-only</code> 的，也就是不處理寫入 Index 的請求，只能被搜尋。</li>
-<li>Cold Phase: 當一份 Index 資料經歷一段較長的時間，使用頻率較少時，將其轉移到 Cold 階段，並且針對這些資料進行冷凍(Freeze)處理，此時資料會以最節省系統資源的狀態下進行保存，查詢的速度又會比 Warm 階段來得更慢。</li>
-<li>Delete: 對不再需要存放於 Elasticsearch 的 index 進行刪除(可設定備份成功後才移除 Index)</li>
+<li><strong>Hot Phase</strong>: 此階段存放<strong>最新的資料</strong>，同時使用機率也最高，所以會負責處理 indexing 的資料，還有頻繁的搜尋請求 =&gt; 配置較多的 <code>primary shard</code>。</li>
+<li><strong>Rollover</strong>: 由於資料會隨時間增長，透過 Rollover 的機制，對 Index 進行 Rotate，進而產生新的 Index 來接新的資料，原先的 Index 則會進入下個階段</li>
+<li><strong>Warm Phase</strong>: 當一份 Index 的資料成長到一定的量 or 已經過了一段時間，則將該資料轉到 Warm 階段，這時的資料是 <code>read-only</code> 的，也就是不處理寫入 Index 的請求，只能被搜尋。</li>
+<li><strong>Cold Phase</strong>: 當一份 Index 資料經歷一段較長的時間，使用頻率較少時，將其轉移到 Cold 階段，並且針對這些資料進行冷凍(Freeze)處理，此時資料會以最節省系統資源的狀態下進行保存，查詢的速度又會比 Warm 階段來得更慢。</li>
+<li><strong>Delete</strong>: 對不再需要存放於 Elasticsearch 的 index 進行刪除(可設定備份成功後才移除 Index)</li>
 </ul>
 <h2 id="快照週期管理-Snapshot-Lifecycle-Management-SLM"><a href="#快照週期管理-Snapshot-Lifecycle-Management-SLM" class="headerlink" title="快照週期管理: Snapshot Lifecycle Management(SLM)"></a>快照週期管理: Snapshot Lifecycle Management(SLM)</h2><ul>
 <li>可設定任務做定期備份</li>
 <li>可設定備份的保存時間與數量 -&gt; 確保備份佔用的空間不會無限制增長</li>
 </ul>
 <h1 id="Elasticsearch-相關術語"><a href="#Elasticsearch-相關術語" class="headerlink" title="Elasticsearch 相關術語"></a>Elasticsearch 相關術語</h1><ul>
-<li>Node: Elasticsearch 實例(Instance)，可以看成叢集(Cluster)中的一個節點，一個 Node 為一個 process，一般情況下：一台機器執行一個 Elasticsearch 的 process。 補充：官方建議一台機器的 JVM heap size 不超過 32G</li>
-<li>Cluster: 表一個叢集，叢集中包含多個節點，節點之間會分工處理、或執行備援任務</li>
-<li>Index: 可視為一個資料庫，擁有1~多個 shard (分片)，資料會被分配到這些 shard 中</li>
-<li>Shard: 一個 Lucene index 的儲存單位，裡面存有多個 segments，同時也是 Cluster 資料搬移的最小單位</li>
-<li>Segment: 實際寫入 Disk 的 Lucene index 的<strong>唯獨檔案</strong></li>
-<li>Document: Elasticsearch 一筆筆的資料</li>
+<li><strong>Node</strong>: Elasticsearch 實例(Instance)，可以看成叢集(Cluster)中的一個節點，一個 Node 為一個 process，一般情況下：一台機器執行一個 Elasticsearch 的 process。 補充：官方建議一台機器的 JVM heap size 不超過 32G</li>
+<li><strong>Cluster</strong>: 表一個叢集，叢集中包含多個節點，節點之間會分工處理、或執行備援任務</li>
+<li><strong>Index</strong>: 可視為一個資料庫，擁有1~多個 shard (分片)，資料會被分配到這些 shard 中</li>
+<li><strong>Shard</strong>: 一個 Lucene index 的儲存單位，裡面存有多個 segments，同時也是 Cluster 資料搬移的最小單位</li>
+<li><strong>Segment</strong>: 實際寫入 Disk 的 Lucene index 的<strong>唯獨檔案</strong></li>
+<li><strong>Document</strong>: 指 Elasticsearch 一筆筆的資料</li>
 </ul>
 <h2 id="Elasticsearch-如何保存資料？"><a href="#Elasticsearch-如何保存資料？" class="headerlink" title="Elasticsearch 如何保存資料？"></a>Elasticsearch 如何保存資料？</h2><p><img src="https://i.imgur.com/Alqjr11.jpg" alt=""><br>上圖源自喬叔簡報，解釋 Elasticsearch 存放資料的整個架構 - <a href="https://www.elastic.co/blog/every-shard-deserves-a-home">elasticsearch persistence model</a></p>
 <p>從上面分層的架構圖來看，資料寫入 Elasticsearch 時，因 Elasticsearch 透過 Lucene 做 indexing 時，大部分的時間都是保存在記憶體，經過 Refresh 1 秒(預設是1秒)，才能在 Elasticsearch 中查詢到，滿 <strong>30mins or 512mb</strong> 時才會執行 <strong>Flush</strong>，將資料寫到 Disk 裡面。</p>
