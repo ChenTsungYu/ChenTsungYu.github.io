@@ -16,11 +16,11 @@
 <li>大數據 (Big Data)</li>
 <li>非關聯式資料庫 (NoSQL Database)</li>
 </ul>
-<h1 id="常見問題"><a href="#常見問題" class="headerlink" title="常見問題"></a>常見問題</h1><p>喬叔在本次分享提到幾個大家最常面臨的問題:<br><img src="https://i.imgur.com/EqbkjuW.jpg" alt=""></p>
-<p>上述問題可從兩個面向探討：</p>
+<h1 id="常見問題"><a href="#常見問題" class="headerlink" title="常見問題"></a>常見問題</h1><p>喬叔在本次分享整理幾個大家最常面臨的問題:<br><img src="https://i.imgur.com/EqbkjuW.jpg" alt=""></p>
+<p>上述問題可從兩個大面向來探討：</p>
 <ul>
 <li>基於 Java 開發的 Service，運行於 JVM 上，對於記憶體有最基本的要求，即便是小專案要使用，要運行一個 Elasticsearch Cluster 仍有它的最低要求在。</li>
-<li>若是遇到資料量大的情況下，優化 Elasticsearch Index 管理有助於資源利用提升，這與 Elasticsearch 底層運作和 <a href="https://www.elastic.co/blog/found-elasticsearch-mapping-introduction">Schema</a> 如何 Mapping 有關，這也是本次分享的重點。</li>
+<li>若是遇到資料量大的情況下，優化 Elasticsearch Index 有助於提升資源利用，這與 Elasticsearch 底層運作和 <a href="https://www.elastic.co/blog/found-elasticsearch-mapping-introduction">Schema</a> 如何 Mapping 有關，這也是本次分享的重點。</li>
 </ul>
 <h1 id="Index-管理分兩大塊"><a href="#Index-管理分兩大塊" class="headerlink" title="Index 管理分兩大塊"></a>Index 管理分兩大塊</h1><ul>
 <li>Index 建立之前</li>
@@ -88,13 +88,13 @@
 <li>若預設送進 Elasticsearch 的資料非常明確是 <code>text</code>，無需用到像是 <code>Aggregation</code>, <code>Sorting</code> or <code>Script</code>等操作，就不必保留 <code>keyword</code> 類型的 <code>sub-field</code></li>
 <li>若資料特性大多的數值欄位帶有小數點，且空間並非為最大考量下，可將數值預設為 <code>double</code> or <code>float</code> -&gt; 避免一開始進來的資料整數，後續送進 Index 資料卻帶有小數的話就無法寫入 Index 裡(因為在 Elasticsearch 的 Index 一旦做好 Mapping ，即無法修改)，有效減少這類非預期的狀況發生。</li>
 <li>依統一欄位命名規則，套用資料型態<ul>
-<li>若值為日期時間 -&gt; 以 _datetime 做結尾。 e.g. create_datetime, modify_datetime</li>
-<li>若值為整數 -&gt; 以 _count 做結尾。 e.g. play_count</li>
+<li>若值為日期時間 -&gt; 以 <code>_datetime</code> 做結尾。 e.g. <code>create_datetime</code>, <code>modify_datetime</code></li>
+<li>若值為整數 -&gt; 以 <code>_count</code> 做結尾。 e.g. <code>play_count</code></li>
 <li>將特定形態定義於欄位開頭 -&gt; <code>long_</code>, <code>double_</code>, <code>int_</code> 等等，依照團隊達成的共識定義好命名規則</li>
 </ul>
 </li>
 <li>必要的嚴謹，避免意外<ul>
-<li>小心設定 Dynamic Template，特別是修改 Dynamic Template，可能會遇到 Runtime Error(Indexing 時才會報錯)</li>
+<li>小心設定 Dynamic Template，特別是修改 Dynamic Template，可能會遇到 Runtime Error (Indexing 時才會報錯)</li>
 <li>關閉 Dynamic Field Mapping: 未事先定義的欄位，進入 Elasticsearch 做 indexing 時<ul>
 <li>dynamic: <code>false</code>: 這邊需注意，即便設定為 <code>false</code>，仍會存在 index 的 <code>_source</code> 裡面，不僅不會被 index 且<code>搜尋時沒有作用</code></li>
 <li>dynamic: <code>strict</code>: <strong>此為較佳的做法</strong>，在 indexing 時遇到未被宣告的欄位直接拋出 <code>exeception</code></li>
