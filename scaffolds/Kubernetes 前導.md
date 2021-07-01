@@ -69,7 +69,7 @@ Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(A
 - Container-runtime
 
 ### Kubelet
-跟 API Server 進行溝通的應用程式，同時確保節點上 container 的運行狀態。少了它，該節點就無法被 Kubernetes 管理，進行監控。
+跟 API Server 進行溝通的應用程式，同時**確保節點上 container 的運行狀態**。少了它，該節點就無法被 Kubernetes 管理，進行監控。
 
 > 需要注意的是：Kubelet 只會管理跟 Kubernetes 有關的 container，也就是由 Kubernetes 建立的 container。
 > 其餘像是透過 docker command 建立的 container 等等一蓋不管
@@ -77,10 +77,20 @@ Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(A
 ### Kube-proxy
 提供基本的網路功能給運行中的 container
 
-### Container-runtime
-可以看作是額外的一個應用程式，接收從 Kubelet 發送出來的請求，負責建立、管理運行中的 container(符合 Container Runtime Interface;CRI)。
+# Kubernetes 的標準化
+Kubernetes 是個開源軟體，其架構也極為複雜，為了能夠有效地銜接各式各樣的解決方案，提供不同的介面標準，只要是符合標準的解決方案，就能銜接到 Kubernetes 上。
+
+- CRI (Container Runtime Interface)
+- CNI (Container Network Interface)
+- CSI (Container Storage Interface)
 
 ## Container Runtime Interface (CRI)
+Kubernetes 提供支援**運算資源**的標準化介面。
+Kubelet 本身透過 CRI 去呼叫 Container Runtime，可以看作是額外的一個應用程式，接收從 Kubelet 發送出來的請求，負責建立、管理運行中的 container(符合 Container Runtime Interface;CRI)。
+
+## Container Network Interface (CRI)
+Kubernetes 提供支援**網路架構**的標準化介面
 
 
-
+## Container Storage Interface (CRI)
+Kubernetes 提供支援**儲存空間**的標準化介面
