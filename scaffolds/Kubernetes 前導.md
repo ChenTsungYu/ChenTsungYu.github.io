@@ -4,24 +4,22 @@
 # 常見的容器部署模型 (Deploying model)
 - 單一節點部署一個容器 (Single Container/Single Node)
 - 單一節點部署多個容器
-- 多節點部署多個容器
+- 多節點部署多個容器 => **Kubernetes 主要解決的問題**
 
-## 單一節點部署一個容器 (Single Container/Single Node)
+# Kubernetes [Cluster](https://kubernetes.io/docs/concepts/overview/components/) 架構(Architecture)
+![](https://i.imgur.com/zPPhrN3.png)
 
+- Control Plane(控制平面)：扮演 Kubernetes 大腦的角色
+- Node (節點; 又作 Worker：可部署於虛擬機 or 實際的 Server 上，甚至能將 worker 放置於 container 裡面(藉由 **container in container** 的技術)。
 
-
-# 架構 Architecture
-包含:
-- Control Plane(控制平面)
-
-## Control Plane
+## Control Plane (控制平面)
 Control Plane 裡有不同的應用程式，這四個角色組合成 Kubernetes 最重要的大腦功能，負責管控整個 Kubernetes 叢集(Cluster)，四個角色分別是：
 - API Server
 - Scheduler
 - Controller
 - Etcd
 
-Kubernetes 可以在不同的節點(Node 或稱 Worker)來運行容器，Worker 可以部署在虛擬機、實際的 server 甚至是容器(container)上(將 container 部署在container上)。
+Kubernetes 可以在不同的節點(Node)來運行容器，Worker 可以部署在虛擬機、實際的 server 甚至是容器(container)上(將 container 部署在container上)。
 
 Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(Agent)** 與 Control Plane 的 API Server 來進行溝通，同步目前 Cluster 內的最新狀況。
 
@@ -32,9 +30,13 @@ Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(A
 - CLI (Command Line Interface)：Kubernetes 提供一系列的工具列指令來溝通，這也是最常見的方式
 - UI (使用者介面)：網頁的方式操作 Kubernetes 
 
+**加入使用者後的整個 Kubernetes 架構圖：**
+
+![](https://i.imgur.com/PYBCq0c.png)
+
 接著說明 Control Plane 的四個重要角色
 ### API Server
-管理 API 的伺服器，即 Control Plane 的前端，前述提到三種與 Kubernetes 互動的方式，所有有的請求都是透過 API Server 第一個處理。
+管理 API 的伺服器，即 Control Plane 的前端，前述提到三種與 Kubernetes 互動的方式，所有的請求都是透過 API Server 第一個處理，故上方的架構圖可以看出： **每個 Node 彼此間的溝通都必須要透過 api server 代為轉介**。
 
 換言之，若 API Server 無法正常運作，使用者使用的所有工具都無法對 Kubernetes 內部的資源進行存取
 
@@ -45,6 +47,7 @@ Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(A
 替 API Server 從 container 裡面尋找合適的節點來部署，將資訊回傳給 API Server
 
 **Scheduler 如何運作？**
+![](https://i.imgur.com/yVWFl9A.png)
 
 假設有多個候選節點，Scheduler 從 API Server 收到 Container 資訊時，將 Container 相關資訊進行過濾(filtering)，根據需求(e.g. 最低的 CPU 數量)淘汰不適合的節點，第一次過濾後留下符合條件的節點。
 
@@ -62,10 +65,10 @@ Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(A
 > 四種 Controller 存放於同個執行檔內
 
 
-## 節點(Node; Worker)上的代理程式(Agent)
-代理程式分三類：
+## 節點(Node; Worker)
+作為 Kubernetes 的硬體最小單位，每個節點上都會運行代理程式用於跟 API Server 溝通，代理程式分三類：
 - Kubelet
-- Kube-proxy
+- Kube-proxy 
 - Container-runtime
 
 ### Kubelet
@@ -75,22 +78,77 @@ Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(A
 > 其餘像是透過 docker command 建立的 container 等等一蓋不管
 
 ### Kube-proxy
-提供基本的網路功能給運行中的 container
+提供基本的網路功能給運行中的 container，在 Node 上扮演傳遞資訊的角色。
+
+## Container Runtime
+負責容器執行的程式
 
 # Kubernetes 的標準化
-Kubernetes 是個開源軟體，其架構也極為複雜，為了能夠有效地銜接各式各樣的解決方案，提供不同的介面標準，只要是符合標準的解決方案，就能銜接到 Kubernetes 上。
+Kubernetes 是個開源軟體，其架構也極為複雜，為了能有效銜接各式各樣的解決方案，提供不同的介面標準，兼容不同的 container 實作，只要是符合標準的解決方案，就能銜接到 Kubernetes 上。 
+結構如下圖:
 
+![](https://i.imgur.com/mMNh48T.png)
+
+以下列出最常見的標準:
 - CRI (Container Runtime Interface)
 - CNI (Container Network Interface)
 - CSI (Container Storage Interface)
+- Device Plugin (跟硬體有關，不在文討論範圍)
 
 ## Container Runtime Interface (CRI)
-Kubernetes 提供支援**運算資源**的標準化介面。
-Kubelet 本身透過 CRI 去呼叫 Container Runtime，可以看作是額外的一個應用程式，接收從 Kubelet 發送出來的請求，負責建立、管理運行中的 container(符合 Container Runtime Interface;CRI)。
+Kubernetes 支援**運算資源**的標準化介面。
+以 Kubelet 為例：
+![](https://i.imgur.com/nLFOGnz.png)
+上圖所示，Kubelet 透過 CRI 與 Container Runtime 溝通，後面的  Implement Methods 表示每個 Container Runtime 實作方法皆不相同，而最終會產生 Container，這些建立好的 container 皆是基於 OCI (Open Container Initiative) 的標準。
 
-## Container Network Interface (CRI)
-Kubernetes 提供支援**網路架構**的標準化介面
+Kubelet 本身透過 CRI 去呼叫 Container Runtime，而 Container Runtime 可以看作是額外的一個應用程式，接收從 Kubelet 發送出來的請求，負責建立、管理運行中的 container(符合 Container Runtime Interface;CRI)。
 
+## Container Network Interface (CNI)
+Kubernetes 管理多個節點的容器平台，節點之間該如何溝通？
+Kubernetes 提供支援**網路架構**的標準化介面，確保 containers 能夠順利的在跨節點進行溝通，為所有的 containers 提供基本的網路能力。
 
-## Container Storage Interface (CRI)
-Kubernetes 提供支援**儲存空間**的標準化介面
+CNI 可以做的事情很多，本文列舉常見的:
+- Container 間的網路連接
+  - Container to Container
+  - Container to WAN
+  - WAN to Container
+  - In-Cluster communication (跨節點溝通)
+- IP 位置的配發/移除
+  - 固定 IP
+  - 浮動 IP
+
+接續上面得 Kubelet 流程，當 Kubelet 透過 CRI 呼叫 Container Runtime 啟用 container，container成功啟用後，Container Runtime 會將 Container 資訊帶入 CNI，故 CNI 是以 Container 為單位進行處理(啟用 Container 時，CNI也會被跟著呼叫一次;移除Container時亦同)。
+
+## Container Storage Interface (CSI)
+Kubernetes 提供支援**儲存方面**的標準化介面，可讓使用者可以更容易地將各式各樣的儲存設備(e.g. 檔案系統)整合進 Kubernetes 中。
+
+目前 Kubernetes 提供兩種方式進行儲存:
+- In-tree configuration (早期)
+- CSI configuration 
+
+# Kubernetes 的運算資源
+前述提到 Kubernetes 的架構以及標準化介面，接著討論的是 Kubernetes 運算資源，在 Kubernetes 裡，運算單元可分為兩大類：
+- Pod 
+- Pod Controller
+
+## Pod
+最小的運算單元，一個 Pod 即一個應用程式，而 Pod 裡面**可擁有一個或多個 containers**，這些 containers 有三項資源是共享的: 網路、儲存、IPC(Inter Process Communication; 透過 shard memory 的方式在不同應用程式之間進行溝通)
+
+## Pod Controller
+基於 Pod 去構築不同的使用邏輯，用於各式情境。
+
+## 加入 Pod 之後的架構
+![](https://i.imgur.com/GZfQpxZ.png)
+
+上圖的流程大致如下：
+
+Client 端將撰寫好的檔案透過指令或是使用介面發出請求，告訴 API Server： 幫我 **建立一個 Pod** ，以及 Pod 的相關資訊。
+
+API Server, Scheduler, Controller 相互合作後得到一個合適的節點(Node)來部署這個 Pod，並將 Pod 資訊(e.g. 名稱、container 數量) 送至該節點上的 Kubelet。
+
+接著 Kubelet 將解析收到的資訊，透過 CRI 將 container 資訊送給 Container Runtime，Container Runtime 收到 Pod 內的資訊(一個 or 多個 Container)，最後再依照不同的實作方式建立出對應的 container。 
+
+上圖以 Container Runtime 為界劃分的話，Container Runtime 往後即 Container(有可能是 docker，或是其他類型的 Container)，而Container Runtime 經由 CRI 一路往前推至 API Srever 都是 **以 Pod 為單位** 進行溝通。
+
+Pod 本身是一個抽象概念，由一個 or 多個 Container 所組成
+
