@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>[JSDC 2020] 參與心得 - Tom&#039;s Blog</title><link rel="manifest" href="../../../../../manifest.json"><meta name="application-name" content="Tom&#039;s Blog"><meta name="msapplication-TileImage" content="/images/dragon_red.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Tom&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="前言上週參加今年JavaScript 開發者年會(JavaScript Developer Conference; 簡稱JSDC)，其實這是第一次參加，去年原本有想報，結果錯過報名時間……. 回歸正題，本次 JSDC 的所有議程中主要想聽是關於:遠端工作以及導入 TypeScript 相關議題  以下列舉參加其中幾場的分享及心得"><meta property="og:type" content="blog"><meta property="og:title" content="[JSDC 2020] 參與心得"><meta property="og:url" content="https://github.com/ChenTsungYu/2020/10/24/Conference/[JSDC%202020]%20%E5%8F%83%E8%88%87%E5%BF%83%E5%BE%97/"><meta property="og:site_name" content="Tom&#039;s Blog"><meta property="og:description" content="前言上週參加今年JavaScript 開發者年會(JavaScript Developer Conference; 簡稱JSDC)，其實這是第一次參加，去年原本有想報，結果錯過報名時間……. 回歸正題，本次 JSDC 的所有議程中主要想聽是關於:遠端工作以及導入 TypeScript 相關議題  以下列舉參加其中幾場的分享及心得"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://i.imgur.com/lEFmcHt.jpg"><meta property="og:image" content="https://i.imgur.com/PcvkG4N.png"><meta property="article:published_time" content="2020-10-23T16:00:00.000Z"><meta property="article:modified_time" content="2021-09-28T09:36:25.936Z"><meta property="article:author" content="Tsung Yu Chen"><meta property="article:tag" content="JSDC"><meta property="article:tag" content="Conference"><meta property="twitter:card" content="summary"><meta property="twitter:image" content="https://i.imgur.com/lEFmcHt.jpg"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://github.com/ChenTsungYu/2020/10/24/Conference/[JSDC%202020]%20%E5%8F%83%E8%88%87%E5%BF%83%E5%BE%97/"},"headline":"[JSDC 2020] 參與心得","image":["https://i.imgur.com/lEFmcHt.jpg","https://i.imgur.com/PcvkG4N.png"],"datePublished":"2020-10-23T16:00:00.000Z","dateModified":"2021-09-28T09:36:25.936Z","author":{"@type":"Person","name":"Tsung Yu Chen"},"publisher":{"@type":"Organization","name":"Tom's Blog","logo":{"@type":"ImageObject","url":"https://github.com/images/dragon_red.png"}},"description":"前言上週參加今年JavaScript 開發者年會(JavaScript Developer Conference; 簡稱JSDC)，其實這是第一次參加，去年原本有想報，結果錯過報名時間……. 回歸正題，本次 JSDC 的所有議程中主要想聽是關於:遠端工作以及導入 TypeScript 相關議題  以下列舉參加其中幾場的分享及心得"}</script><link rel="canonical" href="https://github.com/ChenTsungYu/2020/10/24/Conference/[JSDC%202020]%20%E5%8F%83%E8%88%87%E5%BF%83%E5%BE%97/"><link rel="icon" href="../../../../../images/dragon_red.png"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="../../../../../css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css"><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.4.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="../../../../../index.html"><img src="../../../../../images/dragon_red.png" alt="Tom&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="../../../../../index.html">Home</a><a class="navbar-item" href="../../../../../archives">Archives</a><a class="navbar-item" href="../../../../../categories">Categories</a><a class="navbar-item" href="../../../../../tags">Tags</a><a class="navbar-item" href="../../../../../about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="../../../../../https:/github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2020-10-23T16:00:00.000Z" title="10/24/2020, 12:00:00 AM">2020/10/24</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-09-28T09:36:25.936Z" title="9/28/2021, 5:36:25 PM">2021/09/28</time></span><span class="level-item"><a class="link-muted" href="../../../../../categories/Conference/">Conference</a></span><span class="level-item">16 minutes read (About 2466 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">[JSDC 2020] 參與心得</h1><div class="content"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>上週參加今年JavaScript 開發者年會(JavaScript Developer Conference; 簡稱<a target="_blank" rel="noopener" href="https://2020.jsdc.tw/">JSDC</a>)，其實這是第一次參加，去年原本有想報，結果錯過報名時間…….</p>
+<p>回歸正題，本次 JSDC 的所有議程中主要想聽是關於:遠端工作以及導入 TypeScript 相關議題</p>
+<blockquote>
+<p>以下列舉參加其中幾場的分享及心得</p>
+</blockquote>
+<span id="more"></span>
+<h1 id="Topic-Remote-Team"><a href="#Topic-Remote-Team" class="headerlink" title="Topic: Remote Team"></a>Topic: Remote Team</h1><p>Speaker: TonyQ (王景弘)</p>
+<blockquote>
+<h3 id="這場的講者是大名鼎鼎的-TonyQ"><a href="#這場的講者是大名鼎鼎的-TonyQ" class="headerlink" title="這場的講者是大名鼎鼎的 TonyQ !"></a>這場的講者是大名鼎鼎的 TonyQ !</h3></blockquote>
+<p>TonyQ 在本次議程中，以假設在被迫遠端(或面試需要遠端)的情況下，從三個面向來討論遠端工作</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><blockquote>
+<p><strong>為何要Remote?</strong></p>
+</blockquote>
+<p>TonyQ 以自身及所聞周遭的遠端工作者經驗來討論會 Remote 的理由：</p>
+<ul>
+<li>工作型態：本身可能是SOHO族，以接案的形式工作，客戶本身並不關心自己在哪裡工作，對方提出需求，你提供產出，只需要定期開會(or 碰面)確認進度，確保能夠有產出。</li>
+<li>交通因素: 通勤時間過長，乾脆在家工作，遠比通勤所花的時間來的有效益</li>
+<li>時間因素: 自身工作內容比較特殊，如:管伺服器 or 系統的人，因為系統可能在離峰時間、非正常上班時間出事，需要On-call 遠端維護主機</li>
+<li>空間因素: 團隊分散在各地，辦公室有多個點，大家不在同一個空間，若要實體討論，花費的時間、金錢的成本過高，若透過數位工具，可以幫助團隊省下這部分的成本</li>
+<li>家庭/健康因素： 家裡臨時需要協助，e.g. 家人有突發狀況、COVID-19</li>
+</ul>
+<p>講者表示能夠面對面溝通很好，也喜歡隨時進入工作狀態，不用費盡心思出門到辦公室工作，隨時與團隊夥伴保持聯繫。</p>
+<p>而遠端工作對於 TonyQ 來說，是一種工作方法，不同的工作方法，要用不同的態度來處理，想要上手遠端工作，需具備幾項條件:</p>
+<ul>
+<li>自我管理</li>
+<li>團隊整體對目標有一定的共識(避免大家看起來做同一件事情，卻分道揚鑣的窘境)</li>
+</ul>
+<p>接著以管理者的身份來分享自己在管理 Remote Team 的經驗</p>
+<h3 id="個人"><a href="#個人" class="headerlink" title="個人"></a>個人</h3><h4 id="先找總機"><a href="#先找總機" class="headerlink" title="先找總機"></a>先找總機</h4><p>有一個統一的管道可以讓團隊成員去問問題，作為主要的溝通窗口</p>
+<ul>
+<li>Line</li>
+<li>Slack</li>
+<li>Teams</li>
+</ul>
+<h4 id="建環境"><a href="#建環境" class="headerlink" title="建環境"></a>建環境</h4><p>由於遠距工作倚賴數位溝通，會需要一些其他工具</p>
+<ul>
+<li>VPN: 連進公司內網</li>
+<li>Git Repo</li>
+<li>Security Guide</li>
+</ul>
+<h4 id="確認必須的行政邏輯"><a href="#確認必須的行政邏輯" class="headerlink" title="確認必須的行政邏輯"></a>確認必須的行政邏輯</h4><ul>
+<li>工時</li>
+<li>請假</li>
+<li>afk (away from keyboard)</li>
+<li>團隊工作時間確認必須的行政邏輯</li>
+</ul>
+<h4 id="確認任務分配模式"><a href="#確認任務分配模式" class="headerlink" title="確認任務分配模式"></a>確認任務分配模式</h4><ul>
+<li>issue tracking</li>
+<li>Redmine</li>
+<li>Trello</li>
+<li>Teams</li>
+<li>PM / 主管</li>
+<li>同事</li>
+</ul>
+<h4 id="溝通討論"><a href="#溝通討論" class="headerlink" title="溝通討論"></a>溝通討論</h4><p>公私分明，討論完後再把結論填回 issue treacking</p>
+<ul>
+<li>PR &amp; Code Review</li>
+<li>使用 Azure DevOps</li>
+<li>先 push 到其他 branch 發 PR，code review 後再 merge</li>
+</ul>
+<h4 id="concall-電話"><a href="#concall-電話" class="headerlink" title="concall/電話"></a>concall/電話</h4><ul>
+<li>Teams 可以在 pure web 完成分享螢幕、通訊</li>
+<li>在家工作建議準備可工作的書房或空間</li>
+</ul>
+<h3 id="管理者"><a href="#管理者" class="headerlink" title="管理者"></a>管理者</h3><h4 id="情感"><a href="#情感" class="headerlink" title="情感"></a>情感</h4><p>遠端還是要做 Team Building</p>
+<ul>
+<li>避免部屬與上司相互猜測彼此工作狀況</li>
+</ul>
+<p>有沒有人最近少講話或情緒不太穩定</p>
+<ul>
+<li>關照情緒需要電話或者見面了解</li>
+</ul>
+<h4 id="規劃"><a href="#規劃" class="headerlink" title="規劃"></a>規劃</h4><p>盡量用文字而少用電話，安排要減少情緒。</p>
+<h4 id="進度問題"><a href="#進度問題" class="headerlink" title="進度問題"></a>進度問題</h4><ul>
+<li>傳統叫下屬交工作報告</li>
+<li>用 Readmine 查看活躍度，查看 commit 花費時間和紀錄</li>
+</ul>
+<h4 id="新人文件一定要寫"><a href="#新人文件一定要寫" class="headerlink" title="新人文件一定要寫"></a>新人文件一定要寫</h4><ul>
+<li>幫助新人融入團隊最快的方法</li>
+<li>不用太精緻，txt 也行</li>
+</ul>
+<h4 id="同仁已讀不回怎麼辦"><a href="#同仁已讀不回怎麼辦" class="headerlink" title="同仁已讀不回怎麼辦"></a>同仁已讀不回怎麼辦</h4><ul>
+<li>把工作交付他人（對同仁的處罰）</li>
+</ul>
+<h4 id="SOS-怎麼處理"><a href="#SOS-怎麼處理" class="headerlink" title="SOS 怎麼處理"></a>SOS 怎麼處理</h4><ul>
+<li>有排人值班 oncall，用電話溝通</li>
+</ul>
+<h4 id="如何避免重工"><a href="#如何避免重工" class="headerlink" title="如何避免重工"></a>如何避免重工</h4><ul>
+<li>避免里長伯類型的同仁</li>
+<li>明確指派任務</li>
+<li>SOS人員無法解決時應向上呈報</li>
+</ul>
+<h4 id="技能落差"><a href="#技能落差" class="headerlink" title="技能落差"></a>技能落差</h4><ul>
+<li>要死線前才發現無法完成</li>
+<li>要派有技術的人 watch，定時 commit 記錄落後派人去盯</li>
+<li>不用全部都盯，盯重要 issue 就好</li>
+</ul>
+<h4 id="開會模式"><a href="#開會模式" class="headerlink" title="開會模式"></a>開會模式</h4><ul>
+<li>不開大會，開小組會</li>
+</ul>
+<h4 id="同仁不適應怎辦"><a href="#同仁不適應怎辦" class="headerlink" title="同仁不適應怎辦"></a>同仁不適應怎辦</h4><ul>
+<li>用主管權利引導他，定期 tag 同仁回復討論，通常要嘛他適應，要嘛他走</li>
+</ul>
+<h4 id="建議原則："><a href="#建議原則：" class="headerlink" title="建議原則："></a>建議原則：</h4><ul>
+<li>高響應<ul>
+<li>定期 keep alive</li>
+<li>對於新人，可以要求指定時間回報狀況</li>
+</ul>
+</li>
+<li>高容錯<ul>
+<li>對於文字多思考可能的意思</li>
+<li>溝通需要更多的容錯</li>
+<li>盡可能有第三個人在場 (避免 1v1 單人聊天)-讓其他人也知道狀態，避免雙方認知有落差，此時有第三方可以幫忙作證</li>
+</ul>
+</li>
+<li>高產出<ul>
+<li>工作不要排滿，七八分就好，排滿很危險</li>
+</ul>
+</li>
+</ul>
+<h4 id="禁忌："><a href="#禁忌：" class="headerlink" title="禁忌："></a>禁忌：</h4><ul>
+<li>忌消失</li>
+<li>忌不懂裝懂</li>
+<li>忌缺確認</li>
+<li>忌追殺 (除非 SOS)</li>
+</ul>
+<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>團隊需要定期更新目標，落實目標管理，走在正確的方向</p>
+<h1 id="Topic-本科-遠端-新創-經驗分享"><a href="#Topic-本科-遠端-新創-經驗分享" class="headerlink" title="Topic: 本科 / 遠端 / 新創 經驗分享"></a>Topic: 本科 / 遠端 / 新創 經驗分享</h1><p>Speaker: 邱弘毅 (沒一村)<br>講者有在經營粉專 - <a target="_blank" rel="noopener" href="https://www.facebook.com/noootownnotes/">沒一村隨便說</a>，接著回答幾個大家都會問的問題</p>
+<h2 id="本科-vs-研究所"><a href="#本科-vs-研究所" class="headerlink" title="本科 vs 研究所"></a>本科 vs 研究所</h2><p>很多人必須面對的課題: 考研？ or 工作？<br>講者提到可以先想理想工作是什麼</p>
+<h3 id="理想工作"><a href="#理想工作" class="headerlink" title="理想工作"></a>理想工作</h3><ul>
+<li>IC 半導體 vs 軟體工程師<ul>
+<li>台灣 IC 半導體一定要唸碩士(門檻)</li>
+</ul>
+</li>
+<li>Data Engineer vs software engineer</li>
+<li>研究 vs 開發<br>以Software Engineer 來說，因為本身都是做開發，不ㄧ定要唸研究所</li>
+</ul>
+<h3 id="國內-vs-國外研究所"><a href="#國內-vs-國外研究所" class="headerlink" title="國內 vs 國外研究所"></a>國內 vs 國外研究所</h3><ul>
+<li>國內: 研究、修課</li>
+<li>國外: 修課<ul>
+<li>如果有想要國外工作，可以念國外研究所</li>
+</ul>
+</li>
+</ul>
+<h3 id="機會成本"><a href="#機會成本" class="headerlink" title="機會成本"></a>機會成本</h3><p>對講者來說，機會成本是非常重要的，比較下面兩個</p>
+<ul>
+<li>本科直接工作：累積兩年工作經驗 + 薪水</li>
+<li>研究所： 得到更多 domain specific 研究經驗</li>
+</ul>
+<p>兩者要做取捨，這就回到自己本身的理想工作是什麼？</p>
+<h2 id="遠端工作"><a href="#遠端工作" class="headerlink" title="遠端工作"></a>遠端工作</h2><p>講者目前的公司位於美國，團隊的開發者也都是四散在各地，簡單跟大家分享近一年的遠端工作心得</p>
+<h3 id="遠端工作疑問"><a href="#遠端工作疑問" class="headerlink" title="遠端工作疑問"></a>遠端工作疑問</h3><p>如何找到工作？</p>
+<ul>
+<li>AngelList：大多數為國外新創</li>
+<li>Upworks (接案發包)</li>
+<li>Linkedin</li>
+<li>臉書遠端社團<ul>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/1190343134374259/">https://www.facebook.com/groups/1190343134374259/</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.facebook.com/groups/remotetaiwan/">https://www.facebook.com/groups/remotetaiwan/</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="能力需求？"><a href="#能力需求？" class="headerlink" title="能力需求？"></a>能力需求？</h3><ul>
+<li>英文 or 外文：能夠溝通，聽說讀寫據基本能力。</li>
+<li>自制力：對遠端工作者是必須具備的能力</li>
+<li>自學能力</li>
+<li>溝通能力</li>
+</ul>
+<h3 id="優缺點"><a href="#優缺點" class="headerlink" title="優缺點?"></a>優缺點?</h3><ul>
+<li>優點:時間彈性、減少通勤時間、效率高</li>
+<li>缺點: 容易超時工作、缺少和同事交流</li>
+</ul>
+<h1 id="Topic-用不用-TypeScript-隨便你，反正我是用了"><a href="#Topic-用不用-TypeScript-隨便你，反正我是用了" class="headerlink" title="Topic: 用不用 TypeScript 隨便你，反正我是用了"></a>Topic: 用不用 TypeScript 隨便你，反正我是用了</h1><p>Speaker: Will 保哥<br>保哥本次想討論的主題是為何要使用TypeScript，用了有什麼好處？</p>
+<h2 id="什麼是-TypeScript？"><a href="#什麼是-TypeScript？" class="headerlink" title="什麼是 TypeScript？"></a>什麼是 TypeScript？</h2><p>TypeScript 由微軟開發，主要提供 JavaScript 型別系統和對 ES6 的支援，屬於強型別。</p>
+<p>因為 TypeScript 誕生得主因是 JavaScript 本身是弱型別語言，在撰寫上非常自由，不需事先定義好資料型別。<br>不過也因為風格自由，可能倒置程式執行時，發生不可預期之錯誤。舉例來說：</p>
+<blockquote>
+<p>以下圖片取自保哥的簡報</p>
+</blockquote>
+<p><img src="https://i.imgur.com/lEFmcHt.jpg" alt=""><br>上述範例可以看出，因為未事先宣告資料型別，所以在執行 <code>processData</code> 這個函式時，無法得知街道的物件<code>data</code>會是什麼，接著執行函式內邏輯時，出現<code>TypeError</code>這項型別錯誤的提示訊息，只要打錯字，這支程式基本上就掛了。</p>
+<blockquote>
+<p>若轉成 TypeScript</p>
+</blockquote>
+<p><img src="https://i.imgur.com/PcvkG4N.png" alt=""><br>上述保哥所舉得範例，左邊預先定義一個<code>Interface</code>，宣告<code>Data</code>這個物件的屬性包含三種型別。</p>
+<p>而下方的錯誤訊息來自IDE的提示，很貼心的提示你可能發生的問題。</p>
+<h2 id="講者觀點"><a href="#講者觀點" class="headerlink" title="講者觀點:"></a>講者觀點:</h2><p>弱型別並非沒有，還是有些大神可以把他玩到極致，產出如同藝術家般的作品，但是對一般人來說是很難做到;而強型別玩到極致，如同蓋大樓，藉由大量型別的定義，幫助開發者建構中大型的專案，在實際案例中，不可能所有開發者都是藝術家級別。</p>
+<p>透過規範來幫助開發者建構出易維護、擴充的程式碼，減少錯誤。</p>
+<p>TypeScript 是透過型別來擴充 JavaScript，透過編譯的方式來產生 JavaScript，而 TypeScript 的型別檢查是發生在程式<strong>編譯的階段</strong></p>
+<blockquote>
+<p>好處: 讓開發工具看懂原始碼</p>
+</blockquote>
+<p>後續保哥分享了他在公司將一個兩萬行JS Code 的專案升級成 TypeScript，過程中發現型別的問題非常大，花費不少時間做Complie Error，陸續將可被規範的物件，定義出該有的樣子，同時也提到導入 TypeScript 的確會增加開發時間，畢竟要先定義好型別，不過放長遠來想，或許是個值得投資的項目。</p>
+<h1 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h1><p>感謝 <a target="_blank" rel="noopener" href="https://tw.alphacamp.co/">ALPHA Camp</a> 活動贊助，以優惠價取得門票，有幸參與今年JSDC研討會，實屬難得的機會。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>[JSDC 2020] 參與心得</p><p><a href="https://github.com/ChenTsungYu/2020/10/24/Conference/[JSDC 2020] 參與心得/">https://github.com/ChenTsungYu/2020/10/24/Conference/[JSDC 2020] 參與心得/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>Tsung Yu Chen</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2020/10/24</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2021/09/28</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="../../../../../https:/creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="../../../../../https:/creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="../../../../../https:/creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="../../../../../tags/JSDC/">JSDC</a><a class="link-muted mr-2" rel="tag" href="../../../../../tags/Conference/">Conference</a></div><div class="notification is-danger">You need to set <code>install_url</code> to use ShareThis. Please set it in <code>_config.yml</code>.</div></article></div><div class="card"><div class="card-content"><h3 class="menu-label has-text-centered">Like this article? Support the author with</h3><div class="buttons is-centered"><a class="button donate" href="../../../../../" target="_blank" rel="noopener" data-type="afdian"><span class="icon is-small"><i class="fas fa-charging-station"></i></span><span>Afdian.net</span></a><a class="button donate" data-type="alipay"><span class="icon is-small"><i class="fab fa-alipay"></i></span><span>Alipay</span><span class="qrcode"><img src="../../../../../" alt="Alipay"></span></a><a class="button donate" href="../../../../../" target="_blank" rel="noopener" data-type="buymeacoffee"><span class="icon is-small"><i class="fas fa-coffee"></i></span><span>Buy me a coffee</span></a><a class="button donate" href="../../../../../" target="_blank" rel="noopener" data-type="patreon"><span class="icon is-small"><i class="fab fa-patreon"></i></span><span>Patreon</span></a><div class="notification is-danger">You forgot to set the <code>business</code> or <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.</div><a class="button donate" data-type="wechat"><span class="icon is-small"><i class="fab fa-weixin"></i></span><span>Wechat</span><span class="qrcode"><img src="../../../../../" alt="Wechat"></span></a></div></div></div><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="../../../../../2021/03/13/DevOps/ELK/%5BELK%5D%20%E5%A6%82%E4%BD%95%E5%82%99%E4%BB%BD%20Elastic%20Cloud%20%E7%9A%84%20Snapshot%20%E8%87%B3%20AWS%20S3/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">[ELK] 如何備份 Elastic Cloud 的 Snapshot 至 AWS S3</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="../../../../09/30/aws/%E5%82%99%E4%BB%BD%20MySQL%20%E8%B3%87%E6%96%99%E8%87%B3%20AWS%20S3%20Bucket/"><span class="level-item">[AWS] 備份 MySQL 資料至 AWS S3 Bucket</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card"><div class="card-content"><h3 class="title is-5">Comments</h3><div class="notification is-danger">You forgot to set the <code>shortname</code> for Disqus. Please set it in <code>_config.yml</code>.</div></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="../../../../../img/avatar.png" alt="Your name"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Your name</p><p class="is-size-6 is-block">Your title</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Your location</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="../../../../../archives"><p class="title">93</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="../../../../../categories"><p class="title">8</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="../../../../../tags"><p class="title">43</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="../../../../../https:/github.com/ppoffice" target="_blank" rel="noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="../../../../../https:/github.com/ppoffice"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="../../../../../https:/facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="../../../../../https:/twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="../../../../../https:/dribbble.com"><i class="fab fa-dribbble"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="RSS" href="../../../../../index.html"><i class="fas fa-rss"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">Catalogue</h3><ul class="menu-list"><li><a class="level is-mobile" href="#前言"><span class="level-left"><span class="level-item">1</span><span class="level-item">前言</span></span></a></li><li><a class="level is-mobile" href="#Topic-Remote-Team"><span class="level-left"><span class="level-item">2</span><span class="level-item">Topic: Remote Team</span></span></a><ul class="menu-list"><ul class="menu-list"><li><a class="level is-mobile" href="#這場的講者是大名鼎鼎的-TonyQ"><span class="level-left"><span class="level-item">2.1.1</span><span class="level-item">這場的講者是大名鼎鼎的 TonyQ !</span></span></a></li></ul><li><a class="level is-mobile" href="#原因"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">原因</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#個人"><span class="level-left"><span class="level-item">2.2.1</span><span class="level-item">個人</span></span></a></li><li><a class="level is-mobile" href="#管理者"><span class="level-left"><span class="level-item">2.2.2</span><span class="level-item">管理者</span></span></a></li></ul></li><li><a class="level is-mobile" href="#總結"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">總結</span></span></a></li></ul></li><li><a class="level is-mobile" href="#Topic-本科-遠端-新創-經驗分享"><span class="level-left"><span class="level-item">3</span><span class="level-item">Topic: 本科 / 遠端 / 新創 經驗分享</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#本科-vs-研究所"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">本科 vs 研究所</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#理想工作"><span class="level-left"><span class="level-item">3.1.1</span><span class="level-item">理想工作</span></span></a></li><li><a class="level is-mobile" href="#國內-vs-國外研究所"><span class="level-left"><span class="level-item">3.1.2</span><span class="level-item">國內 vs 國外研究所</span></span></a></li><li><a class="level is-mobile" href="#機會成本"><span class="level-left"><span class="level-item">3.1.3</span><span class="level-item">機會成本</span></span></a></li></ul></li><li><a class="level is-mobile" href="#遠端工作"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">遠端工作</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#遠端工作疑問"><span class="level-left"><span class="level-item">3.2.1</span><span class="level-item">遠端工作疑問</span></span></a></li><li><a class="level is-mobile" href="#能力需求？"><span class="level-left"><span class="level-item">3.2.2</span><span class="level-item">能力需求？</span></span></a></li><li><a class="level is-mobile" href="#優缺點"><span class="level-left"><span class="level-item">3.2.3</span><span class="level-item">優缺點?</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#Topic-用不用-TypeScript-隨便你，反正我是用了"><span class="level-left"><span class="level-item">4</span><span class="level-item">Topic: 用不用 TypeScript 隨便你，反正我是用了</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#什麼是-TypeScript？"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">什麼是 TypeScript？</span></span></a></li><li><a class="level is-mobile" href="#講者觀點"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">講者觀點:</span></span></a></li></ul></li><li><a class="level is-mobile" href="#後記"><span class="level-left"><span class="level-item">5</span><span class="level-item">後記</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="../../../../../js/toc.js" defer></script></div><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="../../../../../categories/Backend/"><span class="level-start"><span class="level-item">Backend</span></span><span class="level-end"><span class="level-item tag">38</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/Cloud/"><span class="level-start"><span class="level-item">Cloud</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/Conference/"><span class="level-start"><span class="level-item">Conference</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/DevOps/"><span class="level-start"><span class="level-item">DevOps</span></span><span class="level-end"><span class="level-item tag">14</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/Frontend/"><span class="level-start"><span class="level-item">Frontend</span></span><span class="level-end"><span class="level-item tag">15</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/Network/"><span class="level-start"><span class="level-item">Network</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/OS/"><span class="level-start"><span class="level-item">OS</span></span><span class="level-end"><span class="level-item tag">7</span></span></a></li><li><a class="level is-mobile" href="../../../../../categories/Tool/"><span class="level-start"><span class="level-item">Tool</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-06-06T15:00:53.000Z">2021/06/06</time></p><p class="title"><a href="../../../../../2021/06/06/DevOps/ELK/Elasticsearch%20Index%20%E7%AE%A1%E7%90%86%E8%88%87%E6%95%88%E8%83%BD%E5%84%AA%E5%8C%96%E6%8A%80%E5%B7%A7/">[ELK] Elasticsearch Index 管理與效能優化技巧 </a></p><p class="categories"><a href="../../../../../categories/Conference/">Conference</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-04-17T15:51:53.000Z">2021/04/17</time></p><p class="title"><a href="../../../../../2021/04/17/DevOps/ELK/%5BELK%5D%20%E5%A6%82%E4%BD%95%E9%80%8F%E9%81%8E%20enrich%20processor%20%E6%93%B4%E5%A2%9E%E8%B3%87%E6%96%99%E5%B1%AC%E6%80%A7/">[ELK] 如何透過 enrich processor 擴增資料屬性</a></p><p class="categories"><a href="../../../../../categories/DevOps/">DevOps</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-16T16:00:00.000Z">2021/03/17</time></p><p class="title"><a href="../../../../../2021/03/17/DevOps/ansible/%5BAnsile%5D%20%E5%85%A5%E9%96%80%E6%A6%82%E5%BF%B5/">[Ansile] 入門概念</a></p><p class="categories"><a href="../../../../../categories/DevOps/">DevOps</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-15T15:51:53.000Z">2021/03/15</time></p><p class="title"><a href="../../../../../2021/03/15/DevOps/ELK/%5BELK%5D%20%E5%A6%82%E4%BD%95%E6%9B%B4%E6%96%B0%20Kibana%20Visualization%20&amp;%20Dashboard%20%E5%B0%8D%E6%87%89%E7%9A%84%20Index%20Pattern/">[ELK] 如何更新 Kibana Visualization &amp; Dashboard 對應的 Index Pattern</a></p><p class="categories"><a href="../../../../../categories/DevOps/">DevOps</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2021-03-13T15:51:53.000Z">2021/03/13</time></p><p class="title"><a href="../../../../../2021/03/13/DevOps/ELK/%5BELK%5D%20%E5%A6%82%E4%BD%95%E5%82%99%E4%BB%BD%20Elastic%20Cloud%20%E7%9A%84%20Snapshot%20%E8%87%B3%20AWS%20S3/">[ELK] 如何備份 Elastic Cloud 的 Snapshot 至 AWS S3</a></p><p class="categories"><a href="../../../../../categories/DevOps/">DevOps</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="../../../../../archives/2021/06/"><span class="level-start"><span class="level-item">June 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2021/04/"><span class="level-start"><span class="level-item">April 2021</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2021/03/"><span class="level-start"><span class="level-item">March 2021</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/10/"><span class="level-start"><span class="level-item">October 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/09/"><span class="level-start"><span class="level-item">September 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/07/"><span class="level-start"><span class="level-item">July 2020</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/06/"><span class="level-start"><span class="level-item">June 2020</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/05/"><span class="level-start"><span class="level-item">May 2020</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/04/"><span class="level-start"><span class="level-item">April 2020</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/03/"><span class="level-start"><span class="level-item">March 2020</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/02/"><span class="level-start"><span class="level-item">February 2020</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2020/01/"><span class="level-start"><span class="level-item">January 2020</span></span><span class="level-end"><span class="level-item tag">16</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2019/09/"><span class="level-start"><span class="level-item">September 2019</span></span><span class="level-end"><span class="level-item tag">8</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2019/08/"><span class="level-start"><span class="level-item">August 2019</span></span><span class="level-end"><span class="level-item tag">6</span></span></a></li><li><a class="level is-mobile" href="../../../../../archives/2019/07/"><span class="level-start"><span class="level-item">July 2019</span></span><span class="level-end"><span class="level-item tag">25</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="../../../../../tags/AWS/"><span class="tag">AWS</span><span class="tag">14</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Ansible/"><span class="tag">Ansible</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Canvas/"><span class="tag">Canvas</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Certbot/"><span class="tag">Certbot</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Conference/"><span class="tag">Conference</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Cookie/"><span class="tag">Cookie</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Css/"><span class="tag">Css</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Database/"><span class="tag">Database</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/DevOps/"><span class="tag">DevOps</span><span class="tag">15</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Django/"><span class="tag">Django</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Docker/"><span class="tag">Docker</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/ELK/"><span class="tag">ELK</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Elasticsearch/"><span class="tag">Elasticsearch</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Github/"><span class="tag">Github</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Go/"><span class="tag">Go</span><span class="tag">9</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/GoogleMap/"><span class="tag">GoogleMap</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/JSDC/"><span class="tag">JSDC</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/JavaScript/"><span class="tag">JavaScript</span><span class="tag">8</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Kibana/"><span class="tag">Kibana</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Linux/"><span class="tag">Linux</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Mac/"><span class="tag">Mac</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/MongoDB/"><span class="tag">MongoDB</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/MySQL/"><span class="tag">MySQL</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Network/"><span class="tag">Network</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/NoSQL/"><span class="tag">NoSQL</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/OOP/"><span class="tag">OOP</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/OS/"><span class="tag">OS</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Pandas/"><span class="tag">Pandas</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Project/"><span class="tag">Project</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Proxy/"><span class="tag">Proxy</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Python/"><span class="tag">Python</span><span class="tag">25</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/SQL-Server/"><span class="tag">SQL Server</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/SSL/"><span class="tag">SSL</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Session/"><span class="tag">Session</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Terraform/"><span class="tag">Terraform</span><span class="tag">5</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Ubuntu/"><span class="tag">Ubuntu</span><span class="tag">2</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/VSCode/"><span class="tag">VSCode</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Vue/"><span class="tag">Vue</span><span class="tag">4</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/WebScraping/"><span class="tag">WebScraping</span><span class="tag">3</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/WebSocket/"><span class="tag">WebSocket</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/Webhook/"><span class="tag">Webhook</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/w3HexSchool/"><span class="tag">w3HexSchool</span><span class="tag">20</span></a></div><div class="control"><a class="tags has-addons" href="../../../../../tags/%E8%A8%88%E6%A6%82/"><span class="tag">計概</span><span class="tag">1</span></a></div></div></div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">Subscribe for updates</h3><form action="https://feedburner.google.com/fb/a/mailverify" method="post" target="popupwindow" onsubmit="window.open(&#039;https://feedburner.google.com/fb/a/mailverify?uri=&#039;,&#039;popupwindow&#039;,&#039;scrollbars=yes,width=550,height=520&#039;);return true"><input type="hidden" value="" name="uri"><input type="hidden" name="loc" value="en_US"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div><div class="card widget"><div class="card-content"><div class="notification is-danger">You need to set <code>client_id</code> and <code>slot_id</code> to show this AD unit. Please set it in <code>_config.yml</code>.</div></div></div><div class="card widget" data-type="subscribe-email"><div class="card-content"><div class="menu"><h3 class="menu-label">follow.it</h3><form action="" method="post" target="_blank"><div class="field has-addons"><div class="control has-icons-left is-expanded"><input class="input" name="email" type="email" placeholder="Email"><span class="icon is-small is-left"><i class="fas fa-envelope"></i></span></div><div class="control"><input class="button" type="submit" value="Subscribe"></div></div></form></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="../../../../../index.html"><img src="../../../../../images/dragon_red.png" alt="Tom&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2021 Tsung Yu Chen</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="../../../../../https:/creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="../../../../../https:/creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="../../../../../https:/github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="../../../../../js/column.js"></script><script src="../../../../../js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="../../../../../js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="../../../../../js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="../../../../../js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"../../../../../content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
