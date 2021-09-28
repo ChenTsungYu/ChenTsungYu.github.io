@@ -17,7 +17,8 @@ toc: true
 原因是每個建好的 index pattern 都會帶一個獨立 ID ，Kibana Visualization 會綁定該 ID，故原始 index pattern 被刪除時，即便新建一個同名 index pattern，ID 改變造成 Visualization 找不到原始綁定的 index pattern。
 
 本篇文章會示範如何在不另外建 Visualization 和 Dashboard 的情況下，替換新的 Index Pattern
-<!--- more -->
+
+<!--more-->
 # 實作
 > Elastic Cloud 版本為 **7.10**
 
