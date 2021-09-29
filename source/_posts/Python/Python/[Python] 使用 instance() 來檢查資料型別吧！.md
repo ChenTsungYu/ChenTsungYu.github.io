@@ -172,7 +172,7 @@ python3  -m timeit -s "variable = 'test'" "isinstance(variable, str)"
 
 分別執行上述兩者針對同一變數是否為字串時的比對時，執行速度是 `isinstance()` 較佳。
 
-# 小結
+# 總結
 `isinstance` 通常是比較類型的首選。藉由上面幾個範例可知，它不僅更快，同時考慮繼承，下次若要對資料做型別檢查時，就優先考慮 `isinstance` 這個函式吧～
 
 # Reference

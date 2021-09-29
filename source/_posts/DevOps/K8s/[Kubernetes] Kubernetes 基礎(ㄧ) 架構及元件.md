@@ -17,7 +17,9 @@ Kubernetes 是一個用於管理多個容器的大型管理平台，原先是 Go
 - 單一節點部署多個容器 (Multiple Container/Single Node)
 - 多節點部署多個容器 (Multiple Container/Multiple Node) => **Kubernetes 主要解決的問題** 
 
-在單一節點上的容器部署，用 Docker 來實作的話可藉由撰寫 Dockerfile 以及 docker-compose 來完成。遇到多節點的容器部署時，其實 Docker 有推出 Docker Swarm 這樣的解決方案，但非本文要記錄的重點，而 Kubernetes 的誕生也是為了解決多節點部署多個容器的問題，接著來了解一下 Kubernetes 的架構以及必須知道的元件吧！
+在單一節點上的容器部署，用 Docker 來實作的話可藉由撰寫 Dockerfile 以及 docker-compose 來完成。
+
+遇到多節點的容器部署時，其實 Docker 有推出 Docker Swarm 這樣的解決方案，但非本文要記錄的重點，而 Kubernetes 的誕生也是為了解決多節點部署多個容器的問題，接著來了解一下 Kubernetes 的架構以及必須知道的元件吧！
 
 # [Kubernetes Cluster 架構(Architecture)](https://kubernetes.io/docs/concepts/overview/components/)
 ![](https://i.imgur.com/zPPhrN3.png)
@@ -229,5 +231,5 @@ Pod 提供相關屬性決定如何部署。
 >  注意:
 > **預設情況下**，Control Plane 的節點**不允許部署任何 Pod**(No Schedule)，避免一般在使用的 container 與 Control Plane 的節點爭奪資源
 
-# 小結
-寫到這邊大致可以了解 Kubernetes 的基礎架構、所需的元件，以及每個元件在 Kubernetes 所扮演的角色，下篇文章紀錄如何在 Kubernetes 上操作這些元件
+# 總結
+寫到這邊大致可以了解 Kubernetes 的基礎架構、所需的元件，以及每個元件在 Kubernetes 所扮演的角色，下篇文章紀錄如何在 Kubernetes 上操作 Pod 元件
