@@ -21,14 +21,14 @@ Kubernetes 是一個用於管理多個容器的大型管理平台，原先是 Go
 
 遇到多節點的容器部署時，其實 Docker 有推出 Docker Swarm 這樣的解決方案，但非本文要記錄的重點，而 Kubernetes 的誕生也是為了解決多節點部署多個容器的問題，接著來了解一下 Kubernetes 的架構以及必須知道的元件吧！
 
-# [Kubernetes Cluster 架構(Architecture)](https://kubernetes.io/docs/concepts/overview/components/)
+# [Kubernetes Cluster Architecture](https://kubernetes.io/docs/concepts/overview/components/)
 ![](https://i.imgur.com/zPPhrN3.png)
 Kubernetes Cluster 是由一個主要節點(Master Node) 與多個 Worker Node 所構成的叢集架構，Cluster 架構
 - Control Plane(控制平面)：也就是主要節點(Master Node)，扮演 Kubernetes 大腦的角色
 - Node (節點; 又作 Worker：可部署於虛擬機 or 實際的 Server 上，甚至能將 worker 放置於 container 裡面(藉由 **container in container** 的技術)。
 
 ## 主要節點 (Master Node)
-Kubernetes 運作的指揮中心，可負責管理其他 Woker Node。一個 Master Node 中有四個組件：API Server、etcd、Scheduler、Controller。
+Kubernetes 運作的指揮中心，可負責管理其他 Woker Node。一個 Master Node 中有四個組件：API Server、Etcd、Scheduler、Controller。
 
 ### Control Plane (控制平面)
 Control Plane 裡有不同的應用程式，這四個角色組合成 Kubernetes 最重要的大腦功能，負責管控整個 Kubernetes 叢集(Cluster)，四個角色分別是：
@@ -37,9 +37,9 @@ Control Plane 裡有不同的應用程式，這四個角色組合成 Kubernetes 
 - **Controller**
 - **Etcd**
 
-Kubernetes 可以在不同的節點(Node)來運行容器，Worker 可以部署在虛擬機、實際的 server 甚至是容器(container)上(將 container 部署在container上)。
+Kubernetes 可以在不同的節點(Node)來運行容器，Worker Node 可以部署在虛擬機、實際的 Server 甚至是容器(Container)上(將 Container 部署在 Container 上)。
 
-Worker 與 Control Plane 之間可藉由安裝在 Worker 上的 **代理程式(Agent)** 與 Control Plane 的 API Server 來進行溝通，同步目前 Cluster 內的最新狀況。
+Worker Node 與 Control Plane 之間可藉由安裝在 Worker Node 上的 **代理程式(Agent)** 與 Control Plane 裡的 API Server 進行溝通，同步目前 Cluster 內最新的狀況。
 
 > ### 整個 Control Plane + 所有的 Workers = Kubernetes Cluster
 

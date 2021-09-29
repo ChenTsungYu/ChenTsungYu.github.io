@@ -7,6 +7,8 @@ categories: [DevOps]
 toc: true
 ---
 # 前言
+![](https://miro.medium.com/max/240/0*X-_IGBEAB88amxNO.png)
+
 延續上一篇[[Kubernetes] Kubernetes 基礎(ㄧ) 架構及元件](https://chentsungyu.github.io/2021/09/07/DevOps/K8s/%5BKubernetes%5D%20Kubernetes%20%E5%9F%BA%E7%A4%8E(%E3%84%A7)%20%E6%9E%B6%E6%A7%8B%E5%8F%8A%E5%85%83%E4%BB%B6/)討論 Kubernetes 的架構與元件後，接著來探討如何操作 Kubernetes  的 Pod 元件吧！ 
 
 > 以下簡稱 Kubernetes 為 **K8s**。
@@ -168,10 +170,12 @@ kubectl apply -f <folder>
 ![](https://i.imgur.com/202flKJ.png)
 
 **圖片上半部分:**
-左邊的 Config yaml 為定義 K8s 資源的 yaml 檔，描述 A~E 等多項資源，接著透過 `apply` 指令寫到 K8s 裡，K8s 會根據 yaml 檔描述的內容及預設值建立對應的資源，其中某個欄位會用於**記錄原始的檔案內容(用紅色的F標示)**，剩餘的部分(如 G~K)則 K8s 會自動根據預設值建立資源。
+
+左邊的 Config yaml 為定義 K8s 資源的 yaml 檔，描述 A ~ E 等多項資源，接著透過 `apply` 指令寫到 K8s 裡，K8s 會根據 yaml 檔描述的內容及預設值建立對應的資源，其中某個欄位會用於**記錄原始的檔案內容(用紅色的F標示)**，剩餘的部分(如 G ~ K)則是 K8s 根據本身的預設值自動建立資源。
 
 **圖片下半部分:**
-若對原始定義的 Config yaml 內容作修改(如圖中橘色的 B~C)，經第二次 `apply` 後，K8s 會根據紀錄在F欄位的物件，將修改後的物件與原始存在K8s裡的物件進行比對。
+
+若對原始定義的 Config yaml 內容作修改(如圖中橘色的 B ~ C)，經第二次 `apply` 後，K8s 會根據紀錄在F欄位的物件，將修改後的物件與原始存在K8s裡的物件進行比對。
 
 如此一來，使用這變得方便許多，不需要取得完整的 yaml 檔內容(包含K8s 預設自動建立好的資源)，即可針對變動的檔案內容更新 K8s 裡的資源，實務上都採此法更新 K8s 資源，故 `apply` 與 `create` 的含意不同。
 
