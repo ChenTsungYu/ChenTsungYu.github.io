@@ -161,13 +161,14 @@ print(isinstance(obj, Vehicle)) # Output True
 - `type()`
 ```python=
 python3  -m timeit -s "variable = 'test'" "type(variable) is str"
-# output: 5000000 loops, best of 5: 43.7 nsec per loop
 ```
+> output: 5000000 loops, best of 5: 43.7 nsec per loop
+
 - `isinstance()`
 ```python=
 python3  -m timeit -s "variable = 'test'" "isinstance(variable, str)"
-# output: 10000000 loops, best of 5: 35.5 nsec per loop
 ```
+> output: 10000000 loops, best of 5: 35.5 nsec per loop
 
 分別執行上述兩者針對同一變數是否為字串時的比對時，執行速度是 `isinstance()` 較佳。
 
