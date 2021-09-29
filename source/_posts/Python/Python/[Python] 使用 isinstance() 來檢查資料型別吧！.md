@@ -1,5 +1,5 @@
 ---
-title: "[Python] 使用 instance() 來檢查資料型別吧！"
+title: "[Python] 使用 isinstance() 來檢查資料型別吧！"
 catalog: true
 date: 2021/06/30 20:23:10
 tags: Python
