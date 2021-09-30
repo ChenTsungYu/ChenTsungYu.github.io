@@ -263,7 +263,7 @@ kubectl describe pod myapp-pod-nginx-demo
 
 ## Pod Controller (Workload Controller)
 Pod 底下擁有多種類型的 Controller，每種 Controller 都有合適的應用場景:
-- [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/): Pod 的副本的集合
+- [ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/): 管理多個 Pod 的副本
 - [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/): 提供聲明式的方法來更新 Pods
 - [Daemonset](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/): 確保每一個 node 上都會有一個指定的 Pod 來運行特定的工作
 - [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/): 處理有狀態 Container

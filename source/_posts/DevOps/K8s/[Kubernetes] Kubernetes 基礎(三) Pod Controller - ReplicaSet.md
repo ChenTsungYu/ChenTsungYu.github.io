@@ -1,5 +1,5 @@
 ---
-title: "[Kubernetes] Kubernetes 基礎(三) Pod Controller - ReplicaSet "
+title: "[Kubernetes] Kubernetes 基礎(三) Pod Controller - ReplicaSet"
 catalog: true
 date: 2021/09/14 8:00:10
 tags: [Kubernetes, K8s]
