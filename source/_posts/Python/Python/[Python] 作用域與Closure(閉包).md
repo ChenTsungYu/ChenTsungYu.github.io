@@ -21,6 +21,7 @@ toc: true
 
 上面這段描述白話來說就是： 
 > ### 函數可以被當做參數傳遞、能夠作為函數回傳值、能夠被修改、能夠被賦值給一個變數。
+> 這意味著函數可以傳遞可用作參數，如同其他物件（字串、整數、浮點數、list等）一樣
 
 ## 範例
 ### 可被賦值給變數
@@ -58,6 +59,29 @@ print(total)  # [1, 4, 9, 16, 25]
 ```
 由上面的範例來看，函數`square`函數物件被當作`arr`函數的參數傳遞  ，隨後於`arr`中進行陣列處理。
 
+再給個例子：
+以 `say_hello`, `be_awesome` 兩個函示做為參數，傳入 `greet_tom` 這項函式裡，接著呼叫該函式
+```python=
+def say_hello(name):
+    return f"Hello {name}"
+
+def be_awesome(name):
+    return f"Yo {name}, together we are the awesomest!"
+
+
+def greet_tom(greeter_func):
+    return greeter_func("Tom")
+
+print(greet_tom(say_hello))  # Hello Tom
+print(greet_tom(be_awesome))  # Yo Tom, together we are the awesomest!
+```
+上述範例流程：
+ -  兩個函示分別為 `greet_tom` 函示的參數
+ - 執行 `greet_tom` 函式後呼叫 `greeter_func` 函式
+ - 這時 `say_hello`, `be_awesome` 兩個函示分別代表以 `greeter_func` 的參數形式進行韓式呼叫
+ -  `greeter_func`  呼叫時傳入 `Tom` 這個字串型別的參數
+ -  最終根據傳入不同的參數(函示)來源，回傳相應的結果
+
 ### 可作為函數的回傳值
 ```python=
 # 可作為函數的回傳值
@@ -88,12 +112,12 @@ p('This is the second paragraph')  # <p>This is the second paragraph</p>
 ```
 
 # Python Scope(作用域)
-對頭等函式有概念之後，再來談談Python的作用域。
-Python的作用域規則(scope)規則叫做LEGB，scope在查找時，順序為 **Local -> Enclosed -> Global -> Built-in**
-* Local: 於function或是class內宣告的變數名
-* Enclosed: 位於巢狀層次的function結構，常用於Closure
-* Global: 最上層位於模組(module)的全域變數名稱
-* Build-in: 內建模組(module)的名稱，例如`print`, `abs()`這樣的函式等等
+有了頭等函式概念之後，再來談談 Python 的作用域。
+Python 的作用域(scope)規則規則叫做 **LEGB**，查找時 scope 會循這個規則，順序為 **Local -> Enclosed -> Global -> Built-in**
+* **Local**: 於 function 或是 class 內宣告的變數名
+* **Enclosed**: 位於巢狀層次的function結構，常用於Closure
+* **Global**: 最上層位於模組(module)的全域變數名稱
+* **Build**-in: 內建模組(module)的名稱，例如`print`, `abs()`這樣的函式等等
 
 ![](https://i.imgur.com/kp3znNc.jpg)
 [圖片源](https://data-flair.training/blogs/python-variable-scope/)
@@ -210,7 +234,7 @@ my height is 170.
 my weight is 60.
 """
 ```
-上面的範例可以觀察出一個奇怪的點，一般情況下，function中內區域變數的生命週期(life cycle)會隨著function執行完畢而結束(變數的生命週期在[這篇文章](https://codertw.com/%E7%A8%8B%E5%BC%8F%E8%AA%9E%E8%A8%80/368844/)有提到)，但是`print`出來的結果卻還可以讀取到`height`、`weight`兩個屬於`student()`scope的變數。
+上面的範例可以觀察出一個奇怪的點，一般情況下，function中內區域變數的生命週期(life cycle)會隨著function執行完畢而結束，但是`print`出來的結果卻還可以讀取到`height`、`weight`兩個屬於`student()`scope的變數。
 
 原因在於`return info`這個地方，`info`這個function趁著`return`的時候**捕捉外層函式裡的變數**，並偷渡進來自己的scope裡面。
 
