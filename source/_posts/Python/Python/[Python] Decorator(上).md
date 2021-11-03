@@ -6,16 +6,17 @@ tags: [Python]
 categories: Backend
 toc: true
 ---
-![](https://i.imgur.com/yf93Dxu.png)
 <!-- toc -->
 # 前言
-之前專題寫Linebot時用Flask串接Linebot的SDK，一開始只是照個官方給的Sample Code去架設Linebot，後來深入研究Sample Code後一直不太理解裡面`@`的意涵，利用空檔撰寫這篇文章，加深對Decorator的觀念。
+之前專題寫Linebot時用Flask串接Linebot的SDK，一開始只是照個官方給的 Sample Code 去架設Linebot，後來深入研究Sample Code後一直不太理解裡面`@`的意涵，利用空檔撰寫這篇文章，加深對Decorator的觀念。
 
-Decorator中文翻作裝飾器，裝飾Python中的**class和function**，它其實是Python的一種語法糖(簡化寫法)，可重複利用程式碼，將程式碼化繁為簡，以`@`做開頭。
+Decorator 中文翻作 **裝飾器**，裝飾 Python 中的 **class 和 function**，它其實是 Python 的一種語法糖(簡化寫法)，不僅能使程式碼重複利用，將程式碼化繁為簡，更易於擴充，故被廣泛實作在套件上，而辨識 Decorator 的方法就是 Decorator 名稱前面會以`@`做開頭。
+如下圖的 `@app`:
+![](https://i.imgur.com/yf93Dxu.png)
 
-> ### Decorator背後牽涉到很重要的觀念 - 閉包(Closure)
-閉包的部分之後在記錄成一篇筆記～本文主要初步了解Decorator的概念。
+> Decorator背後牽涉到兩個很重要的觀念 - **閉包(Closure)** 以及**頭等函式 (First-class Function)**， 相關討論記錄在[這篇筆記](https://chentsungyu.github.io/2020/02/26/Python/Python/%5BPython%5D%20%E4%BD%9C%E7%94%A8%E5%9F%9F%E8%88%87Closure(%E9%96%89%E5%8C%85)/)
 
+本文主要著重探討 Decorator 的概念。
 <!--more-->
 
 # 實作
