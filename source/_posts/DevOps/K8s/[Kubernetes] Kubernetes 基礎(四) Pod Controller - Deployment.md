@@ -7,6 +7,8 @@ categories: [DevOps]
 toc: true
 ---
 # 前言
+![](https://miro.medium.com/max/240/0*X-_IGBEAB88amxNO.png)
+
 上篇文章 - [[Kubernetes] Kubernetes 基礎(三) Pod Controller - ReplicaSet](https://chentsungyu.github.io/2021/09/14/DevOps/K8s/%5BKubernetes%5D%20Kubernetes%20%E5%9F%BA%E7%A4%8E(%E4%B8%89)%20Pod%20Controller%20-%20ReplicaSet/) 探討如何透過 `ReplicaSet` 管理多個 Pod 副本，確保 K8s 在任何時間點能保有特定數量的 Pod 於 Cluster 中運行。
 
 本文接著討論 Pod 的另一種 Controller - `Deployment`

@@ -1,5 +1,5 @@
 ---
-title: "[Python] 淺談 Python 中的Decorator(上)"
+title: "[Python] 淺談 Python 中的Decorator (上)"
 catalog: true
 date: 2020/02/05 20:23:10
 tags: [Python]
@@ -46,7 +46,7 @@ my_name()
 ```
 ![](https://i.imgur.com/IA4ABWZ.png)
 
-如果呼叫`my_name()`的話就報`TypeError: 'NoneType' object is not callable`的錯誤訊息
+如果呼叫 `my_name()` 的話就報 `TypeError: 'NoneType' object is not callable` 的錯誤訊息
 
 ### 還原Sample Code (不加Decorator)
 上述有使用`@`做簡化的範例程式碼，如果要還原成不加Decorator的話:

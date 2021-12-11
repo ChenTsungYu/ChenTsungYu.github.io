@@ -14,7 +14,7 @@ toc: true
 前幾篇提到Python中的Decorator，其實隱含許多作用域以及閉包的概念，故另外獨立寫成一篇來近一步討論這兩者。
 <!--more-->
 # First-class Function(頭等函式)
-在了解Closure之前，要先知道Python中的First-class Function是什麼，First-class Function又可以被稱做頭等函數，或是頭等物件(First-class Object)，Python裡的**每個function都是first-class function**。
+在了解Closure之前，要先知道Python中的 First-class Function 是什麼，First-class Function 又可以被稱做頭等函數，或是頭等物件(First-class Object)，Python裡的**每個function都是first-class function**。
 根據[MDN](https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function)的定義
 > A programming language is said to have First-class functions when functions in that language are treated like any other variable. For example, in such a language, a function can be passed as an argument to other functions, can be returned by another function and can be assigned as a value to a variable.
 
@@ -42,7 +42,7 @@ print(func(10, 20))
 20
 """
 ```
-由上面的範例來看，`compare`函數物件被賦值給變數`func`，print出的結果顯示compare和func指向同一個函數物件。
+由上面的範例來看，`compare` 函數物件被賦值給變數 `func`，print 出的結果顯示 compare 和 func 指向同一個函數物件。
 
 ### 可作為參數傳遞
 ```python=
@@ -57,7 +57,7 @@ numbers = [1, 2, 3, 4, 5]
 total = arr(square, numbers)
 print(total)  # [1, 4, 9, 16, 25]
 ```
-由上面的範例來看，函數`square`函數物件被當作`arr`函數的參數傳遞  ，隨後於`arr`中進行陣列處理。
+由上面的範例來看，函數 `square` 函數物件被當作 `arr` 函數的參數傳遞，隨後於 `arr` 中進行陣列處理。
 
 再給個例子：
 以 `say_hello`, `be_awesome` 兩個函示做為參數，傳入 `greet_tom` 這項函式裡，接著呼叫該函式
@@ -78,7 +78,7 @@ print(greet_tom(be_awesome))  # Yo Tom, together we are the awesomest!
 上述範例流程：
  -  兩個函示分別為 `greet_tom` 函示的參數
  - 執行 `greet_tom` 函式後呼叫 `greeter_func` 函式
- - 這時 `say_hello`, `be_awesome` 兩個函示分別代表以 `greeter_func` 的參數形式進行韓式呼叫
+ - 這時 `say_hello`, `be_awesome` 兩個函示分別代表以 `greeter_func` 的參數形式進行函式呼叫
  -  `greeter_func`  呼叫時傳入 `Tom` 這個字串型別的參數
  -  最終根據傳入不同的參數(函示)來源，回傳相應的結果
 
@@ -93,7 +93,7 @@ def logger(msg):
 logWarning = logger('Warning')
 logWarning()  # Log: Warning
 ```
-由上面的範例來看，在函數`logger`內部建立函數`message`，函數`message`內使用了`logger`傳入的參數`msg`，最後`logger`將`message`函數作為回傳值，再assign給`logWarning`進行呼叫。
+由上面的範例來看，在函數 `logger` 內部建立函數 `message`，函數 `message` 內使用了 `logger` 傳入的參數 `msg`，最後 `logger` 將 `message` 函數作為回傳值，再assign給 `logWarning` 進行呼叫。
 
 或是另外一個例子:
 ```python=
@@ -147,7 +147,7 @@ hello a
 在Python裡創建一個function，function內執行的區域稱作「local scope」，而建立區域變數最簡單的方式是於function中給定一個變數。一般來說，全域變數是無法被該function scope內重新定義的變數進行存取。
 
 ### 範例
-假設有一變數a初始值為`hello a`，想要透過`scope1()`函數對a重新賦值
+假設有一變數a初始值為 `hello a`，想要透過 `scope1()` 函數對 a 重新賦值
 ```python=
 a = "hello a"
 def scope1():
@@ -185,9 +185,9 @@ def scope():
 
 scope()
 ```
-執行上述範例，會得到`UnboundLocalError`的錯誤資訊。
+執行上述範例，會得到 `UnboundLocalError` 的錯誤資訊。
 ## Enclosed Scope 
-依據巢狀層次從內到外搜尋，當搜尋到LEGB的E時，Python會從最近的 enclosing scope 向外找起，那這些enclosing scopes裡的所有變數，稱作**non-local variable**。
+依據巢狀層次從內到外搜尋，當搜尋到 **LEGB** 的 **E** 時，Python會從最近的 enclosing scope 向外找起，那這些enclosing scopes 裡的所有變數，稱作 **non-local variable**。
 ```python=
 # enclosure
 def outer(a):

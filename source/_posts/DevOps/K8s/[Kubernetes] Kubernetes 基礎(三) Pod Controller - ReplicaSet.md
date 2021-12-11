@@ -116,6 +116,10 @@ Containers:
 一般在定義 `ReplicaSet` 的時候，Pod 的 label 與 `seletor` 的 label 都會設定一樣
 
 # 總結
+最後簡短定義 `ReplicaSet`:
+>  **確保相同的 Pod 在任意時間內皆會有符合目標的 Pod 數量於 Cluster 中運行**
+>  相較於後面會談論到的 Daemonset ，Daemonset 是確保節點數量要一致且只能有一個
+
 本篇文章記錄了如何透過 `ReplicaSet` 來建立多個 Pod，由 `ReplicaSet` 幫我們控制好 Pod 數量。
 
 下一篇會針對 Pod 底下的 Controller - `Deployment` 做討論。

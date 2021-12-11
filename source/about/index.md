@@ -7,8 +7,9 @@ toc: true
 ---
 
 ## Hi there 👋 You are now reaching Tom's profile. 🤓
-- 🔭 A Software Engineer.
-- 🌱 I'm currently learning Python, JavaScript, Elastic Stack, AWS, Ansible, Terraform
+🚀  A Software Engineer.
+🌱 Python 🐍 , JavaScript, AWS, K8s
+🔭 Backend, DevOps
 
 ### Connect with me 📬
 [![Github](https://img.shields.io/badge/-Github-000?style=flat&logo=Github&logoColor=white)](https://github.com/ChenTsungYu)
