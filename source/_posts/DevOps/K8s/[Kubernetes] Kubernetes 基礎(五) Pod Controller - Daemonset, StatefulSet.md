@@ -83,11 +83,11 @@ kubectl get pods -o wide
 透過 kubectl tree 來查看 `DaemonSet` 結構關係
 ```
 NAMESPACE  NAME                                    READY  REASON  AGE  
-itdev-stg  DaemonSet/test-ds                       -              2m16s
-itdev-stg  ├─ControllerRevision/test-ds-ffc67f7fb  -              2m14s
-itdev-stg  ├─Pod/test-ds-99hlm                     True           2m14s
-itdev-stg  ├─Pod/test-ds-jfdvh                     True           2m13s
-itdev-stg  ├─Pod/test-ds-pjf5t                     True           2m12s
+stg  DaemonSet/test-ds                       -              2m16s
+stg  ├─ControllerRevision/test-ds-ffc67f7fb  -              2m14s
+stg  ├─Pod/test-ds-99hlm                     True           2m14s
+stg  ├─Pod/test-ds-jfdvh                     True           2m13s
+stg  ├─Pod/test-ds-pjf5t                     True           2m12s
 ```
 
 > 注意:
@@ -176,10 +176,10 @@ kubectl tree sts test-sts
 output:
 ```
 NAMESPACE  NAME                                      READY  REASON  AGE
-itdev-stg  StatefulSet/test-sts                      -              33s
-itdev-stg  ├─ControllerRevision/test-sts-7f9b576867  -              31s
-itdev-stg  ├─Pod/test-sts-0                          True           31s
-itdev-stg  └─Pod/test-sts-1                          True           14s
+stg  StatefulSet/test-sts                      -              33s
+stg  ├─ControllerRevision/test-sts-7f9b576867  -              31s
+stg  ├─Pod/test-sts-0                          True           31s
+stg  └─Pod/test-sts-1                          True           14s
 ```
 
 # 總結
