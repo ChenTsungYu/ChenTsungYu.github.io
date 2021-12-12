@@ -13,9 +13,9 @@ toc: true
 上篇談到 Daemonset, StatefulSet 兩種 Pod controller，本篇將會探討 Kubernetes 一次性的運算單元 - **Job/CronJob**
 
 Job/CronJob 的命名跟先前已經不同，因為是一次性的運算，以 Job 為基本單元，已經沒有任何 Set 概念，在正式討論 Job/CronJob 之前，先了解到應用程式的生命週期分兩大類：
-- 不會結束 e.g. 持續運行的 Daemon 
+- **不會結束 e.g. 持續運行的 Daemon**
   前述提到的 DeamonSet, StatefulSet, Deploymnet, ReplicaSet 都屬於此類型
-- 會結束的 e.g. 一次性的任務
+- **會結束的 e.g. 一次性的任務**
    Job, CronJob 都屬於此類一次性的運算單元 
  
 <!-- more -->
@@ -44,11 +44,11 @@ Job 的定義:
 
 ### 相關設定說明:
 - completions: 預期成功的 Pod 數量
-- parallelism: 預期同時執行的 Pod 數量。預設為 ** **
+- parallelism: 預期同時執行的 Pod 數量。預設為 **1**
 - backoffLimit: 嘗試失敗的次數。超過指定次數，整個 Job 就會被視為 failed
 - activeDeadlineSeconds: 嘗試失敗的時間。超過指定的時間整個 Job 就會被視為 failed， Job 會把創造出來的 Pod 都砍掉回收
 
-Job 會持續產生 Pod 直到達到預期的成功數量，為了避免 Job 無止盡地產生 Pod 來重新嘗試執行任務，因此我們可藉參數調整對 Job 定義 Job 成功或失敗的條件。
+Job 會持續產生 Pod 直到達到預期的成功數量，為了避免 Job 無止盡地產生 Pod 來重新嘗試執行任務，我們可藉參數調整對 Job 定義成功或失敗的條件。
 
 這邊有個注意的點是:
 > Pod 是否為 Deamon 還是 Job/CronJob 是由 **Container 去決定**，故 Pod 裡的 Container 是應用程式包成 container image 時，預先設定好讓應用程式執行的 command 是持續運行還是一次 or 批次性的任務，Kubernetes 只是使用其結果。
