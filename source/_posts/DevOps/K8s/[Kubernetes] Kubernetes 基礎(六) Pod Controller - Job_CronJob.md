@@ -37,16 +37,16 @@ Job 的定義:
 換而言之，若將 parallelism 改為 2，表同時創造兩個不同的 Pods 各自處理，最後收到成功的 Pod 數量與預期的相同時，也代表 Job 順利成功結束。
 
 簡單小結 one by one 與 parallelism 兩者:
-- completions != 1, parallelism = 1
+- **completions != 1, parallelism = 1**
   -> One by one， 無平行化，一次跑一個
-- completions = N, parallelism = N
+- **completions = N, parallelism = N**
   -> parallelism，有設定平行化，一次全部執行
 
 ### 相關設定說明:
-- completions: 預期成功的 Pod 數量
-- parallelism: 預期同時執行的 Pod 數量。預設為 **1**
-- backoffLimit: 嘗試失敗的次數。超過指定次數，整個 Job 就會被視為 failed
-- activeDeadlineSeconds: 嘗試失敗的時間。超過指定的時間整個 Job 就會被視為 failed， Job 會把創造出來的 Pod 都砍掉回收
+- **completions**: 預期成功的 Pod 數量
+- **parallelism**: 預期同時執行的 Pod 數量。預設為 **1**
+- **backoffLimit**: 嘗試失敗的次數。超過指定次數，整個 Job 就會被視為 failed
+- **activeDeadlineSeconds**: 嘗試失敗的時間。超過指定的時間整個 Job 就會被視為 failed， Job 會把創造出來的 Pod 都砍掉回收
 
 Job 會持續產生 Pod 直到達到預期的成功數量，為了避免 Job 無止盡地產生 Pod 來重新嘗試執行任務，我們可藉參數調整對 Job 定義成功或失敗的條件。
 
@@ -80,7 +80,7 @@ spec:
   completions: 5
   activeDeadlineSeconds: 5 # Job 跑超過 5 秒視為失敗
 ```
-上述範例是定義 Job 執行一個 Perl 語言的任務，因為無設定 parallelism (平行)，所以是一次跑一個 Pod ，需等第一個 Pod **跑起來 -> 執行 -> 結束** 回報給 Job controller 後才會再往下建立第二個 Pod 接續後面的任務。
+上述範例是定義 Job 執行一個 Perl 語言的任務，根據 completions 設定預期會完成的 Pod 數量為 5，由於 yaml 檔中未設定 parallelism (平行)，所以是一次跑一個 Pod，需等第一個 Pod **跑起來 -> 執行 -> 結束** 回報給 Job controller 後才會再往下建立第二個 Pod 接續後面的任務，直到第 5 個 Pod 結束。
 
 可藉由 `--watch` 來觀察 Job 建立 Pod 的變化
 ```
@@ -113,7 +113,7 @@ Events:
   Normal  Completed         1s     job-controller  Job completed
 ```
 
-從 `describe` 輸出的結果
+從 `describe` 輸出的內容可知當五個 Pod 都成功結束後，最終結果為  **Job completed**。 
 
 再透過 `tree` 指令觀察 Job 結構關係
 ```
@@ -127,7 +127,7 @@ stg  └─Pod/pi-xsfp4  False  PodCompleted  12m
 ```
 在 Job 裡，Pod 是一個批次性的任務，任務跑完就結束，結束的 Pod 狀態都會被標記成 `False`
 
-看一下 Job
+接著看一下 Job
 ```
 kubectl get jobs pi
 ```
