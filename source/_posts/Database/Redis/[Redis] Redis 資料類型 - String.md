@@ -9,6 +9,8 @@ toc: true
 <!-- toc -->
 
 # 前言
+![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+
 Redis 是熱門且開源的資料庫，以記憶體為主(in-memory)進行存取資料 ，並以鍵值 (key-value) 的形式存放資料庫內。
 
 由於資料是基於記憶體進行讀寫，廣泛運用於大型系統裡做資料快取，加快整體系統效能，提高系統回應的速度。
@@ -19,7 +21,7 @@ Redis 本身提供多種資料結構，如: Strings, List, Set, Hash, Sorted Set
 
 <!-- more -->
 
-# Strings
+# 什麼是 Strings？
 [STRING](https://redis.io/commands/set)
 
 **Strings** 是 Redis 最基礎的儲存型態，一個鍵(key)對一個值(value)，可存放任何形式的資料 e.g. JPEG 圖片或已序列化的物件等，官方提示最大可以儲存 **512 MB** 的資料量
