@@ -8,7 +8,7 @@ toc: true
 ---
 <!-- toc -->
 # 前言
-之前專題寫Linebot時用Flask串接Linebot的SDK，一開始只是照個官方給的 Sample Code 去架設Linebot，後來深入研究Sample Code後一直不太理解裡面`@`的意涵，利用空檔撰寫這篇文章，加深對Decorator的觀念。
+之前專題寫Linebot時用Flask串接Linebot的SDK，一開始只是照個官方給的 Sample Code 去架設Linebot，後來深入研究Sample Code後一直不太理解裡面`@`的意涵，利用空檔撰寫這篇文章，加深對 Decorator 的觀念。
 
 Decorator 中文翻作 **裝飾器**，裝飾 Python 中的 **class 和 function**，它其實是 Python 的一種語法糖(簡化寫法)，不僅能使程式碼重複利用，將程式碼化繁為簡，更易於擴充，故被廣泛實作在套件上，而辨識 Decorator 的方法就是 Decorator 名稱前面會以`@`做開頭。
 如下圖的 `@app`:
@@ -20,9 +20,9 @@ Decorator 中文翻作 **裝飾器**，裝飾 Python 中的 **class 和 function
 <!--more-->
 
 # 實作
-## Smaple Code(Decorator)
+## Smaple Code (Decorator)
 來看簡單範例:
-```python=
+```python
 def print_my_name(name):
     print("My name is %s" %(name()))
 
@@ -34,7 +34,7 @@ def my_name():
 ```
 執行上面的範例結果，可以發現函式看起來好像沒有東西被呼叫，卻自動被執行?
 那如果改成呼叫`my_name()`函式的話會出現錯誤情形。
-```python=
+```python
 def print_my_name(name):
     print("My name is %s" %(name()))
 
