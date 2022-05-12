@@ -11,9 +11,9 @@ toc: true
 # 前言
 ![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
 
-Redis 是熱門且開源的資料庫，以記憶體為主(in-memory)進行存取資料 ，並以鍵值 (key-value) 的形式存放資料庫內。
+Redis 是熱門且開源的資料庫，以記憶體為主(in-memory)進行資料存取，並以鍵值 (key-value) 的形式存放資料庫內。
 
-由於資料是基於記憶體進行讀寫，廣泛運用於大型系統裡做資料快取，加快整體系統效能，提高系統回應的速度。
+由於資料是基於記憶體進行讀寫，記憶體讀取的速度較一般硬碟來得快！故廣泛地被運用於大型系統裡做資料快取，加快整體系統效能，有助於提高系統回應的速度。
 
 Redis 本身提供多種資料結構，如: Strings, List, Set, Hash, Sorted Set 等。
 
