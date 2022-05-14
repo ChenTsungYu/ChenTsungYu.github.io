@@ -15,7 +15,7 @@ toc: true
 
 若同時有多條指令要處理時，RTT 就會拉長，為縮短多個指令在同時間排隊分批執行造成的效能問題，Redis 提供了 **Pipeline** 的機制，讓多個指令在同時間執行且不需相互等待，一次回傳所執行完的結果。 
 
-本篇會帶到 Redis Pipeline 的概念及作法。
+既然 Pipeline 對於效能提升有幫助，來了解一下 Redis Pipeline 的概念及使用上要注意的項目吧！
 
 <!-- more -->
 # Pipeline
@@ -70,7 +70,9 @@ toc: true
 ## 範例
 Redis 提供各個熱門程式語言函式庫，下方提供 Python 的範例，使用 `redis-py` 這個[官方](https://github.com/redis/redis-py)支援的函示庫。
 
-下方範例會先建立名為 product 的範例資料，裡面包含不同的 t-shirt 樣式，結構如下:
+下方範例會先建立名為 product 的範例資料，裡面包含不同的 t-shirt 樣式，目標是要將範例資料透過 `hset` 的方式寫入 Redis 裡面。
+
+範例的資料結構如下:
 
 ![](https://i.imgur.com/I3K9ZSr.png)
 
@@ -101,7 +103,7 @@ Redis 提供各個熱門程式語言函式庫，下方提供 Python 的範例，
 }
 ```
 
-Python 範例
+Python code 範例
 ```python=
 # 引入 redis-py 
 import redis
@@ -149,11 +151,6 @@ pool = redis.ConnectionPool(host='127.0.0.1', decode_responses=True, db=0)
 
 r = redis.StrictRedis(connection_pool=pool)
 
-# ======= 建立 Redis Connection Pool =======
-pool = redis.ConnectionPool(host='127.0.0.1', decode_responses=True, db=0)
-
-r = redis.StrictRedis(connection_pool=pool)
-
 starttime = time.time()
 
 # ======= 建立 Redis Pipeline，將多條 hset 指令放入 Pipeline 裡等待執行 =======
@@ -169,10 +166,14 @@ print(output)
 
 上方範例呼叫函式庫 `redis-py` 裡的 `pipeline()`，將每條 `hset` 指令放入 Pipeline 裡等待最後 `execute()` 呼叫時一次送出。
 
+最後透過 [Redis Desktop Manager](https://resp.app/en/) 這類的視覺化介面工具可以看到被寫入的 t-shirt 資料！
+
+![](https://i.imgur.com/qNFiDdl.png)
+
 另外也可以嘗試不使用 Pipeline 的做法，比較兩者所花費時間。
 
 # 總結
-本篇文章討論了 Pipeline 概念、好處、使用時機以及使用上要注意的地方，除此之外也比較了與 Transactions 的差異，最後實際用程式語言演練一次範例。
+本篇文章討論了 Pipeline 概念、好處、使用時機以及使用上要注意的地方，除此之外也和 Transactions 比較差異，最後實際用程式語言演練一次範例。
 
 # Reference
 - [Redis pipelining](https://redis.io/docs/manual/pipelining/)
