@@ -13,6 +13,7 @@ toc: true
 
 為確保資料的正確性， Redis 也提供了類似於關聯式資料庫的 Transaction 機制，但 Redis 提供的 Transaction 有一些相異之處 e.g. 不支援 rollback，本篇文章紀錄 Redis Transaction 的概念與使用方式。
 
+<!-- more -->
 # Transaction
 Redis Transaction 允許一次執行多條指令(批次操作)，Transaction 在運作時主要會圍繞在 `MULTI`, `EXEC`, `DISCARD` and `WATCH` 這四個指令，以下是 Transaction 幾個重點：
 
