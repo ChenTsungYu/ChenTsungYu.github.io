@@ -9,7 +9,7 @@ toc: true
 <!-- toc -->
 
 # 前言
-![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+![](/images/Redis-Logo.png)
 
 昨日的[文章](https://chentsungyu.github.io/2022/01/07/Database/Redis/%5BRedis%5D%20Redis%20%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B%20-%20Hash/)討論到 Redis 儲存物件用的資料結構 - **Hash**，本篇接著探討 Redis 的另一個資料結構 - **SET**
 

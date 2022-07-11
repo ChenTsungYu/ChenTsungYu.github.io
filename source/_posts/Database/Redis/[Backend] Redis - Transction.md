@@ -9,7 +9,7 @@ toc: true
 <!-- toc -->
 
 # 前言
-![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+![](/images/Redis-Logo.png)
 
 為確保資料的正確性， Redis 也提供了類似於關聯式資料庫的 Transaction 機制，但 Redis 提供的 Transaction 有一些相異之處 e.g. 不支援 rollback，本篇文章紀錄 Redis Transaction 的概念與使用方式。
 
@@ -189,4 +189,3 @@ QUEUED
 # Ref
 - [4.4 Redis transactions | Chapter 4: Keeping data safe and ensuring performance](https://redis.com/ebook/part-2-core-concepts/chapter-4-keeping-data-safe-and-ensuring-performance/4-4-redis-transactions/)
 - [Redis - Transaction](https://redis.io/docs/manual/transactions/)
-- [Comparison of MySQL and Redis transactions](https://developpaper.com/comparison-of-mysql-and-redis-transactions/)

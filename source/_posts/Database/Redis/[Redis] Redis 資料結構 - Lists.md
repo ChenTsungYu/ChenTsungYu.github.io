@@ -9,8 +9,7 @@ toc: true
 <!-- toc -->
 
 # 前言
-
-![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+![](/images/Redis-Logo.png)
 
 延續 [上篇](https://chentsungyu.github.io/2022/01/05/Database/Redis/%5BRedis%5D%20%E8%B3%87%E6%96%99%E9%A1%9E%E5%9E%8B%20-%20String/) 討論到 Redis 基礎的資料結構 - String，本篇要討論另一個資料結構 - **Lists**
 

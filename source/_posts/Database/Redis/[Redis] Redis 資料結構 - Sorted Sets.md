@@ -9,7 +9,7 @@ toc: true
 <!-- toc -->
 
 # 前言
-![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+![](/images/Redis-Logo.png)
 
 上篇談到 Redis 的 **SET** 資料結構，本篇會探討擁有與 **SET** 相似特性的 **Sorted Sets**！相比較兩者之間的差異及用途。
 

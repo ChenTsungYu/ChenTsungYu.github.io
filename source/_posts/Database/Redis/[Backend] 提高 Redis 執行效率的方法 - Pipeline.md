@@ -9,46 +9,48 @@ toc: true
 <!-- toc -->
 
 # 前言
-![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+![](/images/Redis-Logo.png)
 
-過去在使用 Redis 指令時，都是一條一條指令去分批對 Redis 發送指令，每條指令都會經過 **發送指令 -> Redis server 接收指令 -> 根據處理資料 -> 回傳結果** 的流程，這樣一來一回花費的時間稱作 **round-trip time (簡稱RTT)**，在傳送的過程中還需考量網路每次建立連線耗費的時間與延遲問題。
+過去在使用 Redis 指令時，都是一條一條指令發送給 Redis ，每條指令都會經過 **發送指令 -> Redis server 接收指令 -> 處理資料 -> 回傳結果** 的流程，這樣一來一回花費的時間稱作 **round-trip time (簡稱RTT)**，在傳送過程中還需考量網路每次建立連線耗時與延遲問題。
 
-若同時有多條指令要處理時，RTT 就會拉長，為縮短多個指令在同時間排隊分批執行造成的效能問題，Redis 提供了 **Pipeline** 的機制，讓多個指令在同時間執行且不需相互等待，一次回傳所執行完的結果。 
+若同時有多條指令要處理時，RTT 就會拉長，為縮短多個指令在同時間排隊分別執行造成的效能問題，Redis 提供 **Pipeline** 的機制，讓多個指令在**同時間執行且不需相互等待**，一次回傳所執行完的結果。 
 
 既然 Pipeline 對於效能提升有幫助，來了解一下 Redis Pipeline 的概念及使用上要注意的項目吧！
 
 <!-- more -->
 # Pipeline
-如前言所描述，在未使用 Pipeline 之前，是多條指令依序去分批對 Redis 發送指令，從發送指令到收到執行結果，整個過程的等待時間會變長，引入 Pipeline 機制，可讓多個指令一次發送給 Redis server，Pipeline 實現的原理是採用 Queue 的方式，以先進先出的方式確保資料的順序性，最後執行 `exec` 指令將 Queue 裡所有的指令一次發送給 Redis。
+如前言所描述，在未使用 Pipeline 之前，是多條指令依序去分批對 Redis 發送指令，從發送指令到收到執行結果，整個過程的等待時間會變長，引入 Pipeline 機制，可讓多個指令一次發送給 Redis server，Pipeline 實現的原理是採用 `Queue` 的方式，以先進先出的方式確保資料的順序性，最後執行 `exec` 指令將 Queue 裡所有的指令一次發送給 Redis。
 
-**批次發送(未使用 Pipeline)**
+**依序發送(未使用 Pipeline)**
 
 ![](https://i.imgur.com/bKlANy4.png)
 
-如上圖所示，有四條指令依序對 Redis 進行發送，四條執行完畢所花費的時間是四條指令來回花費的時間做加總。
+如上圖所示，有四條指令依序對 Redis 進行發送，整體花費的時間是四條指令來回花費時間的加總。
 
-**一次發送(使用 Pipeline)**
+**批次發送(使用 Pipeline)**
 
 ![](https://i.imgur.com/T3bx5ey.png)
 
-上圖用咖啡色的 Pipeline 包起來的所有指令會一次發送給 Redis，只有花費一次發送的來回時間，相較前面批次的做法花更少的時間，也代表系統回應的時間能夠縮短。
+上圖用咖啡色 Pipeline 包起來的所有指令會一次發送給 Redis，只有一次發送的來回時間，相較前面批次的做法花更少的時間，也意味著能夠縮短系統回應時間。
 
 除了 RTT 之外，Pipeline 也提高了 Redis server 中每秒可以執行的指令數量。
 
-這是因為在未使用 Pipeline 一條發送指令的情況下 I/O 成本會很高，這牽涉到系統系統呼叫 `read()` and `write()` 的轉換，頻繁的 context switch 對 server 會是很大的負擔。
+這是因為在未使用 Pipeline 一條發送指令的情況下 I/O 成本會很高，這牽涉到系統呼叫 `read()` and `write()` 的轉換，頻繁的 context switch 對 server 會是很大的負擔。
 
 **舉例:**
 未使用 Pipeline 的情形下發送 10 條指令，系統呼叫發生 10 次 context switch，若於 Pipeline 裡面將 10 條指令一次發送，只會發生一次 context switch
 
 ### 注意
-1. **注意單個 Pipeline 大小:**
-   儘管 Pipeline 能有效降低 RTT，減少 I/O 次數，若 client 端使用 Pipeline 將大量指令以類似群組的方式，一次發送給 Redis server，會**消耗大量的記憶體**(群組裡的指令越多，消耗的記憶體資源越大)，同時會增加 client 端的等待時間，及造成一定程度的延遲
+1. **單個 Pipeline 大小:**
+   儘管 Pipeline 能有效降低 RTT，減少 I/O 次數，若 client 端使用 Pipeline 將大量指令以類似群組的方式，一次發送給 Redis server，會**消耗大量的記憶體**(群組裡的指令越多，消耗的記憶體資源越大)，同時會增加 client 端的等待時間，及造成一定程度的延遲。
    因此仍須注意 Pipeline **容量不可過大**，過大時盡可能**採用多個 Pipeline 分次發送**，減少單次 Pipeline 的大小(受限於server的記憶體大小)。
    **舉例: 比較2萬條指令不同的發送方式**
    一次性發送和分兩次發送(每次發1萬條指令，讀完資料收到回應後再發另外1萬條指令)。對 client 端來說速度是差不多，但是對 server 端來說，記憶體佔用卻差了1萬條指令回應的大小。
 2. 適用於執行連續且**無相依性**的指令(不需仰賴前一個指令的回傳結果)
-3. **不擁有原子性(Atomic)**: 發送的多條指令裡面可能部分成功，一部分失敗; Pipeline 在 server 上是非阻塞的，意味者若有來自其他 client 發送的 pipeline 不會被阻止，產生交錯執行的狀況。
-(如下圖所示，圖片取自 Thomas Hunter 的[簡報](https://www.slideshare.net/RedisLabs/atomicity-in-redis-thomas-hunter))
+3. **不擁有原子性(Atomic)**:    
+    發送的多條指令裡面可能部分成功，一部分失敗; Pipeline 在 server 上是非阻塞的，意味者若有來自其他 client 發送的 pipeline 不會被阻止，產生交錯執行的狀況。
+    
+    (如下圖所示，圖片取自 Thomas Hunter 的[簡報](https://www.slideshare.net/RedisLabs/atomicity-in-redis-thomas-hunter))
 
 ![](https://i.imgur.com/lwsOef5.png)
 

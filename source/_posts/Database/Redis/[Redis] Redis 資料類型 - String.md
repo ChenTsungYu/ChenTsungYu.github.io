@@ -9,7 +9,7 @@ toc: true
 <!-- toc -->
 
 # 前言
-![](https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/Redis_Logo.svg/200px-Redis_Logo.svg.png)
+![](/images/Redis-Logo.png)
 
 Redis 是熱門且開源的資料庫，以記憶體為主(in-memory)進行資料存取，並以鍵值 (key-value) 的形式存放資料庫內。
 
