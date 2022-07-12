@@ -16,24 +16,26 @@ toc: true
 
 > 本篇主要筆記 [Udemy - SQL and PostgreSQL: The Complete Developer's Guide](https://www.udemy.com/course/sql-and-postgresql/) 及 [Udemy - Fundamentals of Database Engineering](https://www.udemy.com/course/database-engines-crash-course) 的課程內容，但以自己較易理解的方式加以整理，可能和原課程內容有些出入。
 
-資料庫未使用 Index 的情況下，會採讀取整張表的方式來找出目標資料，這種搜尋方式作 Full Table Scan。
+資料庫未使用 Index 的情況下，會採**讀取整張表**的方式來找出目標資料，這種搜尋方式作 Full Table Scan。
 # Full Table Scan
-Full Table Scan 翻作全表掃描，是搜尋效率最差的，讀取整張資料表，過程中涉及多次 I/O 讀取 Heap Table File 裡的 page。
+Full Table Scan 中文翻作全表掃描，又作 `Sequential Scan`，按順序讀取整張資料表，搜尋效率最差，過程中涉及多次 I/O 讀取 Heap Table File 裡的 page。
 
-試想像一下，若要在厚厚的一本書(資料表)裡找出某個文字段落(某筆資料)，在沒有目錄的幫助下，肯定是一頁一頁找，得花上不少時間，資料庫也是同等道理。
+試想一下，若要在厚厚的一本書(資料表)裡找出某個文字段落(某筆資料)，在沒有目錄的幫助下，肯定是一頁一頁找，得花上不少時間，資料庫也是同等道理。
 
-因此我們需要找方法來提升查詢效率，其中一個方式就是 Index。
+因此我們需要找方法來提升查詢效率，其中一個方式就是 **Index**。
 
-# 什麼是 Index
-Index 一般來說都採用 `B-Tree` 的資料結構，除了 B-Tree 外還有[其他類型](https://www.postgresql.org/docs/current/indexes-types.html)，本篇主要聚焦在 B-Tree，index 裡除了被設置為 index 欄位的值外，會有個 row pointer (指針) 指向該 row 位於 Heap Table File 的位置，讓資料庫能有效地根據 pointer 參照的位置取得資料，藉此改善查詢效率。
+# 什麼是 Index?
+> Index 就類似於一本書(資料表)的**目錄**，我們能根據目錄快速地找到想要的內容所在位置。
+
+Index 一般來說都採用 `B-Tree` 的資料結構，也是最常見的 Index 類型，除了 B-Tree 外還有[其他類型](https://www.postgresql.org/docs/current/indexes-types.html)，本篇主要聚焦在 B-Tree，index 裡除了被設置為 index 欄位的值外，會有個 row pointer (指針) 指向該 row 位於 Heap Table File 的位置，讓資料庫能有效地根據 pointer 參照的位置取得資料，藉此改善查詢效率。
 
 透過 Index 查詢的流程如下圖所示：
 ![](/images/index-query.png)
 
 執行 SQL `SELECT` 時查找使用者名為 `Tom` 的資訊，若 Index 裡找出 Tom 這個人，取得 Tom 在 Heap Table File 的位置為 Block 1，資料庫會直接到 Heap File 的 Block 1 裡取出 Tom 的資料，而非從第一個 block 開始搜尋，過程中會經歷兩次 I/O (兩次 I/O 的過程可以參考[前一篇討論](https://chentsungyu.github.io/2022/06/20/Database/%E8%B3%87%E6%96%99%E5%BA%AB%E5%A6%82%E4%BD%95%E5%AD%98%E6%94%BE%E8%B3%87%E6%96%99/#Index-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%98%E6%94%BE%E5%9C%A8-Disk-%E7%B0%A1%E5%8C%96%E7%9A%84%E7%89%88%E6%9C%AC))。
 
-## 什麼是 B-Tree
-B-Tree 是一種常用於外部存儲的資料結構，適用於讀&寫資料區塊相對大的儲存系統，結構為 `m-way` 的自平衡搜尋樹，B 即 Balance 的意思，存放 **有序** 的資料，樹的節點 (node) 裡有儲存鍵值對(key-value pair)的元素(element)，分別存放 index 的位置與該比資料於 Heap File 的位置，父層節點會透過 pointer 指向子節點 。
+## 什麼是 B-Tree?
+B-Tree 是一種常用於外部存儲的資料結構，適用於讀&寫資料區塊相對大的儲存系統，結構為 `m-way` 的自平衡搜尋樹，B 即 Balance 的意思，存放 **有序** 的資料，樹的節點 (node) 裡有儲存鍵值對(key-value pair)的元素(element)，分別存 index 的位置與該筆資料於 Heap File 的位置，父層節點會透過 pointer 指向子節點 。
 
 常見應用：資料庫、文件系統
 ![B-Tree](/images/b-tree-nodes.png)
@@ -53,7 +55,7 @@ Leaf Node: 沒有子樹
 - B-Tree的高度: 不包含 Leaf Node 的階層數
 - B-Tree的高度和磁碟存取時的 I/O 次數有正相關，影響走訪(traversal)整棵樹的時間複雜度
 
-### B-tree 是如何幫助資料庫搜尋
+### B-tree 是如何幫助資料庫搜尋?
 設置 index 時，會指定哪個欄位作為 index 的資料，資料庫會將 Heap Table File 裡該欄位的值及對應的位置。
 
 下圖以 user name 作為 index 的範例：
@@ -87,7 +89,7 @@ Clustered Index 是根據資料在儲存空間上的排序而建立，而 Non-cl
 ## Non-clustered Index
 中文作 **非叢集索引**，概念類似書(比喻作資料表)的附錄，每本書可以有多個附錄，每張資料表能有多個 **Non-clustered Index**。
 
-## 比較有無 index 差異
+# 比較有無 index 差異
 先建立 1 百萬筆測試資料
 ```sql
 create table employees( id serial primary key, name text);
@@ -169,7 +171,7 @@ postgres=# explain analyze SELECT name FROM employees WHERE id = 937481;
 `name` 欄位未被設為 index，會存放於 disk 裡的 heap table，故資料庫要先去 heap table 拿對應的資料，所以多一段花費時間。
 
 > Tips:
-執行重複的查詢會發現花費時間會縮短，原因是資料庫本身的快取(Cache) 快取機制
+執行重複的查詢會發現花費時間會縮短，原因是資料庫本身的快取(Cache) 機制
 > 
 
 若把 `WHERE` 條件改成 `name`：
@@ -195,7 +197,7 @@ postgres=# explain analyze SELECT id FROM employees WHERE name = 'Zs';
 
 > Index 雖有助於提高 **查詢(SELECT)** 速度，但會降低 **寫入(INSERT)** 以及 **更新(UPDATE)** 資料的速度 → 因為同時要更動 Index
 
-### 一些情況需要思考是否真的需要建 Index
+## 思考是否真的需要建 Index  的情況
 - 資料量較小的表
 - 該欄位頻繁且大量被更新或新增
 - 避免使用包含太多 `NULL` 值的欄位
@@ -385,11 +387,26 @@ relid  | indexrelid | schemaname |  relname  | indexrelname   | idx_scan | idx_t
  39262 |      39272 | public     | grades    | id_idx         |       17 |           17 |            17
 ```
 
-## 延伸探討
+## 查看指定的 index 大小
+語法：
+`<index_name>` 替換成指定的 index 名稱
+```sql
+SELECT pg_size_pretty(pg_relation_size('<index_name>'));
+```
+
+範例： 查看 `grades` 這張表的 index: `id_idx`
+```sql
+postgres=# SELECT pg_size_pretty(pg_relation_size('id_idx'));
+ pg_size_pretty
+----------------
+ 40 kB
+(1 row)
+```
+# 延伸探討
 > 為什麼 Postgres 有時不選擇 Index Scan 卻選擇 Sequential Scan？
 
 有時候 PostgreSQL 在查詢時會選擇用 Sequential Scan 的方式，不採用下好的 Index 做 Index Scan，主要有幾個原因:
-### 資料類型不匹配
+## 資料類型不匹配
 有些強制型別轉換會導致 Index 未被使用的情況，我們拿前面的 SQL 範例做調整，把搜尋條件 `id` 加上型別轉換(`cast`) `::numeric` 的語句，改成下方的樣子:
 ```sql
 explain analyze select id from grades where id = 7::numeric;
@@ -409,13 +426,13 @@ postgres=# explain analyze select id from grades where id = 7::numeric;
 ```
 從結果可看出 Postgres Planner 選擇 `Seq Scan` 而非前面的 `Index Only Scan using id_idx on grades`
 
-### 評估結果是Sequential Scan 更快
+## 評估結果是Sequential Scan 更快
 在資料量很小時，Sequential Scan 會比 Index Scan 更加有效，原因是 Index Scan 至少要發生兩次 I/O，一次是讀取 Index 的資料，一次是讀取 Heap File 裡的資料，搜尋代價遠高於 Index Scan。
 
 # 總結
-前面談到有無設置 Index 且命中 Index 在資料量大的情況下，對查詢效率會有顯著的差異。
+前面談到有設置且命中 Index 在資料量大的情況下，對查詢效率會有顯著的差異。
 
-使用 Index 前也須考量到使用情境與其缺點，而且並非只要建立好 Index，SQL 查詢就一定會命中 Index，這些都是使用上要注意的地方。
+使用 Index 前也須考量使用情境與其缺點，而且並非只要建立好 Index，SQL 查詢就一定會命中 Index，這些都是使用上要注意的地方。
 
 善用 PostgresSQL Planner 的提示有助於評估當前 SQL 運行的狀況，衡量如何使用 Index。
 
