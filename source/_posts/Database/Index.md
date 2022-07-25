@@ -68,13 +68,13 @@ index 的內容包含了 user name (e.g. Alf)、該筆資料於 heap file 的位
 
 ### Index 存放於 Disk & Memory 的示意圖
 ![](/images/btree-disk-mem.png)
-Disk 裡 Index 會包含的 Heap File 的 meta data、根節點、葉節點的資料等
+Disk 裡 Index 會包含 Heap File 的 meta data、根節點、葉節點的資料等
 
 # Clustered Index v.s. Non-clustered Index
 Clustered Index 是根據資料在儲存空間上的排序而建立，而 Non-clustered Index 不一定要按照實體資料的排序而建立。
 
 ## Clustered Index
-中文作 **叢集索引** ，概念類似書(比喻作資料表)的目錄，用於快速查找書的內容，而每本書會有一個目錄，所以每張資料表只會有一個 **Clustered index。**
+中文作 **叢集索引** ，概念類似書(比喻作資料表)的**目錄**，用於快速查找書的內容，而每本書會有一個目錄，所以每張資料表只會有**一個 Clustered index。**
 
 事實上，Clustered Index 的機制在不同的關連式資料庫有不同的實作方式，如: SQL Server裡預設會將 **Primary Key (主鍵)** 作為 Clustered Index。
 
@@ -87,7 +87,7 @@ Clustered Index 是根據資料在儲存空間上的排序而建立，而 Non-cl
 具體實現機制參考 Stack Overflow - [About clustered index in postgres](https://stackoverflow.com/questions/4796548/about-clustered-index-in-postgres)相關討論。
 
 ## Non-clustered Index
-中文作 **非叢集索引**，概念類似書(比喻作資料表)的附錄，每本書可以有多個附錄，每張資料表能有多個 **Non-clustered Index**。
+中文作 **非叢集索引**，概念類似書(比喻作資料表)的**附錄**，每本書可以有多個附錄，每張資料表能有多個 **Non-clustered Index**。
 
 # 比較有無 index 差異
 先建立 1 百萬筆測試資料
@@ -193,7 +193,7 @@ postgres=# explain analyze SELECT id FROM employees WHERE name = 'Zs';
 在沒有命中 index 的查詢下，Postgres Planner 採用資料庫會採 `Seq Scan` (Sequential Scan) 的方式搜尋整張資料表(full table scan)，花費時間為 **334.032 ms** ，較先前查詢費時許多，從結果可觀察到有沒有命中 index 在資料量大的狀況下會顯著影響查詢效能。
 
 ## 建立 Index 的缺點
-雖然 index 有助於提升搜尋效能，但也有其缺點，Index 會佔用資料庫的空間，是以空間來換取時間，每次在表中新增，更新或刪除行時，都必須更動該表上的所有 Index， Index 建越多，資料庫需要執行的工作就越多，增加額外成本來維護 Index，最終導致效能降低，應謹慎評估使用 Index。
+雖然 index 有助於提升搜尋效能，但也有其缺點，Index 會佔用資料庫的空間，是以空間來換取時間，每次在表中新增，更新或刪除時，都必須更動該表上的所有 Index， Index 建越多，資料庫需要執行的工作就越多，花額外成本來維護 Index，最終導致效能降低，應謹慎評估使用 Index。
 
 > Index 雖有助於提高 **查詢(SELECT)** 速度，但會降低 **寫入(INSERT)** 以及 **更新(UPDATE)** 資料的速度 → 因為同時要更動 Index
 
@@ -438,7 +438,6 @@ postgres=# explain analyze select id from grades where id = 7::numeric;
 
 # 參考
 - [Difference between Clustered and Non-clustered index](https://www.geeksforgeeks.org/difference-between-clustered-and-non-clustered-index/)
-- [EXPLAIN - Index Only Scan](https://pganalyze.com/docs/explain/scan-nodes/index-only-scan)
 - [Index-Only Scans and Covering Indexes](https://www.postgresql.org/docs/current/indexes-index-only-scans.html)
 - [Indexes in PostgreSQL — 1](https://postgrespro.com/blog/pgsql/3994098)
 - [CLUSTER - PostgreSQL Docs](https://www.postgresql.org/docs/current/sql-cluster.html)
