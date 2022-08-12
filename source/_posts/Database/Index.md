@@ -190,10 +190,10 @@ postgres=# explain analyze SELECT id FROM employees WHERE name = 'Zs';
  Execution Time: 334.032 ms
 (8 rows)
 ```
-在沒有命中 index 的查詢下，Postgres Planner 採用資料庫會採 `Seq Scan` (Sequential Scan) 的方式搜尋整張資料表(full table scan)，花費時間為 **334.032 ms** ，較先前查詢費時許多，從結果可觀察到有沒有命中 index 在資料量大的狀況下會顯著影響查詢效能。
+在沒有命中 index 的查詢下，Postgres Planner 會採 `Seq Scan` (Sequential Scan) 的方式搜尋整張資料表(full table scan)，花費時間為 **334.032 ms** ，較先前查詢費時許多，從結果可觀察到有沒有命中 index 在資料量大的狀況下會顯著地影響查詢效能。
 
 ## 建立 Index 的缺點
-雖然 index 有助於提升搜尋效能，但也有其缺點，Index 會佔用資料庫的空間，是以空間來換取時間，每次在表中新增，更新或刪除時，都必須更動該表上的所有 Index， Index 建越多，資料庫需要執行的工作就越多，花額外成本來維護 Index，最終導致效能降低，應謹慎評估使用 Index。
+雖然 index 有助於提升搜尋效能，但也有其缺點，如：Index 會佔用資料庫的空間，是以空間來換取時間，且每次在表中新增、修改或刪除時，都必須更動該表上的所有 Index，Index 建越多，資料庫需要執行的工作就越多，花額外成本來維護 Index，最終導致效能降低，應謹慎評估使用 Index。
 
 > Index 雖有助於提高 **查詢(SELECT)** 速度，但會降低 **寫入(INSERT)** 以及 **更新(UPDATE)** 資料的速度 → 因為同時要更動 Index
 
@@ -261,13 +261,12 @@ postgres=# explain analyze SELECT id,name FROM employees WHERE name LIKE '%ZA%';
  Execution Time: 132.185 ms
 (8 rows)
 ```
-從結果發現，同樣是以 `name` 作為搜尋條件，卻沒有命中 index，採用 `Seq Scan` (Sequential Scan)的方式掃描整張表，由此可知並非只要加上 index，資料庫的 Planner 就會在每次搜尋時選擇 index。
+從結果觀察到同樣以 `name` 作為搜尋條件，卻出現沒有命中 index 的情形，選擇用 `Seq Scan` (Sequential Scan)的方式掃描整張表，由此可知並非只要加上 index，資料庫的 Planner 就會在每次搜尋時選擇 index。
 
 # Index Scan v.s. Index Only Scan
 
 Index Only Scan 與 Index Scan 兩者主要差異在於:
-
-> Index Only Scan 的資料是直接來自於 index，不需要再到資料表取得資料，一般來說讀取的速度較 Index Scan 更快。
+> **Index Only Scan** 的資料是直接來自於 index，不需要再到 Heap File 取得資料，一般來說讀取的速度較 Index Scan 更快。
 > 
 
 
@@ -365,11 +364,26 @@ postgres=# explain analyze select name from grades where id = 7;
 (5 rows)
 ```
 
-加了 `include` 之後，`explain` 分析的結果從 Index Scan → Index Only Scan，代表查詢的值直接從 Index 裡面取出，沒有額外到 Heap Table File 裡取值。
-
+加了 `include` 之後，`explain` 分析的結果從 `Index Scan` → `Index Only Scan`，代表查詢連同後來納入的 `name` 值直接從 Index 裡面取出，沒有額外到 Heap Table File 裡取值。
 > NOTE：
-`include` 會把其他指定的欄位納入 Index 裡，會同時增加 Index 的大小，隨著 Index 的增長，查詢 index 的速度會變慢，故在使用上要評估實際使用的場景以及取捨，再決定是否要採用。
-> 
+> - `include` 會把其他指定的欄位納入 Index，適合把 `include` 指定的欄位用在 `Index Only Scan` 的策略上。
+> - 重要：`include` 的欄位並 **不作為** Index 的 search key！故把上面的查詢條件 `where` 改為 `name` 時，資料庫就不會在 Index 裡搜尋到 `name` 值。
+> - 會增加 Index 的大小，隨著 Index 的增長，查詢 index 的速度會變慢，故在使用上要評估實際使用的場景以及取捨，再決定是否要採用。
+>
+
+將剛剛 `include` 的 `name` 欄位作為 `where` 條件：
+```sql
+postgres=# explain analyze select name from grades where name = 'Zs';
+          QUERY PLAN
+--------------------------------------------------------------------------------------------------
+ Seq Scan on grades  (cost=0.00..10.26 rows=1 width=15) (actual time=0.661..0.663 rows=0 loops=1)
+   Filter: (name = 'Zs'::text)
+   Rows Removed by Filter: 501
+ Planning Time: 0.365 ms
+ Execution Time: 0.733 ms
+(5 rows)
+```
+從上述分析結果得知，雖然 `name` 透過 `include` 被納入 `id_idx`，但 `id_idx` 的 search key 是 `id` 欄位非 `name`，資料庫採用 `Seq Scan` 的方式。
 
 ## 分析 index 使用的情況
 透過以下的 SQL query 可以查詢到 index 的使用情形
@@ -407,7 +421,7 @@ postgres=# SELECT pg_size_pretty(pg_relation_size('id_idx'));
 
 有時候 PostgreSQL 在查詢時會選擇用 Sequential Scan 的方式，不採用下好的 Index 做 Index Scan，主要有幾個原因:
 ## 資料類型不匹配
-有些強制型別轉換會導致 Index 未被使用的情況，我們拿前面的 SQL 範例做調整，把搜尋條件 `id` 加上型別轉換(`cast`) `::numeric` 的語句，改成下方的樣子:
+有些強制型別轉換會導致 Index 未被使用的情形，我們拿前面的 SQL 範例做調整，把搜尋條件 `id` 加上型別轉換(`cast`) `::numeric` 的語句，改成下方的樣子:
 ```sql
 explain analyze select id from grades where id = 7::numeric;
 ```
