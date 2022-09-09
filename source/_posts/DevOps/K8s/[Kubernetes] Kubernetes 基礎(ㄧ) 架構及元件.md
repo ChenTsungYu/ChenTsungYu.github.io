@@ -44,7 +44,7 @@ Kubernetes 可以在不同的節點(Node)來運行容器，Worker Node 可以部
 > 多個 worker nodes 組成 Data Plane 
 
 ### Worker Node 上有的元件
-- **kubelet**：基於 PodSpec 來運作，用於描述 Pod 的物件。 kubelet 接受通過各種機制（主要是通過apiserver）提供的一組PodSpec，並確保這些PodSpec中描述的容器處於運行狀態且運行狀況良好。 kubelet 不管理不是由 Kubernetes 創建的容器
+- **kubelet**：基於 PodSpec 來運作，用於描述 Pod 的物件。
 - **kube-proxy**：集群中每個節點上運行的網路代理(Agent)程式，負責與 Control Plane 的 API Server 溝通
 - **Container Runtime**：支援多個容器的運行環境，只要符合 [Kubernetes CRI](#Container-Runtime-Interface-CRI) 標準，都能介接進行實作
 
