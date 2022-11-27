@@ -105,7 +105,7 @@ Stateful 表有狀態的意思，故 `StatefulSet` 是用來存放 **有狀態�
 - Ordered, automated rolling updates
 
 `StatefulSet` 在使用上有個特性:
-- 每個 Pod 的名稱後面都會帶一組**有續性的流水號**(並非透過 hash 方式產生亂碼): 帶有流水號的 Pod 名稱可用來辨識 Pod 身份。
+- 每個 Pod 的名稱後面都會帶一組**有續性的流水號**(並非如 deployment 一樣，採 hash 方式產生亂碼): 帶有流水號的 Pod 名稱可用來辨識 Pod 身份(or 狀態)，管理員能根據這些 Pod 有先後處理的順序。
 - 部署方式採 **one-by-one**，依序進行部署
 - 更新方式也是採 **one-by-one**，以倒過來的順序對 Pod 做更新 (對比 deployment 的 rolling update，事先建新的 Pod 再砍掉舊的)
 
