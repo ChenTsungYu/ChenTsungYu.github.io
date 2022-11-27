@@ -22,11 +22,11 @@ OpenID Connect 以 OAuth 2.0 為基礎設計，藉由一組短期的 token 交�
 ### 不需要提供 secrets
 以前的作法都是從 cloud service IAM 產出驗證的 secrets，將這些 secret 存放在 GitHub secrets 裡面，在 workflow 透過變數的方式帶入。
 
-OIDC 的作法可以省去這些 secret，只要 OIDC 與 Cloud provider 上的信任政策設定好即可，不需要額外產生驗證的 secrets，也避免 secret 可能外洩的問題。
+OIDC 的作法可以省去這些 secrets，只要 OIDC 與 Cloud provider 上的信任政策設定好即可，不需要額外產生驗證的 secrets，也避免 secret 可能外洩的問題。
 ### 簡化身份驗證和授權管理
-試想如果今天有多個 workflow 需要與不同 cloud service 互動，要限縮權限的話勢必需要產生擁有 could service 相應權限的 secret，最終這些 secrets 可能會四散在不同 repo 裡，管理 secrets 數量也會隨需求越來越多。
+試想如果今天有多個 workflows 需要與不同 cloud service 互動，要限縮權限的話勢必需要產生擁有 could service 相應權限的 secrets，最終它們可能會四散在不同 repo 裡，管理的數量也會隨需求越來越多。
 
-OIDC 因為不需要產生額外的 secrets 驗證，就不用考慮管理 secrets 的問題。
+OIDC 因為不需要產生額外的 secrets 驗證，就不用考慮管理問題。
 ### 省去輪換 secrets 的工作
 大部分的組織政策會要求 secret 要定期輪換，要換這麼多 secrets 也是相當耗時的事情。
 
