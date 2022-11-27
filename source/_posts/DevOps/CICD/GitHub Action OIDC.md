@@ -14,7 +14,6 @@ toc: true
 相較於以前的作法，使用 IAM user 的 secrets 驗證，OIDC 的作法能幫助我們省去管理金鑰的麻煩。
 
 本文會 AWS 作為 cloud provider，設定方法也是以 AWS 為範例，以下內容建議有 GitHub Action 及 AWS IAM 這兩項先備知識比較能理解。
-
 <!--more-->
 # OIDC
 OpenID Connect 以 OAuth 2.0 為基礎設計，藉由一組短期的 token 交換作為驗證方式，用於認證使用者登入，GitHub Actions 提供 OIDC 的驗證/授權機制，與其他第三方的雲服務供應商 (如： AWS, Azure, Google Cloud Platform 等) 進行整合，提供 CI/CD 工作流程上更簡便的設計。
@@ -24,24 +23,20 @@ OpenID Connect 以 OAuth 2.0 為基礎設計，藉由一組短期的 token 交�
 以前的作法都是從 cloud service IAM 產出驗證的 secrets，將這些 secret 存放在 GitHub secrets 裡面，在 workflow 透過變數的方式帶入。
 
 OIDC 的作法可以省去這些 secret，只要 OIDC 與 Cloud provider 上的信任政策設定好即可，不需要額外產生驗證的 secrets，也避免 secret 可能外洩的問題。
-
 ### 簡化身份驗證和授權管理
-試想如果今天有多個 workflow 需要與不同 cloud service 互動，要限縮權限的話勢必需要相應權限的 secret，這些 secrets 可能會四散在不同 repo 裡，管理的 secrets 也越來越多。
+試想如果今天有多個 workflow 需要與不同 cloud service 互動，要限縮權限的話勢必需要產生擁有 could service 相應權限的 secret，最終這些 secrets 可能會四散在不同 repo 裡，管理 secrets 數量也會隨需求越來越多。
 
 OIDC 因為不需要產生額外的 secrets 驗證，就不用考慮管理 secrets 的問題。
-
 ### 省去輪換 secrets 的工作
 大部分的組織政策會要求 secret 要定期輪換，要換這麼多 secrets 也是相當耗時的事情。
 
 而 OIDC 完全不必考慮 secrets 輪換。
 ### 權限控制的範圍
 OIDC 在 cloud provider 上的信任政策設定能將授權範圍限縮在某個 repository 甚至到某個 brach。
-
 ## 流程
 ![workflow diagram](/images/workflow.png)
 
 OIDC 在 cloud 之間的交換流程上分為幾個步驟：
-
 1. 在 cloud provider 上建立 OIDC 信任政策，設定 IAM Role 與 GitHub provider workflows 間的存取政策，讓 GitHub 的 OIDC Provider 之後送來的 token 做驗證。
 2. 每次 GitHub Action 的 workflow 被觸發時，GitHub 的 OIDC provider 會自動生成一組獨立的 OIDC token (即 JSON Web Token)，作為 workflow 的身份驗證，將其發送至 cloud provider。
 3. Cloud provider 對收到的 Token 內容與 OIDC 信任政策的設定進行驗證
