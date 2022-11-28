@@ -46,6 +46,7 @@ OIDC 在 cloud 之間的交換流程上分為幾個步驟：
 > GitHub Actions 使用 OIDC 作為驗證管道時，務必確認對接的服務提供商支援這類的驗證方式。
 
 # 設定方式
+## AWS Console
 要在 AWS 上設定 OIDC 與 GitHub Actions 互動，會需要先到 AWS console 頁面，選擇 IAM 這項服務，並於左方導覽列找到 **“Identity providers”**。
 ![Identity providers](/images/Identity_providers.png)
 
