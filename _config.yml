@@ -54,6 +54,11 @@ time_format: HH:mm:ss
 updated_option: false
 per_page: 10
 pagination_dir: page
+
+logo:
+    light: /img/dragon_blue.png
+    dark: /img/dragon_red.png
+
 theme: icarus
 deploy:
   type: git
