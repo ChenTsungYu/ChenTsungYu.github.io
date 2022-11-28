@@ -161,8 +161,8 @@ jobs:
           role-skip-session-tagging: true
           role-to-assume: arn:aws:iam::<account ID>:role/github-actions-role-s3
           aws-region: ap-northeast-1
-
-		- name: check aws identity
+    
+    - name: check aws identity
       run: aws sts get-caller-identity
 
       # Check all buckets from AWS s3
