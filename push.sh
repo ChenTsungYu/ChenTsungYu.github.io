@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 git add .
 echo "git add . finished"
 read -p "Please input your git commit: " commit
