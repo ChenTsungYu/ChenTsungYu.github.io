@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -ex
 
 git add .
 echo "git add . finished"

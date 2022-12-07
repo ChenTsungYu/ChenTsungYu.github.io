@@ -32,7 +32,7 @@ OIDC 因為不需要產生額外的 secrets 驗證，就不用考慮管理問題
 
 而 OIDC 完全不必考慮 secrets 輪換。
 ### 權限控制的範圍
-OIDC 在 cloud provider 的信任政策設定能將授權範圍限縮在某個 repository 甚至到某個 brach。
+OIDC 在 cloud provider 的信任政策設定能將授權範圍限縮在某個 repository 甚至到某個 branch。
 ## 流程
 ![workflow diagram](/images/workflow.png)
 

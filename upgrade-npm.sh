@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -ex
 
 npm install -g npm-upgrade
 npm-upgrade

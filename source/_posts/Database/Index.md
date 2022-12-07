@@ -10,7 +10,7 @@ toc: true
 
 # 前言
 ![](/images/pg.png)
-[上一篇](https://chentsungyu.github.io/2022/06/20/Database/%E8%B3%87%E6%96%99%E5%BA%AB%E5%A6%82%E4%BD%95%E5%AD%98%E6%94%BE%E8%B3%87%E6%96%99/#Index-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%98%E6%94%BE%E5%9C%A8-Disk-%E7%B0%A1%E5%8C%96%E7%9A%84%E7%89%88%E6%9C%AC)記錄了資料庫儲存資料的概念與其儲存結構，本文將初步探討資料庫裡的**索引(Index)**，了解 Index 的作用、行為以及實際操作方式。
+[上一篇](https://chentsungyu.github.io/2022/06/20/Database/%E8%B3%87%E6%96%99%E5%BA%AB%E5%A6%82%E4%BD%95%E5%AD%98%E6%94%BE%E8%B3%87%E6%96%99/#Index-%E6%98%AF%E5%A6%82%E4%BD%95%E5%AD%98%E6%94%BE%E5%9C%A8-Disk-%E7%B0%A1%E5%8C%96%E7%9A%84%E7%89%88%E6%9C%AC)記錄了資料庫儲存資料的概念與其儲存結構，本文將初步探討資料庫裡的 **索引(Index)** ，了解 Index 的作用、行為以及實際操作方式。
 
 <!-- more -->
 

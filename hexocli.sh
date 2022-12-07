@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -xe
+
 echo "start cleaning"
 d1=$(date +"%s")
 hexo clean

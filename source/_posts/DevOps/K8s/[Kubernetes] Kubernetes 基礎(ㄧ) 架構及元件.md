@@ -9,7 +9,7 @@ toc: true
 # 前言
 ![](https://miro.medium.com/max/240/0*X-_IGBEAB88amxNO.png)
 
-Kubernetes 是一個用於管理多個容器的大型管理平台，原先是 Google 內部自行研發的系統，後來開源出來，讓世界各地的開發者都能加入開發、優化的行列，近期工作上開始接觸 Kubernetes，藉此記錄一下學習到的知識。
+Kubernetes 是一個用於管理多個容器(containers)的大型管理平台，原先是 Google 內部自行研發的系統，後來開源出來，讓世界各地的開發者都能加入開發、優化的行列，近期工作上開始接觸 Kubernetes，藉此記錄一下學習到的知識。
 <!-- more -->
 # 常見的容器部署模型 (Deploying Model)
 以下列舉幾個常見的容器部署模型：
@@ -27,11 +27,12 @@ Kubernetes 是一個用於管理多個容器的大型管理平台，原先是 Go
 ![](https://i.imgur.com/zPPhrN3.png)
 Kubernetes Cluster 是由一個主要節點(Master Node) 與多個 Worker Node 所構成的叢集架構，Cluster 架構主要由下述兩大項所構成：
 - Control Plane(控制平面)：也就是主要節點(Master Node)，扮演 Kubernetes 大腦的角色
-- Node (節點; 又作 Worker Node)：可部署於虛擬機 or 實際的 Server 上，甚至能將 worker 放置於 container 裡面(藉由 **container in container** 的技術)。
+- Worker Node (工作節點)：可部署於虛擬機 or 實際的 Server 上，每個節點可運作多個 containers，甚至能將 worker nodes 放置於 container 裡面(藉由 **container in container** 的技術)。
 
 ## Master Node (主要節點)
-Kubernetes 運作的指揮中心，可負責管理其他 Woker Node。一個 Master Node 中有四個組件：API Server、Etcd、Scheduler、Controller。
+Kubernetes 運作的指揮中心，負責管理其他 Worker Node。
 
+一個 Master Node 中有四個組件：API Server、Etcd、Scheduler、Controller。
 ### Control Plane (控制平面)
 Control Plane 裡有不同的應用程式，這四個角色組合成 Kubernetes 最重要的大腦功能，負責管控整個 Kubernetes 叢集(Cluster)，四個角色分別是：
 - **API Server**
@@ -43,7 +44,7 @@ Kubernetes 可以在不同的節點(Node)來運行容器，Worker Node 可以部
 
 > 多個 worker nodes 組成 Data Plane 
 
-### Worker Node 上有的元件
+### Worker Node 上的元件
 - **kubelet**：基於 PodSpec 來運作，用於描述 Pod 的物件。
 - **kube-proxy**：集群中每個節點上運行的網路代理(Agent)程式，負責與 Control Plane 的 API Server 溝通
 - **Container Runtime**：支援多個容器的運行環境，只要符合 [Kubernetes CRI](#Container-Runtime-Interface-CRI) 標準，都能介接進行實作
@@ -82,25 +83,18 @@ API Server 是管理 API 的伺服器，即 Control Plane 的前端，前述提�
 
 接著 Scheduler 根據特定的算法對剩下的節點進行加權，最後選出加權分數最高的節點，再透過 Scheduler 回傳給 API Server。
 
-### Controller
+### Kubernetes Controller Manager 
 整個 Control Plane 的控制中心，是一個持續於背景執行的應用程式，監聽 Cluster 內的各種事件和狀態，根據事件立即反應，做出對應的處理，通過 API Server 將結果回傳出去。
 
-目前 Controller 分四種:
-- Node: 管理節點
-- Replication
-- Endpoints
-- Service Account
-
-> 四種 Controller 存放於同個執行檔內
-
+負責管理 nodes、tasks、endpoints、service account & token 等等。
 ## 節點(Worker Node)
-作為 Kubernetes 的硬體最小單位，每個節點上都會運行代理程式用於跟 API Server 溝通，代理程式分三類：
+作為 Kubernetes 的硬體最小單位(e.g. 一台機器)，每個節點上都會運行代理程式與 API Server 溝通，代理程式分三類：
 - Kubelet
 - Kube-proxy 
 - Container-runtime
 
 ### Kubelet
-**跟 API Server 進行溝通的應用程式**，同時**確保節點上 container 的運行狀態**。少了它，該節點就無法被 Kubernetes 管理，進行監控。
+**跟 API Server 進行溝通的應用程式**，安裝於每台 Node 上，同時**確保節點上的 container 運行狀態**。少了它，該節點就無法被 Kubernetes 管理，進行監控。
 
 > 需要注意的是：Kubelet 只會管理跟 Kubernetes 有關的 container，也就是由 Kubernetes 建立的 container。
 > 其餘像是透過 docker command 建立的 container 等等一蓋不管
@@ -160,9 +154,10 @@ Kubernetes 提供支援**儲存方面**的標準化介面，可讓使用者可�
 - Pod Controller
 
 ## Pod
-- 最小的運算單元，一個 Pod 即一個應用程式
-- Pod 裡面可擁有 **一個或多個 containers** (但一般來說一個 Pod 最好只有一個 container)
+- 最小的運算單元
+- Pod 裡面可擁有 **一個或多個 containers** (常見一個 Pod 只有一個 container)
 - 同個 Pod 裡的所有 containers 彼此共享資源: 網路、儲存、IPC(Inter Process Communication; 透過 shard memory 的方式在不同應用程式之間進行溝通)
+- 支援符合 Kubernetes CRI(Container Runtime Interface) 的 container runtime 應用程式，常見的有：Docker(Dockershim 實作，v1.24 後 K8s 不再支援)、containerd、CRI-O 等
 
 ## Pod Controller
 基於 Pod 去構築不同的使用邏輯，用於各式情境。
@@ -178,9 +173,9 @@ Client 端將撰寫好的檔案透過指令或是使用介面發出請求，告�
 
 接著 Kubelet 將解析收到的資訊，透過 CRI 將 container 資訊送給 Container Runtime，Container Runtime 收到 Pod 內的資訊(一個 or 多個 Container)，最後再依照不同的實作方式建立出對應的 container。 
 
-上圖以 Container Runtime 為界劃分的話，Container Runtime 往後即 Container(有可能是 docker，或是其他類型的 Container)，而Container Runtime 經由 CRI 一路往前推至 API Srever 都是 **以 Pod 為單位** 進行溝通。
+上圖以 Container Runtime 為界劃分，Container Runtime 往後即 Container(有可能是 docker，或是其他類型的 Container)，而Container Runtime 經由 CRI 一路往前推至 API Srever 都是 **以 Pod 為單位** 進行溝通。
 
-Pod 本身是一個抽象概念，由一個 or 多個 Container 所組成，Kubernetes 讓這些 Containers 在 Pod 中以下共享資源:
+Pod 本身是一個抽象概念，由一個 or 多個 Container 所組成，Kubernetes 讓這些 Containers 在同個 Pod 中共享資源:
 - Network
 - Storage
 - IPC
@@ -228,17 +223,18 @@ Pod 裡所有的 container 都正常結束，就稱整個 Pod 成功結束
 
 ## Pod 的重啟政策(Restart Policy)
 Pod 提供幾項重啟政策，跟 docker 概念類似，有使用過 docker 的人對這些重啟政策肯定不陌生，設定政策決定要不要重啟 container:
-- Never: 永不重啟
-- Always: 總是重啟
-- OnFailure：失敗才重啟
+- **Never**: 永不重啟
+- **Always**: 總是重啟
+- **OnFailure**: 失敗才重啟
 
 ## Pod 的排程策略 (Schedule Strategy)
 Pod 提供相關屬性決定如何部署。
-- Node Affinity: 希望讓 Pod 靠近節點
+- Node Affinity: 希望讓 Pod 靠近節點，讓 pod 被分派到標記為 affinity 的 worker nodes
   - Label: 用於辨識 Pod 配置在哪些節點上(e.g. 混合式的 Cluster 架構)
   - Affinity
   - Anti-Affinity
-- Node Taints: 希望讓 Pod 遠離節點
+- Node Taints: 讓 pod 遠離的節點，pod 不要被分派到標記為 taints 的 worker node。實際上 taint 並不是單獨使用，會和 **「 toleration 一同搭配」**，目的是避免讓 pod 被分派到不正確或不合適的 worker nodes 上。
+
 >  注意:
 > **預設情況下**，Control Plane 的節點**不允許部署任何 Pod**(No Schedule)，避免一般在使用的 container 與 Control Plane 的節點爭奪資源
 
