@@ -9,9 +9,9 @@ toc: true
 
 <!-- toc -->
 # 前言
-目前公司的專案大量使用 [Github Action](https://github.com/features/actions) 跑自動化 CI/CD 的 pipelines 去部署服務到 AWS 環境，近期將原本 CI/CD pipelines 上與 AWS service 驗證的 workflows 做調整，驗證方式從原本藉由 IAM User 進行 assume role  的方式改成透過 AWS ODIC 的方式完成 assume role。
+目前公司的專案大量使用 [Github Action](https://github.com/features/actions) 跑自動化 CI/CD 的 pipelines 去部署服務到 AWS 環境，近期將原本 CI/CD pipelines 上與 AWS service 驗證的 workflows 做調整，驗證方式從原本藉由 IAM User 進行 assume role  的方式改成透過 AWS ODIC 的方式完成。
 
-相較於以前的作法，使用 IAM user 的 secrets 驗證，OIDC 的作法能幫助我們省去管理金鑰的麻煩。
+相較於使用 IAM user 的 secrets 驗證，OIDC 的作法能幫助我們省去管理金鑰的麻煩。
 
 本文會 AWS 作為 cloud provider，設定方法也是以 AWS 為範例，以下內容建議有 GitHub Action 及 AWS IAM 這兩項先備知識比較能理解。
 <!--more-->
