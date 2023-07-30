@@ -1,7 +1,7 @@
 ---
 title: "[Github Action] 整合 AWS OIDC 進行 CI/CD 安全強化"
 catalog: true
-date: 2022/11/127 16:00:10
+date: 2022/11/12 16:00:10
 tags: [DevOps, GithubAction, CICD]
 categories: [DevOps]
 toc: true
